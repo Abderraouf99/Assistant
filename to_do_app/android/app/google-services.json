@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "707727296118",
+    "project_id": "studentcompanion-a4a11",
+    "storage_bucket": "studentcompanion-a4a11.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:707727296118:android:71fbe8050807e533c78157",
+        "android_client_info": {
+          "package_name": "com.abderraouf.studentcompanion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "707727296118-ib3d58jnsgiousmi5veihj1fejardrn9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCurWPkIcr5ewfqBiFgUSGIAsfalyT2iro"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "707727296118-ib3d58jnsgiousmi5veihj1fejardrn9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
