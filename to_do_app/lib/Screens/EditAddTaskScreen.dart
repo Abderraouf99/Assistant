@@ -63,8 +63,11 @@ class EditAddTaskScreen extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.fromLTRB(50, 20, 50, 20),
                   decoration: BoxDecoration(
-                      color: Color(0xff8ADFCB),
-                      borderRadius: BorderRadius.all(Radius.circular(30))),
+                    color: Color(0xff8ADFCB),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(30),
+                    ),
+                  ),
                   child: Text(
                     type,
                     style: TextStyle(color: Colors.white, fontSize: 20),

@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
 import 'Tasks.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Data extends ChangeNotifier {
+  //Attributes
   List<Task> _myTasks = [];
+  final _auth = FirebaseAuth.instance;
+
+  //Methods
+  FirebaseAuth getAuthInstance() {
+    return _auth;
+  }
+
   int getNumberOfTasks() {
     return _myTasks.length;
   }
@@ -22,7 +31,7 @@ class Data extends ChangeNotifier {
   }
 
   void addTasks(Task newTask) {
-    _myTasks.add(newTask);
+    _myTasks.insert(0, newTask);
     notifyListeners();
   }
 

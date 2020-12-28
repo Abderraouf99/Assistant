@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/Screens/EditAddTaskScreen.dart';
+import 'package:to_do_app/Screens/WelcomeScreen.dart';
 import 'package:to_do_app/Widgets/TaskList.dart';
 import 'package:to_do_app/constants.dart';
 import 'package:to_do_app/models/Data.dart';
@@ -61,20 +62,43 @@ class TasksScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.white,
-                    radius: 30,
-                    child: Icon(
-                      Icons.menu,
-                      size: 30,
-                      color: Color(0xff8ADFCB),
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: 30,
+                        child: Icon(
+                          Icons.school,
+                          size: 30,
+                          color: Color(0xff8ADFCB),
+                        ),
+                      ),
+                      FlatButton(
+                        onPressed: () {
+                          Provider.of<Data>(context, listen: false)
+                              .getAuthInstance()
+                              .signOut();
+                          Navigator.pushNamed(
+                              context, WelcomeScreen.welcomeScreenID);
+                        },
+                        child: CircleAvatar(
+                          backgroundColor: Colors.white,
+                          radius: 30,
+                          child: Icon(
+                            Icons.logout,
+                            size: 30,
+                            color: Color(0xff8ADFCB),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   SizedBox(
                     height: 10,
                   ),
                   Text(
-                    'To do',
+                    '${Provider.of<Data>(context).getAuthInstance().currentUser.email}',
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 40,
@@ -102,8 +126,9 @@ class TasksScreen extends StatelessWidget {
                     currentValue: getProgress(context),
                     progressColor: Color(0xffA2EEDC),
                     displayText: '% ',
-                    displayTextStyle: TextStyle(color: Colors.white),
-                  )
+                    displayTextStyle:
+                        TextStyle(color: Colors.white, fontSize: 20),
+                  ),
                 ],
               ),
             ),

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:to_do_app/Screens/TaskScreen.dart';
 import 'package:to_do_app/Widgets/CustomButtonWidget.dart';
 import 'package:to_do_app/Widgets/GoogleSignInButton.dart';
 import 'package:to_do_app/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:to_do_app/models/SocialMediaLogin_RegistationHandler.dart';
+import 'package:to_do_app/models/Data.dart';
 
 class LoginScreen extends StatelessWidget {
-  final _auth = FirebaseAuth.instance;
   static String loginScreenId = 'loginScreen';
   @override
   Widget build(BuildContext context) {
@@ -59,8 +60,11 @@ class LoginScreen extends StatelessWidget {
                   backgroundColor: Color(0xff8ADFCB),
                   onTap: () async {
                     try {
-                      var logIn = await _auth.signInWithEmailAndPassword(
-                          email: _email, password: _password);
+                      var logIn =
+                          await Provider.of<Data>(context, listen: false)
+                              .getAuthInstance()
+                              .signInWithEmailAndPassword(
+                                  email: _email, password: _password);
                       if (logIn != null) {
                         Navigator.pushNamed(context, TasksScreen.taskScreenId);
                       }
@@ -86,8 +90,10 @@ class LoginScreen extends StatelessWidget {
                 type: 'Sign in with Google',
                 onTap: () async {
                   try {
-                    var userCredentials =
-                        await SocialMediaHandler().signInWithGoogle(_auth);
+                    var userCredentials = await SocialMediaHandler()
+                        .signInWithGoogle(
+                            Provider.of<Data>(context, listen: false)
+                                .getAuthInstance());
                     if (userCredentials != null) {
                       Navigator.popAndPushNamed(
                           context, TasksScreen.taskScreenId);

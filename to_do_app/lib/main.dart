@@ -21,8 +21,6 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         theme: ThemeData(
           fontFamily: 'Roboto',
-          primaryColorLight: Color(0xFF8ADFCB),
-          primaryColorDark: Color(0xFF4A556B),
         ),
         home: TasksScreen(),
         initialRoute: WelcomeScreen.welcomeScreenID,
