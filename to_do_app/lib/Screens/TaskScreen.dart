@@ -79,7 +79,7 @@ class TasksScreen extends StatelessWidget {
                           Provider.of<Data>(context, listen: false)
                               .getAuthInstance()
                               .signOut();
-                          Navigator.pushNamed(
+                          Navigator.popAndPushNamed(
                               context, WelcomeScreen.welcomeScreenID);
                         },
                         child: CircleAvatar(
