@@ -6,8 +6,28 @@ class Data extends ChangeNotifier {
   //Attributes
   List<Task> _myTasks = [];
   final _auth = FirebaseAuth.instance;
+  DateTime _selectedDate = DateTime.now();
+  TimeOfDay _timeOfDay = TimeOfDay.now();
 
   //Methods
+  TimeOfDay getSelectedTime() {
+    return _timeOfDay;
+  }
+
+  void setTime(TimeOfDay selected) {
+    _timeOfDay = selected;
+    notifyListeners();
+  }
+
+  void setDate(DateTime selected) {
+    _selectedDate = selected;
+    notifyListeners();
+  }
+
+  DateTime getSelectedDate() {
+    return _selectedDate;
+  }
+
   FirebaseAuth getAuthInstance() {
     return _auth;
   }

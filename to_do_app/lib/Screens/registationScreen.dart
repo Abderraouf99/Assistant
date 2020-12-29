@@ -6,10 +6,11 @@ import 'package:to_do_app/Widgets/CustomButtonWidget.dart';
 import 'package:to_do_app/Widgets/GoogleSignInButton.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:to_do_app/models/Data.dart';
+import 'package:provider/provider.dart';
 
 class RegistrationScreen extends StatelessWidget {
   static String registrationScreenID = 'RegistationScreen';
-  final _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -65,9 +66,14 @@ class RegistrationScreen extends StatelessWidget {
                   backgroundColor: Color(0xff6BAF9F),
                   onTap: () async {
                     try {
-                      await _auth.createUserWithEmailAndPassword(
-                          email: _email, password: _password);
-                      User currentUser = _auth.currentUser;
+                      await Provider.of<Data>(context, listen: false)
+                          .getAuthInstance()
+                          .createUserWithEmailAndPassword(
+                              email: _email, password: _password);
+                      User currentUser =
+                          Provider.of<Data>(context, listen: false)
+                              .getAuthInstance()
+                              .currentUser;
 
                       if (!currentUser.emailVerified) {
                         await currentUser.sendEmailVerification();
@@ -117,8 +123,10 @@ class RegistrationScreen extends StatelessWidget {
                   type: 'Sign up with Google',
                   onTap: () async {
                     try {
-                      var userCredentials =
-                          await SocialMediaHandler().signInWithGoogle(_auth);
+                      var userCredentials = await SocialMediaHandler()
+                          .signInWithGoogle(
+                              Provider.of<Data>(context, listen: false)
+                                  .getAuthInstance());
                       if (userCredentials != null) {
                         Navigator.popAndPushNamed(
                             context, TasksScreen.taskScreenId);

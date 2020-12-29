@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/Screens/EditAddTaskScreen.dart';
+import 'package:to_do_app/Screens/EventsScreen.dart';
 import 'package:to_do_app/Screens/WelcomeScreen.dart';
 import 'package:to_do_app/Widgets/TaskList.dart';
 import 'package:to_do_app/constants.dart';
@@ -45,10 +46,11 @@ class TasksScreen extends StatelessWidget {
         elevation: 3,
         child: Icon(Icons.add),
         onPressed: () {
-          showModalBottomSheet(
-              context: context,
-              builder: buildBottomSheet,
-              isScrollControlled: true);
+          Navigator.pushNamed(context, EventsScreen.eventsScreenId);
+          // showModalBottomSheet(
+          //     context: context,
+          //     builder: buildBottomSheet,
+          //     isScrollControlled: true);
         },
       ),
       backgroundColor: Color(0xff8ADFCB),
@@ -98,7 +100,7 @@ class TasksScreen extends StatelessWidget {
                     height: 10,
                   ),
                   Text(
-                    '${Provider.of<Data>(context).getAuthInstance().currentUser.email}',
+                    'To-do',
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 40,
@@ -145,9 +147,3 @@ class TasksScreen extends StatelessWidget {
     );
   }
 }
-
-/**
- * 
- * 
- * 
- */

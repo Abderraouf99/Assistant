@@ -30,3 +30,12 @@ const textFieldDecoration = InputDecoration(
   ),
   contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
 );
+const kmainColor = Color(0xff8ADFCB);
+const customTimePickerTheme = TimePickerThemeData(
+  hourMinuteTextColor: Colors.white,
+  dayPeriodTextColor: Colors.white,
+  dialHandColor: Color(0xff6BAF9F),
+  dialTextColor: Colors.white,
+  backgroundColor: kmainColor,
+  entryModeIconColor: Colors.white,
+);

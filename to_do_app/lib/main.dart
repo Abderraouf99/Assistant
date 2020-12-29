@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:to_do_app/Screens/EventsScreen.dart';
 import 'package:to_do_app/Screens/TaskScreen.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_app/Screens/WelcomeScreen.dart';
 import 'package:to_do_app/Screens/loginScreen.dart';
 import 'package:to_do_app/Screens/registationScreen.dart';
+import 'package:to_do_app/constants.dart';
 import 'package:to_do_app/models/Data.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -21,8 +23,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         theme: ThemeData(
           fontFamily: 'Roboto',
+          primaryColor: kmainColor,
         ),
-        home: TasksScreen(),
         initialRoute: WelcomeScreen.welcomeScreenID,
         routes: {
           WelcomeScreen.welcomeScreenID: (context) => WelcomeScreen(),
@@ -30,6 +32,7 @@ class MyApp extends StatelessWidget {
           RegistrationScreen.registrationScreenID: (context) =>
               RegistrationScreen(),
           TasksScreen.taskScreenId: (context) => TasksScreen(),
+          EventsScreen.eventsScreenId: (context) => EventsScreen()
         },
       ),
     );
