@@ -19,7 +19,7 @@ class TasksScreen extends StatelessWidget {
         child: EditAddTaskScreen(
           type: 'Add',
           functionnality: (Task taskToadd) {
-            Provider.of<Data>(context, listen: false).addTasks(taskToadd);
+            Provider.of<Controller>(context, listen: false).addTasks(taskToadd);
             Navigator.pop(context);
           },
         ),
@@ -29,8 +29,9 @@ class TasksScreen extends StatelessWidget {
 
   int getProgress(BuildContext context) {
     double completed =
-        Provider.of<Data>(context).getNumberOfTaskCompleted().toDouble();
-    double total = Provider.of<Data>(context).getNumberOfTasks().toDouble();
+        Provider.of<Controller>(context).getNumberOfTaskCompleted().toDouble();
+    double total =
+        Provider.of<Controller>(context).getNumberOfTasks().toDouble();
     if (total == 0) {
       return 0;
     }
@@ -78,7 +79,7 @@ class TasksScreen extends StatelessWidget {
                       ),
                       FlatButton(
                         onPressed: () {
-                          Provider.of<Data>(context, listen: false)
+                          Provider.of<Controller>(context, listen: false)
                               .getAuthInstance()
                               .signOut();
                           Navigator.popAndPushNamed(
@@ -109,14 +110,14 @@ class TasksScreen extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        '${Provider.of<Data>(context).getNumberOfTasks()} tasks',
+                        '${Provider.of<Controller>(context).getNumberOfTasks()} tasks',
                         style: kTaskPreviewTextStyle,
                       ),
                       SizedBox(
                         width: 20,
                       ),
                       Text(
-                        '${Provider.of<Data>(context).getNumberOfTaskCompleted()} tasks completed',
+                        '${Provider.of<Controller>(context).getNumberOfTaskCompleted()} tasks completed',
                         style: kTaskPreviewTextStyle,
                       ),
                     ],

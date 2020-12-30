@@ -19,11 +19,25 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => Data(),
+      create: (context) => Controller(),
       child: MaterialApp(
         theme: ThemeData(
+          colorScheme: ColorScheme.light().copyWith(
+            primary: kmainColor,
+          ),
           fontFamily: 'Roboto',
-          primaryColor: kmainColor,
+          highlightColor: kmainColor,
+          timePickerTheme: TimePickerThemeData(
+            dialHandColor: kmainColor,
+            hourMinuteTextColor: kmainColor,
+            inputDecorationTheme: InputDecorationTheme(),
+          ),
+          textButtonTheme: TextButtonThemeData(
+            style: ButtonStyle(
+              foregroundColor: MaterialStateProperty.all<Color>(kmainColor),
+              overlayColor: MaterialStateProperty.all<Color>(Colors.grey[200]),
+            ),
+          ),
         ),
         initialRoute: WelcomeScreen.welcomeScreenID,
         routes: {

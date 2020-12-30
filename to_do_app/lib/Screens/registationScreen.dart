@@ -66,12 +66,12 @@ class RegistrationScreen extends StatelessWidget {
                   backgroundColor: Color(0xff6BAF9F),
                   onTap: () async {
                     try {
-                      await Provider.of<Data>(context, listen: false)
+                      await Provider.of<Controller>(context, listen: false)
                           .getAuthInstance()
                           .createUserWithEmailAndPassword(
                               email: _email, password: _password);
                       User currentUser =
-                          Provider.of<Data>(context, listen: false)
+                          Provider.of<Controller>(context, listen: false)
                               .getAuthInstance()
                               .currentUser;
 
@@ -125,7 +125,7 @@ class RegistrationScreen extends StatelessWidget {
                     try {
                       var userCredentials = await SocialMediaHandler()
                           .signInWithGoogle(
-                              Provider.of<Data>(context, listen: false)
+                              Provider.of<Controller>(context, listen: false)
                                   .getAuthInstance());
                       if (userCredentials != null) {
                         Navigator.popAndPushNamed(

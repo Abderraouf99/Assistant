@@ -61,7 +61,7 @@ class LoginScreen extends StatelessWidget {
                   onTap: () async {
                     try {
                       var logIn =
-                          await Provider.of<Data>(context, listen: false)
+                          await Provider.of<Controller>(context, listen: false)
                               .getAuthInstance()
                               .signInWithEmailAndPassword(
                                   email: _email, password: _password);
@@ -92,7 +92,7 @@ class LoginScreen extends StatelessWidget {
                   try {
                     var userCredentials = await SocialMediaHandler()
                         .signInWithGoogle(
-                            Provider.of<Data>(context, listen: false)
+                            Provider.of<Controller>(context, listen: false)
                                 .getAuthInstance());
                     if (userCredentials != null) {
                       Navigator.popAndPushNamed(

@@ -6,7 +6,7 @@ import 'package:to_do_app/models/Data.dart';
 
 class TasksList extends StatelessWidget {
   Widget build(BuildContext context) {
-    return Consumer<Data>(builder: (context, taskList, child) {
+    return Consumer<Controller>(builder: (context, taskList, child) {
       return ListView.builder(
         itemBuilder: (context, index) {
           return TaskTile(

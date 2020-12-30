@@ -27,7 +27,10 @@ class EventsScreen extends StatelessWidget {
         },
         backgroundColor: Color(0xff8ADFCB),
         elevation: 3,
-        child: Icon(Icons.add),
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
       ),
       backgroundColor: kmainColor,
       body: SafeArea(

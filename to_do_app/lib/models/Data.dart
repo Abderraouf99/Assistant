@@ -2,14 +2,35 @@ import 'package:flutter/material.dart';
 import 'Tasks.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class Data extends ChangeNotifier {
+class Controller extends ChangeNotifier {
   //Attributes
   List<Task> _myTasks = [];
   final _auth = FirebaseAuth.instance;
-  DateTime _selectedDate = DateTime.now();
+  DateTime _selectedStartingDate = DateTime.now();
   TimeOfDay _timeOfDay = TimeOfDay.now();
 
+  DateTime _selectedEndDate = DateTime.now();
+  TimeOfDay _timeOfDayEnd = TimeOfDay.now();
+
   //Methods
+  void setEndDate(DateTime selected) {
+    _selectedEndDate = selected;
+    notifyListeners();
+  }
+
+  void setTimeOfEnd(TimeOfDay selected) {
+    _timeOfDayEnd = selected;
+    notifyListeners();
+  }
+
+  TimeOfDay getTimeofDayEnd() {
+    return _timeOfDayEnd;
+  }
+
+  DateTime getSelectedEndDate() {
+    return _selectedEndDate;
+  }
+
   TimeOfDay getSelectedTime() {
     return _timeOfDay;
   }
@@ -19,13 +40,13 @@ class Data extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setDate(DateTime selected) {
-    _selectedDate = selected;
+  void setStartDate(DateTime selected) {
+    _selectedStartingDate = selected;
     notifyListeners();
   }
 
-  DateTime getSelectedDate() {
-    return _selectedDate;
+  DateTime getStartDate() {
+    return _selectedStartingDate;
   }
 
   FirebaseAuth getAuthInstance() {
