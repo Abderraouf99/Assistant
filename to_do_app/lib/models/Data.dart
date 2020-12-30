@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'Tasks.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:to_do_app/models/Event.dart';
 
 class Controller extends ChangeNotifier {
   //Attributes
@@ -12,7 +13,22 @@ class Controller extends ChangeNotifier {
   DateTime _selectedEndDate = DateTime.now();
   TimeOfDay _timeOfDayEnd = TimeOfDay.now();
 
+  bool toBeReminded = false;
+
+  List<Event> _myEvents = [];
   //Methods
+  List<Event> get events => _myEvents;
+
+  void addEvent(Event newEvent) {
+    _myEvents.add(newEvent);
+    notifyListeners();
+  }
+
+  void removeEvent(int index) {
+    _myEvents.removeAt(index);
+    notifyListeners();
+  }
+
   void setEndDate(DateTime selected) {
     _selectedEndDate = selected;
     notifyListeners();

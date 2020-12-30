@@ -45,10 +45,13 @@ class TasksScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xff8ADFCB),
         elevation: 3,
-        child: Icon(Icons.add),
-        onPressed: () {
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+        onPressed: () async {
           Navigator.pushNamed(context, EventsScreen.eventsScreenId);
-          // showModalBottomSheet(
+          // await showModalBottomSheet(
           //     context: context,
           //     builder: buildBottomSheet,
           //     isScrollControlled: true);

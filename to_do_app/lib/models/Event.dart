@@ -1,65 +1,73 @@
+import 'package:flutter/material.dart';
+
 class Event {
   //Atributes
   String _title;
-  String _location;
-  String _start;
-  String _end;
+
   bool _toBeReminded;
+  bool _status = false;
+  DateTime _dateStart;
+  TimeOfDay _timeOfDayStart;
+  DateTime _dateEnd;
+  TimeOfDay _timeOfDayEnd;
 
   //Constructor
-  Event(String title, String location, String start, String end,
-      bool toBeReminded)
+  Event(String title, DateTime dateStart, DateTime dateEnd, TimeOfDay timeStart,
+      TimeOfDay timeEnd, bool toBeReminded)
       : _title = title,
-        _location = location,
-        _start = start,
-        _end = end,
+        _dateStart = dateStart,
+        _dateEnd = dateEnd,
+        _timeOfDayStart = timeStart,
+        _timeOfDayEnd = timeEnd,
         _toBeReminded = toBeReminded;
 
   //Getters
-  String get title {
-    return _title;
-  }
+  String get title => _title;
 
-  String get location {
-    return _location;
-  }
+  bool get toBereminded => _toBeReminded;
 
-  String get start {
-    return _start;
-  }
+  DateTime get dateStart => _dateStart;
 
-  String get end {
-    return _end;
-  }
+  DateTime get dateEnd => _dateEnd;
 
-  bool get toBereminded {
-    return _toBeReminded;
-  }
+  TimeOfDay get timeStart => _timeOfDayStart;
+
+  TimeOfDay get timeEnds => _timeOfDayEnd;
+
+  bool getStatus() => _status;
 
   //Setters
   set setTitle(String title) {
     _title = title;
   }
 
-  set setLocation(String location) {
-    _location = location;
-  }
-
-  set setStart(String start) {
-    _start = start;
-  }
-
-  set setEnd(String end) {
-    _end = end;
-  }
-
   set setToBeReminded(bool toBereminded) {
     _toBeReminded = toBereminded;
+  }
+
+  set setDayStarts(DateTime starts) {
+    _dateStart = starts;
+  }
+
+  set setDayEnds(DateTime ends) {
+    _dateEnd = ends;
+  }
+
+  set setTimeStart(TimeOfDay start) {
+    _timeOfDayStart = start;
+  }
+
+  set setTimeEnds(TimeOfDay ends) {
+    _timeOfDayEnd = ends;
   }
 
   //Methods
 
   void toggleReminder() {
     _toBeReminded = !_toBeReminded;
+  }
+
+  void toggleStatus() {
+    _status = !_status;
   }
 }

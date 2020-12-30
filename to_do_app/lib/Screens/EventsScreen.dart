@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 import 'package:to_do_app/Screens/AddEventsTaskScreen.dart';
+import 'package:to_do_app/Widgets/EventsList.dart';
 import 'package:to_do_app/constants.dart';
+import 'package:provider/provider.dart';
+import 'package:to_do_app/models/Data.dart';
 
 class EventsScreen extends StatelessWidget {
   static String eventsScreenId = 'eventsScreen';
@@ -66,7 +69,7 @@ class EventsScreen extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        'x Events',
+                        '${Provider.of<Controller>(context).events.length} Events',
                         style: kTaskPreviewTextStyle,
                       ),
                       SizedBox(
@@ -93,9 +96,10 @@ class EventsScreen extends StatelessWidget {
             ),
             Expanded(
               child: Container(
+                child: EventsList(),
                 decoration: kRoundedContainerDecorator,
               ),
-            )
+            ),
           ],
         ),
       ),

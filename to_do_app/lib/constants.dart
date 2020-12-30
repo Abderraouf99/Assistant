@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 const kRoundedContainerDecorator = BoxDecoration(
   color: Colors.white,
   borderRadius: BorderRadius.only(
-    topLeft: Radius.circular(30),
-    topRight: Radius.circular(30),
+    topLeft: Radius.circular(10),
+    topRight: Radius.circular(10),
   ),
 );
 
@@ -31,3 +31,9 @@ const textFieldDecoration = InputDecoration(
   contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
 );
 const kmainColor = Color(0xff8ADFCB);
+
+const eventTextStyle = TextStyle(
+  color: Colors.black,
+  fontSize: 15,
+  fontWeight: FontWeight.bold,
+);
