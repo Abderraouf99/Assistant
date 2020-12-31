@@ -6,7 +6,9 @@ import 'package:to_do_app/Screens/WelcomeScreen.dart';
 import 'package:to_do_app/Screens/loginScreen.dart';
 import 'package:to_do_app/Screens/registationScreen.dart';
 import 'package:to_do_app/constants.dart';
-import 'package:to_do_app/models/Data.dart';
+import 'package:to_do_app/models/DataEvents.dart';
+import 'package:to_do_app/models/DataFirebase.dart';
+import 'package:to_do_app/models/DataTask.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 Future<void> main() async {
@@ -18,8 +20,18 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => Controller(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => ControllerTask(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => EventsController(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => FirebaseController(),
+        )
+      ],
       child: MaterialApp(
         theme: ThemeData(
           colorScheme: ColorScheme.light().copyWith(

@@ -5,8 +5,9 @@ import 'package:to_do_app/Widgets/CustomButtonWidget.dart';
 import 'package:to_do_app/Widgets/GoogleSignInButton.dart';
 import 'package:to_do_app/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:to_do_app/models/DataFirebase.dart';
 import 'package:to_do_app/models/SocialMediaLogin_RegistationHandler.dart';
-import 'package:to_do_app/models/Data.dart';
+import 'package:to_do_app/models/DataTask.dart';
 
 class LoginScreen extends StatelessWidget {
   static String loginScreenId = 'loginScreen';
@@ -61,7 +62,8 @@ class LoginScreen extends StatelessWidget {
                     backgroundColor: Color(0xff8ADFCB),
                     onTap: () async {
                       try {
-                        var logIn = await Provider.of<Controller>(context,
+                        var logIn = await Provider.of<FirebaseController>(
+                                context,
                                 listen: false)
                             .getAuthInstance()
                             .signInWithEmailAndPassword(
@@ -93,9 +95,10 @@ class LoginScreen extends StatelessWidget {
                   onTap: () async {
                     try {
                       var userCredentials = await SocialMediaHandler()
-                          .signInWithGoogle(
-                              Provider.of<Controller>(context, listen: false)
-                                  .getAuthInstance());
+                          .signInWithGoogle(Provider.of<FirebaseController>(
+                                  context,
+                                  listen: false)
+                              .getAuthInstance());
                       if (userCredentials != null) {
                         Navigator.popAndPushNamed(
                             context, TasksScreen.taskScreenId);

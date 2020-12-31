@@ -4,7 +4,8 @@ import 'package:to_do_app/Screens/AddEventsTaskScreen.dart';
 import 'package:to_do_app/Widgets/EventsList.dart';
 import 'package:to_do_app/constants.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do_app/models/Data.dart';
+import 'package:to_do_app/models/DataEvents.dart';
+import 'package:to_do_app/models/DataTask.dart';
 
 class EventsScreen extends StatelessWidget {
   static String eventsScreenId = 'eventsScreen';
@@ -16,6 +17,17 @@ class EventsScreen extends StatelessWidget {
         child: AddEventsSheet(),
       ),
     );
+  }
+
+  int calculateProgressBarValue(BuildContext context) {
+    int total = Provider.of<EventsController>(context).events.length;
+    if (total == 0) {
+      return 0;
+    }
+    int completed =
+        Provider.of<EventsController>(context).findNumberOfCompletedEvents();
+    double ratio = (completed.toDouble() / total.toDouble()) * 100;
+    return ratio.toInt();
   }
 
   @override
@@ -43,7 +55,7 @@ class EventsScreen extends StatelessWidget {
               padding:
                   EdgeInsets.only(left: 30, top: 25, bottom: 30, right: 30),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+                //mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CircleAvatar(
@@ -69,14 +81,14 @@ class EventsScreen extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        '${Provider.of<Controller>(context).events.length} Events',
+                        '${Provider.of<EventsController>(context).events.length} Events',
                         style: kTaskPreviewTextStyle,
                       ),
                       SizedBox(
                         width: 20,
                       ),
                       Text(
-                        'x Events completed',
+                        '${Provider.of<EventsController>(context).findNumberOfCompletedEvents()} Events completed',
                         style: kTaskPreviewTextStyle,
                       ),
                     ],
@@ -85,7 +97,7 @@ class EventsScreen extends StatelessWidget {
                     height: 10,
                   ),
                   FAProgressBar(
-                    currentValue: 0,
+                    currentValue: calculateProgressBarValue(context),
                     progressColor: Color(0xffA2EEDC),
                     displayText: '% ',
                     displayTextStyle:

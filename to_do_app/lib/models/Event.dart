@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 class Event {
   //Atributes
-  String _title;
+  String _title = '';
 
-  bool _toBeReminded;
+  bool _toBeReminded = false;
   bool _status = false;
-  DateTime _dateStart;
-  TimeOfDay _timeOfDayStart;
-  DateTime _dateEnd;
-  TimeOfDay _timeOfDayEnd;
+  DateTime _dateStart = DateTime.now();
+  TimeOfDay _timeOfDayStart = TimeOfDay.now();
+  DateTime _dateEnd = DateTime.now();
+  TimeOfDay _timeOfDayEnd = TimeOfDay.now();
 
   //Constructor
   Event(String title, DateTime dateStart, DateTime dateEnd, TimeOfDay timeStart,
@@ -37,7 +37,7 @@ class Event {
   bool getStatus() => _status;
 
   //Setters
-  set setTitle(String title) {
+  void setTitle(String title) {
     _title = title;
   }
 

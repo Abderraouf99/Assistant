@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/constants.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do_app/models/Data.dart';
+import 'package:to_do_app/models/DataEvents.dart';
+import 'package:to_do_app/models/DataTask.dart';
 import 'package:to_do_app/Widgets/CustomStartEndWidget.dart';
 import 'package:to_do_app/models/Event.dart';
+import 'package:intl/intl.dart';
 
 class AddEventsSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    String title = '';
-    return Consumer<Controller>(builder: (context, event, child) {
+    return Consumer<EventsController>(builder: (context, event, child) {
       return Container(
         child: Container(
           color: Color(0xff757575),
@@ -32,12 +33,13 @@ class AddEventsSheet extends StatelessWidget {
                     InkWell(
                       onTap: () {
                         var newEvent = Event(
-                            title,
+                            event.getTitle(),
                             event.getStartDate(),
                             event.getSelectedEndDate(),
                             event.getSelectedTime(),
                             event.getTimeofDayEnd(),
-                            event.toBeReminded);
+                            false);
+
                         event.addEvent(newEvent);
                       },
                       child: CircleAvatar(
@@ -55,7 +57,7 @@ class AddEventsSheet extends StatelessWidget {
                 ),
                 TextField(
                   onChanged: (value) {
-                    title = value;
+                    event.setTitle(value);
                   },
                   decoration: textFieldDecoration.copyWith(hintText: 'Title'),
                 ),
@@ -82,7 +84,8 @@ class AddEventsSheet extends StatelessWidget {
                       event.setTime(selected);
                     }
                   },
-                  date: '${event.getStartDate()}',
+                  date:
+                      '${DateFormat('EEE,d/M,y').format(event.getStartDate())} at ${event.getSelectedTime().hour}:${event.getSelectedTime().minute}',
                 ),
                 SizedBox(
                   height: 5,
@@ -109,7 +112,8 @@ class AddEventsSheet extends StatelessWidget {
                       event.setTimeOfEnd(selected);
                     }
                   },
-                  date: '${event.getSelectedEndDate()}',
+                  date:
+                      '${DateFormat('EEE,d/M,y').format(event.getSelectedEndDate())} at ${event.getTimeofDayEnd().hour}:${event.getTimeofDayEnd().minute}',
                 ),
                 ListTile(
                   leading: Text(
@@ -117,7 +121,7 @@ class AddEventsSheet extends StatelessWidget {
                   ),
                   trailing: Switch(
                     activeColor: kmainColor,
-                    value: event.toBeReminded,
+                    value: false, //TO DO : handle the being reminded Feature
                     onChanged: (value) {
                       //TODO: Show a datePicker
                       //TODO :Show a timePicker

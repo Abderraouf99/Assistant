@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/constants.dart';
+import 'package:to_do_app/models/DataFirebase.dart';
 import 'package:to_do_app/models/SocialMediaLogin_RegistationHandler.dart';
 import 'TaskScreen.dart';
 import 'package:to_do_app/Widgets/CustomButtonWidget.dart';
 import 'package:to_do_app/Widgets/GoogleSignInButton.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:to_do_app/models/Data.dart';
+
 import 'package:provider/provider.dart';
 
 class RegistrationScreen extends StatelessWidget {
@@ -66,14 +67,16 @@ class RegistrationScreen extends StatelessWidget {
                   backgroundColor: Color(0xff6BAF9F),
                   onTap: () async {
                     try {
-                      await Provider.of<Controller>(context, listen: false)
+                      await Provider.of<FirebaseController>(context,
+                              listen: false)
                           .getAuthInstance()
                           .createUserWithEmailAndPassword(
                               email: _email, password: _password);
-                      User currentUser =
-                          Provider.of<Controller>(context, listen: false)
-                              .getAuthInstance()
-                              .currentUser;
+                      User currentUser = Provider.of<FirebaseController>(
+                              context,
+                              listen: false)
+                          .getAuthInstance()
+                          .currentUser;
 
                       if (!currentUser.emailVerified) {
                         await currentUser.sendEmailVerification();
@@ -124,9 +127,10 @@ class RegistrationScreen extends StatelessWidget {
                   onTap: () async {
                     try {
                       var userCredentials = await SocialMediaHandler()
-                          .signInWithGoogle(
-                              Provider.of<Controller>(context, listen: false)
-                                  .getAuthInstance());
+                          .signInWithGoogle(Provider.of<FirebaseController>(
+                                  context,
+                                  listen: false)
+                              .getAuthInstance());
                       if (userCredentials != null) {
                         Navigator.popAndPushNamed(
                             context, TasksScreen.taskScreenId);

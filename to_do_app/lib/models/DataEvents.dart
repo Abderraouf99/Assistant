@@ -1,23 +1,35 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'Tasks.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:to_do_app/models/Event.dart';
+import 'package:intl/intl.dart';
 
-class Controller extends ChangeNotifier {
-  //Attributes
-  List<Task> _myTasks = [];
-  final _auth = FirebaseAuth.instance;
+class EventsController extends ChangeNotifier {
+  //Events Controller
+  List<Event> _myEvents = [];
   DateTime _selectedStartingDate = DateTime.now();
   TimeOfDay _timeOfDay = TimeOfDay.now();
 
   DateTime _selectedEndDate = DateTime.now();
   TimeOfDay _timeOfDayEnd = TimeOfDay.now();
 
-  bool toBeReminded = false;
+  String _title;
 
-  List<Event> _myEvents = [];
-  //Methods
   List<Event> get events => _myEvents;
+
+  int findNumberOfCompletedEvents() {
+    int counter = 0;
+    for (Event currentEvent in _myEvents) {
+      if (currentEvent.getStatus()) {
+        counter++;
+      }
+    }
+    return counter;
+  }
+
+  void toggleStatus(int index) {
+    _myEvents[index].toggleStatus();
+    notifyListeners();
+  }
 
   void addEvent(Event newEvent) {
     _myEvents.add(newEvent);
@@ -37,6 +49,15 @@ class Controller extends ChangeNotifier {
   void setTimeOfEnd(TimeOfDay selected) {
     _timeOfDayEnd = selected;
     notifyListeners();
+  }
+
+  void setTitle(String title) {
+    _title = title;
+    notifyListeners();
+  }
+
+  String getTitle() {
+    return _title;
   }
 
   TimeOfDay getTimeofDayEnd() {
@@ -63,42 +84,5 @@ class Controller extends ChangeNotifier {
 
   DateTime getStartDate() {
     return _selectedStartingDate;
-  }
-
-  FirebaseAuth getAuthInstance() {
-    return _auth;
-  }
-
-  int getNumberOfTasks() {
-    return _myTasks.length;
-  }
-
-  int getNumberOfTaskCompleted() {
-    int completedTask = 0;
-    for (Task task in _myTasks) {
-      if (task.getState() == true) {
-        completedTask++;
-      }
-    }
-    return completedTask;
-  }
-
-  List<Task> getTasks() {
-    return _myTasks;
-  }
-
-  void addTasks(Task newTask) {
-    _myTasks.insert(0, newTask);
-    notifyListeners();
-  }
-
-  void deleteTask(int index) {
-    _myTasks.removeAt(index);
-    notifyListeners();
-  }
-
-  void toggleState(int index) {
-    _myTasks[index].toggleState();
-    notifyListeners();
   }
 }

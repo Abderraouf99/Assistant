@@ -4,7 +4,8 @@ import 'package:to_do_app/Screens/EventsScreen.dart';
 import 'package:to_do_app/Screens/WelcomeScreen.dart';
 import 'package:to_do_app/Widgets/TaskList.dart';
 import 'package:to_do_app/constants.dart';
-import 'package:to_do_app/models/Data.dart';
+import 'package:to_do_app/models/DataFirebase.dart';
+import 'package:to_do_app/models/DataTask.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_app/models/Tasks.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
@@ -19,7 +20,8 @@ class TasksScreen extends StatelessWidget {
         child: EditAddTaskScreen(
           type: 'Add',
           functionnality: (Task taskToadd) {
-            Provider.of<Controller>(context, listen: false).addTasks(taskToadd);
+            Provider.of<ControllerTask>(context, listen: false)
+                .addTasks(taskToadd);
             Navigator.pop(context);
           },
         ),
@@ -28,10 +30,11 @@ class TasksScreen extends StatelessWidget {
   }
 
   int getProgress(BuildContext context) {
-    double completed =
-        Provider.of<Controller>(context).getNumberOfTaskCompleted().toDouble();
+    double completed = Provider.of<ControllerTask>(context)
+        .getNumberOfTaskCompleted()
+        .toDouble();
     double total =
-        Provider.of<Controller>(context).getNumberOfTasks().toDouble();
+        Provider.of<ControllerTask>(context).getNumberOfTasks().toDouble();
     if (total == 0) {
       return 0;
     }
@@ -82,7 +85,8 @@ class TasksScreen extends StatelessWidget {
                       ),
                       FlatButton(
                         onPressed: () {
-                          Provider.of<Controller>(context, listen: false)
+                          Provider.of<FirebaseController>(context,
+                                  listen: false)
                               .getAuthInstance()
                               .signOut();
                           Navigator.popAndPushNamed(
@@ -113,14 +117,14 @@ class TasksScreen extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        '${Provider.of<Controller>(context).getNumberOfTasks()} tasks',
+                        '${Provider.of<ControllerTask>(context).getNumberOfTasks()} tasks',
                         style: kTaskPreviewTextStyle,
                       ),
                       SizedBox(
                         width: 20,
                       ),
                       Text(
-                        '${Provider.of<Controller>(context).getNumberOfTaskCompleted()} tasks completed',
+                        '${Provider.of<ControllerTask>(context).getNumberOfTaskCompleted()} tasks completed',
                         style: kTaskPreviewTextStyle,
                       ),
                     ],
