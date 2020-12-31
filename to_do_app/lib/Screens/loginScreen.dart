@@ -16,94 +16,97 @@ class LoginScreen extends StatelessWidget {
     String _password;
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Hero(
-                tag: 'StudentTag',
-                child: Container(
-                  child: Text(
-                    '👨‍🎓️',
-                    style: TextStyle(fontSize: 80),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Hero(
+                  tag: 'StudentTag',
+                  child: Container(
+                    child: Text(
+                      '👨‍🎓️',
+                      style: TextStyle(fontSize: 80),
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              TextField(
-                onChanged: (value) {
-                  _email = value;
-                },
-                textAlign: TextAlign.center,
-                decoration: textFieldDecoration.copyWith(
-                    hintText: 'Enter your email address'),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              TextField(
-                onChanged: (value) {
-                  _password = value;
-                },
-                textAlign: TextAlign.center,
-                obscureText: true,
-                decoration: textFieldDecoration.copyWith(
-                    hintText: 'Enter you password'),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              CustomButton(
-                  backgroundColor: Color(0xff8ADFCB),
+                SizedBox(
+                  height: 10,
+                ),
+                TextField(
+                  onChanged: (value) {
+                    _email = value;
+                  },
+                  textAlign: TextAlign.center,
+                  decoration: textFieldDecoration.copyWith(
+                      hintText: 'Enter your email address'),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                TextField(
+                  onChanged: (value) {
+                    _password = value;
+                  },
+                  textAlign: TextAlign.center,
+                  obscureText: true,
+                  decoration: textFieldDecoration.copyWith(
+                      hintText: 'Enter you password'),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                CustomButton(
+                    backgroundColor: Color(0xff8ADFCB),
+                    onTap: () async {
+                      try {
+                        var logIn = await Provider.of<Controller>(context,
+                                listen: false)
+                            .getAuthInstance()
+                            .signInWithEmailAndPassword(
+                                email: _email, password: _password);
+                        if (logIn != null) {
+                          Navigator.pushNamed(
+                              context, TasksScreen.taskScreenId);
+                        }
+                      } on FirebaseAuthException catch (e) {
+                        print(e);
+                      }
+                    },
+                    name: 'Log in'),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  'Other log in option',
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.grey,
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                GoogleButton(
+                  type: 'Sign in with Google',
                   onTap: () async {
                     try {
-                      var logIn =
-                          await Provider.of<Controller>(context, listen: false)
-                              .getAuthInstance()
-                              .signInWithEmailAndPassword(
-                                  email: _email, password: _password);
-                      if (logIn != null) {
-                        Navigator.pushNamed(context, TasksScreen.taskScreenId);
+                      var userCredentials = await SocialMediaHandler()
+                          .signInWithGoogle(
+                              Provider.of<Controller>(context, listen: false)
+                                  .getAuthInstance());
+                      if (userCredentials != null) {
+                        Navigator.popAndPushNamed(
+                            context, TasksScreen.taskScreenId);
                       }
                     } on FirebaseAuthException catch (e) {
-                      print(e);
+                      print(e.code);
                     }
                   },
-                  name: 'Log in'),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                'Other log in option',
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.grey,
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              GoogleButton(
-                type: 'Sign in with Google',
-                onTap: () async {
-                  try {
-                    var userCredentials = await SocialMediaHandler()
-                        .signInWithGoogle(
-                            Provider.of<Controller>(context, listen: false)
-                                .getAuthInstance());
-                    if (userCredentials != null) {
-                      Navigator.popAndPushNamed(
-                          context, TasksScreen.taskScreenId);
-                    }
-                  } on FirebaseAuthException catch (e) {
-                    print(e.code);
-                  }
-                },
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

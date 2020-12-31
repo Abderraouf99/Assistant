@@ -41,7 +41,7 @@ class EventTile extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.symmetric(
           vertical: 20,
-          horizontal: 30,
+          horizontal: 20,
         ),
         child: Row(
           children: [
