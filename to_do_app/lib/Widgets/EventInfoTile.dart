@@ -28,7 +28,7 @@ class EventInfoTile extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: eventTextStyle.copyWith(
+                  style: kEventTextStyle.copyWith(
                     color: Colors.white,
                   ),
                 ),
@@ -43,13 +43,13 @@ class EventInfoTile extends StatelessWidget {
               children: [
                 Text(
                   'Starts at: $startTime ',
-                  style: eventTextStyle.copyWith(
+                  style: kEventTextStyle.copyWith(
                     color: Colors.white,
                   ),
                 ),
                 Text(
                   'Ends at: $endTime ',
-                  style: eventTextStyle.copyWith(
+                  style: kEventTextStyle.copyWith(
                     color: Colors.white,
                   ),
                 ),
@@ -73,11 +73,11 @@ class DayTile extends StatelessWidget {
         children: [
           Text(
             month,
-            style: eventTextStyle,
+            style: kEventTextStyle,
           ),
           Text(
             day,
-            style: eventTextStyle,
+            style: kEventTextStyle,
           ),
         ],
       ),

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do_app/models/Event.dart';
-import 'package:intl/intl.dart';
 
 class EventsController extends ChangeNotifier {
   //Events Controller
@@ -13,8 +12,15 @@ class EventsController extends ChangeNotifier {
   TimeOfDay _timeOfDayEnd = TimeOfDay.now();
 
   String _title;
+  bool _toBeReminded = false;
+
+  bool get remindedStatus => _toBeReminded;
 
   List<Event> get events => _myEvents;
+  void toggleTobeReminded() {
+    _toBeReminded = !_toBeReminded;
+    notifyListeners();
+  }
 
   int findNumberOfCompletedEvents() {
     int counter = 0;

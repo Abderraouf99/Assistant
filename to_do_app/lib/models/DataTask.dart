@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'Tasks.dart';
 
-import 'package:to_do_app/models/Event.dart';
-import 'package:intl/intl.dart';
-
 class ControllerTask extends ChangeNotifier {
   //Task Controller
   List<Task> _myTasks = [];

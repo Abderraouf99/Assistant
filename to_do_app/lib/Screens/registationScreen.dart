@@ -44,7 +44,7 @@ class RegistrationScreen extends StatelessWidget {
                     _email = value;
                   },
                   textAlign: TextAlign.center,
-                  decoration: textFieldDecoration.copyWith(
+                  decoration: kTextFieldDecoration.copyWith(
                       hintText: 'Enter your email address'),
                 ),
                 SizedBox(
@@ -56,7 +56,7 @@ class RegistrationScreen extends StatelessWidget {
                   },
                   textAlign: TextAlign.center,
                   obscureText: true,
-                  decoration: textFieldDecoration.copyWith(
+                  decoration: kTextFieldDecoration.copyWith(
                       hintText: 'Enter you password'),
                 ),
                 SizedBox(

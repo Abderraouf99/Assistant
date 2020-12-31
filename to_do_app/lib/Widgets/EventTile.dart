@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:to_do_app/models/Event.dart';
-
+import 'package:intl/intl.dart';
 import 'EventInfoTile.dart';
 
 class EventTile extends StatelessWidget {
@@ -50,7 +50,7 @@ class EventTile extends StatelessWidget {
           children: [
             //DayWidget
             DayTile(
-              month: '${theEvent.dateStart.month}',
+              month: '${DateFormat('MMM').format(theEvent.dateStart)}',
               day: '${theEvent.dateStart.day}',
             ),
             SizedBox(

@@ -5,7 +5,6 @@ import 'package:to_do_app/Widgets/EventsList.dart';
 import 'package:to_do_app/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_app/models/DataEvents.dart';
-import 'package:to_do_app/models/DataTask.dart';
 
 class EventsScreen extends StatelessWidget {
   static String eventsScreenId = 'eventsScreen';

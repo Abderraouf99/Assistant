@@ -7,7 +7,6 @@ import 'package:to_do_app/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:to_do_app/models/DataFirebase.dart';
 import 'package:to_do_app/models/SocialMediaLogin_RegistationHandler.dart';
-import 'package:to_do_app/models/DataTask.dart';
 
 class LoginScreen extends StatelessWidget {
   static String loginScreenId = 'loginScreen';
@@ -40,7 +39,7 @@ class LoginScreen extends StatelessWidget {
                     _email = value;
                   },
                   textAlign: TextAlign.center,
-                  decoration: textFieldDecoration.copyWith(
+                  decoration: kTextFieldDecoration.copyWith(
                       hintText: 'Enter your email address'),
                 ),
                 SizedBox(
@@ -52,7 +51,7 @@ class LoginScreen extends StatelessWidget {
                   },
                   textAlign: TextAlign.center,
                   obscureText: true,
-                  decoration: textFieldDecoration.copyWith(
+                  decoration: kTextFieldDecoration.copyWith(
                       hintText: 'Enter you password'),
                 ),
                 SizedBox(

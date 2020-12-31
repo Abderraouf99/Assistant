@@ -4,13 +4,13 @@ class Event {
   //Atributes
   String _title = '';
 
-  bool _toBeReminded = false;
-  bool _status = false;
   DateTime _dateStart = DateTime.now();
   TimeOfDay _timeOfDayStart = TimeOfDay.now();
   DateTime _dateEnd = DateTime.now();
   TimeOfDay _timeOfDayEnd = TimeOfDay.now();
 
+  bool _toBeReminded = false;
+  bool _status = false;
   //Constructor
   Event(String title, DateTime dateStart, DateTime dateEnd, TimeOfDay timeStart,
       TimeOfDay timeEnd, bool toBeReminded)

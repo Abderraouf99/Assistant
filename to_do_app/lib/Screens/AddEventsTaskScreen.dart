@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:to_do_app/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_app/models/DataEvents.dart';
-import 'package:to_do_app/models/DataTask.dart';
 import 'package:to_do_app/Widgets/CustomStartEndWidget.dart';
 import 'package:to_do_app/models/Event.dart';
 import 'package:intl/intl.dart';
@@ -56,10 +55,11 @@ class AddEventsSheet extends StatelessWidget {
                   height: 20,
                 ),
                 TextField(
+                  autofocus: true,
                   onChanged: (value) {
                     event.setTitle(value);
                   },
-                  decoration: textFieldDecoration.copyWith(hintText: 'Title'),
+                  decoration: kTextFieldDecoration.copyWith(hintText: 'Title'),
                 ),
                 SizedBox(
                   height: 10,
@@ -121,8 +121,10 @@ class AddEventsSheet extends StatelessWidget {
                   ),
                   trailing: Switch(
                     activeColor: kmainColor,
-                    value: false, //TO DO : handle the being reminded Feature
+                    value: event
+                        .remindedStatus, //TO DO : handle the being reminded Feature
                     onChanged: (value) {
+                      event.toggleTobeReminded();
                       //TODO: Show a datePicker
                       //TODO :Show a timePicker
                     },
