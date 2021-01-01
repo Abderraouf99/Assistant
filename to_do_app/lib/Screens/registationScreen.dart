@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:to_do_app/Screens/pageViewScreen.dart';
 import 'package:to_do_app/constants.dart';
 import 'package:to_do_app/models/DataFirebase.dart';
 import 'package:to_do_app/models/SocialMediaLogin_RegistationHandler.dart';
-import 'TaskScreen.dart';
 import 'package:to_do_app/Widgets/CustomButtonWidget.dart';
 import 'package:to_do_app/Widgets/GoogleSignInButton.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -90,8 +90,15 @@ class RegistrationScreen extends StatelessWidget {
                         barrierDismissible: false,
                       );
                       if (currentUser.emailVerified) {
+                        // TODO: add the firebase cloud storage space for this user
+                        //TODO: add to the user collection
+                        Provider.of<FirebaseController>(context, listen: false)
+                            .createNewUserDocument();
+                        Provider.of<FirebaseController>(context, listen: false)
+                            .createNewTaskSpace();
+
                         Navigator.popAndPushNamed(
-                            context, TasksScreen.taskScreenId);
+                            context, PageViewNavigation.pageViewNavigationID);
                       } else {
                         showModalActionSheet(
                           context: context,
@@ -104,7 +111,7 @@ class RegistrationScreen extends StatelessWidget {
                       print(e.code);
                       if (e.code == 'email-already-in-use') {
                         Navigator.popAndPushNamed(
-                            context, TasksScreen.taskScreenId);
+                            context, PageViewNavigation.pageViewNavigationID);
                       }
                     }
                   },
@@ -132,8 +139,12 @@ class RegistrationScreen extends StatelessWidget {
                                   listen: false)
                               .getAuthInstance());
                       if (userCredentials != null) {
+                        Provider.of<FirebaseController>(context, listen: false)
+                            .createNewUserDocument();
+                        Provider.of<FirebaseController>(context, listen: false)
+                            .createNewTaskSpace();
                         Navigator.popAndPushNamed(
-                            context, TasksScreen.taskScreenId);
+                            context, PageViewNavigation.pageViewNavigationID);
                       }
                     } on FirebaseAuthException catch (e) {
                       print(e.code);

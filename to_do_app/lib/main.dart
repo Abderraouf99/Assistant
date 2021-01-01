@@ -4,6 +4,7 @@ import 'package:to_do_app/Screens/TaskScreen.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_app/Screens/WelcomeScreen.dart';
 import 'package:to_do_app/Screens/loginScreen.dart';
+import 'package:to_do_app/Screens/pageViewScreen.dart';
 import 'package:to_do_app/Screens/registationScreen.dart';
 import 'package:to_do_app/constants.dart';
 import 'package:to_do_app/models/DataEvents.dart';
@@ -58,7 +59,9 @@ class MyApp extends StatelessWidget {
           RegistrationScreen.registrationScreenID: (context) =>
               RegistrationScreen(),
           TasksScreen.taskScreenId: (context) => TasksScreen(),
-          EventsScreen.eventsScreenId: (context) => EventsScreen()
+          EventsScreen.eventsScreenId: (context) => EventsScreen(),
+          PageViewNavigation.pageViewNavigationID: (context) =>
+              PageViewNavigation(),
         },
       ),
     );

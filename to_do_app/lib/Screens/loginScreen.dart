@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do_app/Screens/TaskScreen.dart';
+import 'package:to_do_app/Screens/pageViewScreen.dart';
 import 'package:to_do_app/Widgets/CustomButtonWidget.dart';
 import 'package:to_do_app/Widgets/GoogleSignInButton.dart';
 import 'package:to_do_app/constants.dart';
@@ -69,7 +69,7 @@ class LoginScreen extends StatelessWidget {
                                 email: _email, password: _password);
                         if (logIn != null) {
                           Navigator.pushNamed(
-                              context, TasksScreen.taskScreenId);
+                              context, PageViewNavigation.pageViewNavigationID);
                         }
                       } on FirebaseAuthException catch (e) {
                         print(e);
@@ -100,7 +100,7 @@ class LoginScreen extends StatelessWidget {
                               .getAuthInstance());
                       if (userCredentials != null) {
                         Navigator.popAndPushNamed(
-                            context, TasksScreen.taskScreenId);
+                            context, PageViewNavigation.pageViewNavigationID);
                       }
                     } on FirebaseAuthException catch (e) {
                       print(e.code);

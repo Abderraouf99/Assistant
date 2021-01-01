@@ -1,10 +1,12 @@
 class Task {
   //Attributes
   final String _task;
-  bool _state = false;
+  bool _state;
 
   //Constructor
-  Task({String task}) : _task = task;
+  Task({String task, bool status})
+      : _task = task,
+        _state = status;
 
   //Method to toggle the state
   void toggleState() {

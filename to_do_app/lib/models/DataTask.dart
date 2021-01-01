@@ -4,6 +4,18 @@ import 'Tasks.dart';
 class ControllerTask extends ChangeNotifier {
   //Task Controller
   List<Task> _myTasks = [];
+  String _task;
+  Task _task1;
+
+  Task getTask() {
+    return _task1;
+  }
+
+  String get task => _task;
+  void setTask(String task) {
+    _task = task;
+    _task1 = Task(task: _task);
+  }
 
   int getNumberOfTasks() {
     return _myTasks.length;
@@ -37,7 +49,4 @@ class ControllerTask extends ChangeNotifier {
     _myTasks[index].toggleState();
     notifyListeners();
   }
-
-  //FirebaseController
-
 }

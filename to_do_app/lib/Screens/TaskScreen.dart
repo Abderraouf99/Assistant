@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/Screens/EditAddTaskScreen.dart';
-import 'package:to_do_app/Screens/EventsScreen.dart';
 import 'package:to_do_app/Screens/WelcomeScreen.dart';
 import 'package:to_do_app/Widgets/TaskList.dart';
 import 'package:to_do_app/constants.dart';
@@ -20,8 +19,8 @@ class TasksScreen extends StatelessWidget {
         child: EditAddTaskScreen(
           type: 'Add',
           functionnality: (Task taskToadd) {
-            Provider.of<ControllerTask>(context, listen: false)
-                .addTasks(taskToadd);
+            Provider.of<FirebaseController>(context, listen: false)
+                .addTask(taskToadd);
             Navigator.pop(context);
           },
         ),
@@ -53,11 +52,10 @@ class TasksScreen extends StatelessWidget {
           color: Colors.white,
         ),
         onPressed: () async {
-          Navigator.pushNamed(context, EventsScreen.eventsScreenId);
-          // await showModalBottomSheet(
-          //     context: context,
-          //     builder: buildBottomSheet,
-          //     isScrollControlled: true);
+          await showModalBottomSheet(
+              context: context,
+              builder: buildBottomSheet,
+              isScrollControlled: true);
         },
       ),
       backgroundColor: Color(0xff8ADFCB),
@@ -155,3 +153,65 @@ class TasksScreen extends StatelessWidget {
     );
   }
 }
+/**
+ * StreamBuilder<QuerySnapshot>(
+      stream: Provider.of<FirebaseController>(context).getTasks('user01'),
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasData) {
+          final tasks = snapshot.data.docs;
+          List<Task> testList = [];
+          for (var task in tasks) {
+            final taskText = task.data()['task'];
+            //final taskStatus = task.data()['statys'];
+            final taskWidgetData = Task(task: taskText);
+            testList.add(taskWidgetData);
+          }
+ * 
+ * 
+ */
+
+/**
+ * return StreamBuilder<QuerySnapshot>(
+            stream: Provider.of<FirebaseController>(context).getTasks(),
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.hasData) {
+                final tasks = snapshot.data.docs;
+                List<Task> myTasks = [];
+                for (var task in tasks) {
+                  final taskText = task.data()['taskText'];
+                  final taskStatus = task.data()['taskStatus'];
+                  final taskData = Task(task: taskText, status: taskStatus);
+                  myTasks.add(taskData);
+                }
+              }
+            });
+ */
+
+/**
+ * ListView.builder(
+          itemBuilder: (context, index) {
+            return TaskTile(
+              menu: [
+                FocusedMenuItem(
+                  title: Row(
+                    children: [
+                      Icon(Icons.delete),
+                      Text('Delete'),
+                    ],
+                  ),
+                  onPressed: () {
+                    taskList.deleteTask(index);
+                  },
+                ),
+              ],
+              longPressToDelete: () {},
+              theTask: taskList.getTasks()[index],
+              checkBoxCallBack: (checkBoxState) {
+                taskList.toggleState(index);
+              },
+            );
+          },
+          itemCount: taskList.getNumberOfTasks(),
+        );
+ */
