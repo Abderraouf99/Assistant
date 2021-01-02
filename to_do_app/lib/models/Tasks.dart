@@ -2,11 +2,13 @@ class Task {
   //Attributes
   final String _task;
   bool _state;
+  final int _index;
 
   //Constructor
-  Task({String task, bool status})
+  Task({String task, bool status, int index})
       : _task = task,
-        _state = status;
+        _state = status,
+        _index = index;
 
   //Method to toggle the state
   void toggleState() {
@@ -19,5 +21,9 @@ class Task {
 
   bool getState() {
     return this._state;
+  }
+
+  int getIndex() {
+    return _index;
   }
 }

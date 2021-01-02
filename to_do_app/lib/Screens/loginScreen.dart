@@ -6,6 +6,7 @@ import 'package:to_do_app/Widgets/GoogleSignInButton.dart';
 import 'package:to_do_app/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:to_do_app/models/DataFirebase.dart';
+import 'package:to_do_app/models/DataTask.dart';
 import 'package:to_do_app/models/SocialMediaLogin_RegistationHandler.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -68,6 +69,14 @@ class LoginScreen extends StatelessWidget {
                             .signInWithEmailAndPassword(
                                 email: _email, password: _password);
                         if (logIn != null) {
+                          //TODO : fetch the data availble online
+
+                          Provider.of<ControllerTask>(context, listen: false)
+                              .setTasks(
+                            await Provider.of<FirebaseController>(context,
+                                    listen: false)
+                                .fetchData(),
+                          );
                           Navigator.pushNamed(
                               context, PageViewNavigation.pageViewNavigationID);
                         }
@@ -99,6 +108,12 @@ class LoginScreen extends StatelessWidget {
                                   listen: false)
                               .getAuthInstance());
                       if (userCredentials != null) {
+                        Provider.of<ControllerTask>(context, listen: false)
+                            .setTasks(
+                          await Provider.of<FirebaseController>(context,
+                                  listen: false)
+                              .fetchData(),
+                        );
                         Navigator.popAndPushNamed(
                             context, PageViewNavigation.pageViewNavigationID);
                       }

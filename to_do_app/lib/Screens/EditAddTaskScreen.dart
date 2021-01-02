@@ -31,7 +31,11 @@ class EditAddTaskScreen extends StatelessWidget {
                     ),
                     InkWell(
                       onTap: () {
-                        Task taskToadd = Task(task: task.task, status: false);
+                        Task taskToadd = Task(
+                          task: task.task,
+                          status: false,
+                          index: task.getTasks().length,
+                        );
                         functionnality(taskToadd);
                       },
                       child: CircleAvatar(

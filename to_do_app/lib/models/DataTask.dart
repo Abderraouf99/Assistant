@@ -11,6 +11,10 @@ class ControllerTask extends ChangeNotifier {
     return _task1;
   }
 
+  void setTasks(List<Task> taskList) {
+    _myTasks = taskList;
+  }
+
   String get task => _task;
   void setTask(String task) {
     _task = task;
@@ -36,7 +40,7 @@ class ControllerTask extends ChangeNotifier {
   }
 
   void addTasks(Task newTask) {
-    _myTasks.insert(0, newTask);
+    _myTasks.add(newTask);
     notifyListeners();
   }
 

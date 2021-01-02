@@ -7,6 +7,24 @@ class FirebaseController extends ChangeNotifier {
   final _auth = FirebaseAuth.instance;
   final _firestoreReference = FirebaseFirestore.instance.collection('users');
 
+  Future<List> fetchData() async {
+    var task = await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection('tasks')
+        .get();
+    List<Task> taskList = [];
+    for (var doc in task.docs) {
+      taskList.add(
+        Task(
+          task: doc.get('taskText'),
+          status: doc.get('taskStatus'),
+          index: doc.get('taskIndex'),
+        ),
+      );
+    }
+    return taskList;
+  }
+
   FirebaseAuth getAuthInstance() {
     return _auth;
   }
@@ -14,19 +32,6 @@ class FirebaseController extends ChangeNotifier {
   void createNewUserDocument() async {
     await _firestoreReference.doc('${_auth.currentUser.email}').set(
       {'id': '${_auth.currentUser.email}'},
-    );
-  }
-
-  void createNewTaskSpace() async {
-    await _firestoreReference
-        .doc('${_auth.currentUser.email}')
-        .collection('tasks')
-        .doc('Welcome task')
-        .set(
-      {
-        'taskText': 'Welcome task',
-        'taskStatus': '${false}',
-      },
     );
   }
 
@@ -38,33 +43,63 @@ class FirebaseController extends ChangeNotifier {
       {
         'taskText': task.getTask(),
         'taskStatus': task.getState(),
+        'taskIndex': task.getIndex(),
       },
     );
   }
 
-  void syncTaskList(List<Task> myTasks) async {
+  Future<String> _findInDataBase(int index) async {
+    var tasks = await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection('tasks')
+        .get();
+    var docID;
+    for (var doc in tasks.docs) {
+      if (doc.data()['taskIndex'] == index) {
+        docID = doc.id;
+        break;
+      }
+    }
+    return docID;
+  }
+
+  Future<void> _updateIndex() async {
+    var tasksUpdated = await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection('tasks')
+        .get();
     int counter = 0;
-    for (Task task in myTasks) {
-      await _firestoreReference
-          .doc('${_auth.currentUser.email}')
-          .collection('tasks')
-          .doc('task$counter')
-          .set({
-        'taskText': '${task.getTask()}',
-        'taskStatus': '${task.getState()}'
-      });
+    for (var doc in tasksUpdated.docs) {
+      doc.reference.update(
+        {
+          'taskIndex': counter,
+        },
+      );
       counter++;
     }
   }
 
-  CollectionReference getStorageInstance() {
-    return _firestoreReference;
+  void deleteTask(int index) async {
+    String docID = await _findInDataBase(index);
+    await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection('tasks')
+        .doc(docID)
+        .delete();
+    await _updateIndex();
   }
 
-  Stream getTasks() {
-    return _firestoreReference
-        .doc(_auth.currentUser.email)
+  void toggleStatus(int index, bool status) async {
+    String docID = await _findInDataBase(index);
+    var document = await _firestoreReference
+        .doc('${_auth.currentUser.email}')
         .collection('tasks')
-        .snapshots();
+        .doc(docID)
+        .get();
+    document.reference.update(
+      {
+        'taskStatus': status,
+      },
+    );
   }
 }

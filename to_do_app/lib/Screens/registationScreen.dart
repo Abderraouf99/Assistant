@@ -90,12 +90,8 @@ class RegistrationScreen extends StatelessWidget {
                         barrierDismissible: false,
                       );
                       if (currentUser.emailVerified) {
-                        // TODO: add the firebase cloud storage space for this user
-                        //TODO: add to the user collection
                         Provider.of<FirebaseController>(context, listen: false)
                             .createNewUserDocument();
-                        Provider.of<FirebaseController>(context, listen: false)
-                            .createNewTaskSpace();
 
                         Navigator.popAndPushNamed(
                             context, PageViewNavigation.pageViewNavigationID);
@@ -141,8 +137,6 @@ class RegistrationScreen extends StatelessWidget {
                       if (userCredentials != null) {
                         Provider.of<FirebaseController>(context, listen: false)
                             .createNewUserDocument();
-                        Provider.of<FirebaseController>(context, listen: false)
-                            .createNewTaskSpace();
                         Navigator.popAndPushNamed(
                             context, PageViewNavigation.pageViewNavigationID);
                       }
