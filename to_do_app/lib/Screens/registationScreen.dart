@@ -67,19 +67,15 @@ class RegistrationScreen extends StatelessWidget {
                   backgroundColor: Color(0xff6BAF9F),
                   onTap: () async {
                     try {
-                      await Provider.of<FirebaseController>(context,
-                              listen: false)
-                          .getAuthInstance()
-                          .createUserWithEmailAndPassword(
-                              email: _email, password: _password);
-                      User currentUser = Provider.of<FirebaseController>(
-                              context,
-                              listen: false)
-                          .getAuthInstance()
-                          .currentUser;
+                      UserCredential currentUser =
+                          await Provider.of<FirebaseController>(context,
+                                  listen: false)
+                              .getAuthInstance()
+                              .createUserWithEmailAndPassword(
+                                  email: _email, password: _password);
 
-                      if (!currentUser.emailVerified) {
-                        await currentUser.sendEmailVerification();
+                      if (!currentUser.user.emailVerified) {
+                        await currentUser.user.sendEmailVerification();
                       }
                       await showOkAlertDialog(
                         context: context,
@@ -89,7 +85,13 @@ class RegistrationScreen extends StatelessWidget {
                         okLabel: 'Continue',
                         barrierDismissible: false,
                       );
-                      if (currentUser.emailVerified) {
+                      await currentUser.user.reload();
+
+                      if (Provider.of<FirebaseController>(context,
+                              listen: false)
+                          .getAuthInstance()
+                          .currentUser
+                          .emailVerified) {
                         Provider.of<FirebaseController>(context, listen: false)
                             .createNewUserDocument();
 
@@ -101,7 +103,7 @@ class RegistrationScreen extends StatelessWidget {
                           title: 'Error',
                           message: 'Failed to verify account 😥️',
                         );
-                        await currentUser.delete();
+                        await currentUser.user.delete();
                       }
                     } on FirebaseAuthException catch (e) {
                       print(e.code);
