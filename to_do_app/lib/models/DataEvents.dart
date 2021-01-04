@@ -12,6 +12,13 @@ class EventsController extends ChangeNotifier {
     false,
   );
 
+  set events(List<Event> events) {
+    _myEvents = events;
+    _myEvents.sort(
+      (a, b) => a.dateStart.compareTo(b.dateStart),
+    );
+  }
+
   Event get tempEvent => _tempEvent;
   List<Event> get events => _myEvents;
 
@@ -35,7 +42,6 @@ class EventsController extends ChangeNotifier {
     _myEvents.sort(
       (a, b) => a.dateStart.compareTo(b.dateStart),
     );
-    newEvent.setIndex = _myEvents.indexOf(newEvent);
     notifyListeners();
   }
 

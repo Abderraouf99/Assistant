@@ -10,7 +10,6 @@ class EditAddTaskScreen extends StatelessWidget {
   EditAddTaskScreen({@required this.type, @required this.functionnality});
   @override
   Widget build(BuildContext context) {
-    Task temp;
     return Consumer<ControllerTask>(
       builder: (context, task, child) {
         return Container(

@@ -9,7 +9,6 @@ class Event {
 
   bool _toBeReminded = false;
   bool _status = false;
-  int _index;
   //Constructor
 
   Event(String title, DateTime dateStart, DateTime dateEnd, bool toBeReminded)
@@ -28,14 +27,6 @@ class Event {
   DateTime get dateEnd => _dateEnd;
 
   bool get eventStatus => _status;
-
-  int get index => _index;
-
-  //Setters
-
-  set setIndex(int index) {
-    _index = index;
-  }
 
   set setTitle(String title) {
     _title = title;

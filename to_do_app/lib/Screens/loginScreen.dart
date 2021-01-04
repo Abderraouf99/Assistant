@@ -5,6 +5,7 @@ import 'package:to_do_app/Widgets/CustomButtonWidget.dart';
 import 'package:to_do_app/Widgets/GoogleSignInButton.dart';
 import 'package:to_do_app/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:to_do_app/models/DataEvents.dart';
 import 'package:to_do_app/models/DataFirebase.dart';
 import 'package:to_do_app/models/DataTask.dart';
 import 'package:to_do_app/models/SocialMediaLogin_RegistationHandler.dart';
@@ -74,8 +75,13 @@ class LoginScreen extends StatelessWidget {
                               .setTasks(
                             await Provider.of<FirebaseController>(context,
                                     listen: false)
-                                .fetchData(),
+                                .fetchTasks(),
                           );
+                          Provider.of<EventsController>(context, listen: false)
+                              .events = await Provider.of<FirebaseController>(
+                                  context,
+                                  listen: false)
+                              .fetchEvents();
                           Navigator.pushNamed(
                               context, PageViewNavigation.pageViewNavigationID);
                         }
@@ -111,8 +117,13 @@ class LoginScreen extends StatelessWidget {
                             .setTasks(
                           await Provider.of<FirebaseController>(context,
                                   listen: false)
-                              .fetchData(),
+                              .fetchTasks(),
                         );
+                        Provider.of<EventsController>(context, listen: false)
+                            .events = await Provider.of<FirebaseController>(
+                                context,
+                                listen: false)
+                            .fetchEvents();
                         Navigator.popAndPushNamed(
                             context, PageViewNavigation.pageViewNavigationID);
                       }

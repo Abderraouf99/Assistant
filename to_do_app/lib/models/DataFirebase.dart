@@ -8,8 +8,7 @@ class FirebaseController extends ChangeNotifier {
   final _auth = FirebaseAuth.instance;
   final _firestoreReference = FirebaseFirestore.instance.collection('users');
 
-  Future<List> fetchData() async {
-    //TODO: Do the same for the Events
+  Future<List> fetchTasks() async {
     var task = await _firestoreReference
         .doc('${_auth.currentUser.email}')
         .collection('tasks')
@@ -61,7 +60,6 @@ class FirebaseController extends ChangeNotifier {
         'eventEndDate': event.dateEnd,
         'eventReminderStatus': event.toBereminded,
         'eventStatus': event.eventStatus,
-        'eventIndex': event.index,
       },
     );
   }
@@ -107,7 +105,7 @@ class FirebaseController extends ChangeNotifier {
     await _updateIndex();
   }
 
-  void toggleStatus(int index, bool status) async {
+  void toggleStatusTask(int index, bool status) async {
     String docID = await _findInDataBase(index);
     var document = await _firestoreReference
         .doc('${_auth.currentUser.email}')
@@ -119,5 +117,63 @@ class FirebaseController extends ChangeNotifier {
         'taskStatus': status,
       },
     );
+  }
+
+  Future<String> _findEvent(String title) async {
+    var events = await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection('events')
+        .get();
+    var docID;
+    for (var doc in events.docs) {
+      if (doc.data()['eventTitle'] == title) {
+        docID = doc.id;
+        break;
+      }
+    }
+    return docID;
+  }
+
+  void toggleStatusEvents(String title, bool status) async {
+    String docID = await _findEvent(title);
+    var document = await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection('events')
+        .doc(docID)
+        .get();
+    document.reference.update(
+      {
+        'eventStatus': status,
+      },
+    );
+  }
+
+  Future<List> fetchEvents() async {
+    var events = await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection('events')
+        .get();
+    List<Event> eventList = [];
+    for (var doc in events.docs) {
+      eventList.add(
+        Event(
+          doc.get('eventTitle'),
+          doc.get('eventStartDate').toDate(),
+          doc.get('eventEndDate').toDate(),
+          doc.get('eventReminderStatus'),
+        ),
+      );
+    }
+
+    return eventList;
+  }
+
+  void deleteEvent(String title) async {
+    String docID = await _findEvent(title);
+    await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection('events')
+        .doc(docID)
+        .delete();
   }
 }

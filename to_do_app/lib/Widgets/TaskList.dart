@@ -32,7 +32,8 @@ class TasksList extends StatelessWidget {
               checkBoxCallBack: (checkBoxState) {
                 taskList.toggleState(index);
                 Provider.of<FirebaseController>(context, listen: false)
-                    .toggleStatus(index, taskList.getTasks()[index].getState());
+                    .toggleStatusTask(
+                        index, taskList.getTasks()[index].getState());
               },
             );
           },
