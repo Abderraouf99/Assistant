@@ -6,21 +6,23 @@ import 'package:to_do_app/models/DataEvents.dart';
 class EventsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Consumer<EventsController>(builder: (context, eventsList, child) {
-      return ListView.builder(
-        itemBuilder: (context, index) {
-          return EventTile(
-            theEvent: eventsList.events[index],
-            delete: () {
-              eventsList.removeEvent(index);
-            },
-            markAsDone: () {
-              eventsList.toggleStatus(index);
-            },
-          );
-        },
-        itemCount: eventsList.events.length,
-      );
-    });
+    return Consumer<EventsController>(
+      builder: (context, eventsList, child) {
+        return ListView.builder(
+          itemBuilder: (context, index) {
+            return EventTile(
+              theEvent: eventsList.events[index],
+              delete: () {
+                eventsList.removeEvent(index);
+              },
+              markAsDone: () {
+                eventsList.toggleStatus(index);
+              },
+            );
+          },
+          itemCount: eventsList.events.length,
+        );
+      },
+    );
   }
 }

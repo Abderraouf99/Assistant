@@ -18,7 +18,7 @@ class TasksScreen extends StatelessWidget {
             EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: EditAddTaskScreen(
           type: 'Add',
-          functionnality: (Task taskToadd) {
+          functionnality: (Task taskToadd) async {
             Provider.of<ControllerTask>(context, listen: false)
                 .addTasks(taskToadd);
             Provider.of<FirebaseController>(context, listen: false)

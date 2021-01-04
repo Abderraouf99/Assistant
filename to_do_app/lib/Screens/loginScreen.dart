@@ -70,7 +70,6 @@ class LoginScreen extends StatelessWidget {
                                 email: _email, password: _password);
                         if (logIn != null) {
                           //TODO : fetch the data availble online
-
                           Provider.of<ControllerTask>(context, listen: false)
                               .setTasks(
                             await Provider.of<FirebaseController>(context,

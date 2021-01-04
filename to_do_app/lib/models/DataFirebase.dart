@@ -2,12 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'Tasks.dart';
+import 'Event.dart';
 
 class FirebaseController extends ChangeNotifier {
   final _auth = FirebaseAuth.instance;
   final _firestoreReference = FirebaseFirestore.instance.collection('users');
 
   Future<List> fetchData() async {
+    //TODO: Do the same for the Events
     var task = await _firestoreReference
         .doc('${_auth.currentUser.email}')
         .collection('tasks')
@@ -44,6 +46,22 @@ class FirebaseController extends ChangeNotifier {
         'taskText': task.getTask(),
         'taskStatus': task.getState(),
         'taskIndex': task.getIndex(),
+      },
+    );
+  }
+
+  void addEvent(Event event) async {
+    await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection('events')
+        .add(
+      {
+        'eventTitle': event.title,
+        'eventStartDate': event.dateStart,
+        'eventEndDate': event.dateEnd,
+        'eventReminderStatus': event.toBereminded,
+        'eventStatus': event.eventStatus,
+        'eventIndex': event.index,
       },
     );
   }

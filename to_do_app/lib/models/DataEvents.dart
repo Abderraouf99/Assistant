@@ -5,27 +5,20 @@ import 'package:to_do_app/models/Event.dart';
 class EventsController extends ChangeNotifier {
   //Events Controller
   List<Event> _myEvents = [];
-  DateTime _selectedStartingDate = DateTime.now();
-  TimeOfDay _timeOfDay = TimeOfDay.now();
+  Event _tempEvent = Event(
+    '',
+    DateTime.now(),
+    DateTime.now(),
+    false,
+  );
 
-  DateTime _selectedEndDate = DateTime.now();
-  TimeOfDay _timeOfDayEnd = TimeOfDay.now();
-
-  String _title;
-  bool _toBeReminded = false;
-
-  bool get remindedStatus => _toBeReminded;
-
+  Event get tempEvent => _tempEvent;
   List<Event> get events => _myEvents;
-  void toggleTobeReminded() {
-    _toBeReminded = !_toBeReminded;
-    notifyListeners();
-  }
 
   int findNumberOfCompletedEvents() {
     int counter = 0;
     for (Event currentEvent in _myEvents) {
-      if (currentEvent.getStatus()) {
+      if (currentEvent.eventStatus) {
         counter++;
       }
     }
@@ -39,6 +32,10 @@ class EventsController extends ChangeNotifier {
 
   void addEvent(Event newEvent) {
     _myEvents.add(newEvent);
+    _myEvents.sort(
+      (a, b) => a.dateStart.compareTo(b.dateStart),
+    );
+    newEvent.setIndex = _myEvents.indexOf(newEvent);
     notifyListeners();
   }
 
@@ -48,47 +45,29 @@ class EventsController extends ChangeNotifier {
   }
 
   void setEndDate(DateTime selected) {
-    _selectedEndDate = selected;
-    notifyListeners();
-  }
-
-  void setTimeOfEnd(TimeOfDay selected) {
-    _timeOfDayEnd = selected;
+    _tempEvent.setDayEnds = selected;
     notifyListeners();
   }
 
   void setTitle(String title) {
-    _title = title;
+    _tempEvent.setTitle = title;
     notifyListeners();
   }
 
   String getTitle() {
-    return _title;
+    return _tempEvent.title;
   }
 
-  TimeOfDay getTimeofDayEnd() {
-    return _timeOfDayEnd;
-  }
-
-  DateTime getSelectedEndDate() {
-    return _selectedEndDate;
-  }
-
-  TimeOfDay getSelectedTime() {
-    return _timeOfDay;
-  }
-
-  void setTime(TimeOfDay selected) {
-    _timeOfDay = selected;
-    notifyListeners();
+  DateTime getEndDate() {
+    return _tempEvent.dateEnd;
   }
 
   void setStartDate(DateTime selected) {
-    _selectedStartingDate = selected;
+    _tempEvent.setDayStarts = selected;
     notifyListeners();
   }
 
   DateTime getStartDate() {
-    return _selectedStartingDate;
+    return _tempEvent.dateStart;
   }
 }

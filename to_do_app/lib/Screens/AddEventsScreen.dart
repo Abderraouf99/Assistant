@@ -3,10 +3,15 @@ import 'package:to_do_app/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_app/models/DataEvents.dart';
 import 'package:to_do_app/Widgets/CustomStartEndWidget.dart';
+import 'package:to_do_app/models/DataFirebase.dart';
 import 'package:to_do_app/models/Event.dart';
 import 'package:intl/intl.dart';
 
 class AddEventsSheet extends StatelessWidget {
+  final Function functionality;
+  AddEventsSheet({
+    @required this.functionality,
+  });
   @override
   Widget build(BuildContext context) {
     return Consumer<EventsController>(builder: (context, event, child) {
@@ -31,15 +36,13 @@ class AddEventsSheet extends StatelessWidget {
                     ),
                     InkWell(
                       onTap: () {
-                        var newEvent = Event(
-                            event.getTitle(),
-                            event.getStartDate(),
-                            event.getSelectedEndDate(),
-                            event.getSelectedTime(),
-                            event.getTimeofDayEnd(),
-                            false);
-
-                        event.addEvent(newEvent);
+                        Event newEvent = Event(
+                          event.tempEvent.title,
+                          event.tempEvent.dateStart,
+                          event.tempEvent.dateEnd,
+                          event.tempEvent.toBereminded,
+                        );
+                        functionality(newEvent);
                       },
                       child: CircleAvatar(
                         child: Icon(
@@ -74,18 +77,24 @@ class AddEventsSheet extends StatelessWidget {
                       initialDate: event.getStartDate(),
                       initialDatePickerMode: DatePickerMode.day,
                     );
-                    if (date != null) {
-                      event.setStartDate(date);
-                      print(date);
-                    }
-                    TimeOfDay selected = await showTimePicker(
-                        context: context, initialTime: event.getSelectedTime());
-                    if (selected != null) {
-                      event.setTime(selected);
+                    TimeOfDay time = await showTimePicker(
+                      context: context,
+                      initialTime: TimeOfDay.now(),
+                    );
+                    if (time != null && date != null) {
+                      DateTime startingDate = new DateTime(
+                        date.year,
+                        date.month,
+                        date.day,
+                        time.hour,
+                        time.minute,
+                      );
+                      event.setStartDate(startingDate);
+                      print(startingDate);
                     }
                   },
                   date:
-                      '${DateFormat('EEE,d/M,y').format(event.getStartDate())} at ${event.getSelectedTime().hour}:${event.getSelectedTime().minute}',
+                      '${DateFormat('EEE,d/M,y').format(event.getStartDate())} at ${DateFormat('jm').format(event.getStartDate())}',
                 ),
                 SizedBox(
                   height: 5,
@@ -97,39 +106,33 @@ class AddEventsSheet extends StatelessWidget {
                       context: context,
                       firstDate: DateTime(DateTime.now().year - 5),
                       lastDate: DateTime(DateTime.now().year + 5),
-                      initialDate: event.getSelectedEndDate(),
+                      initialDate: event.getEndDate(),
                       initialDatePickerMode: DatePickerMode.day,
                     );
-                    if (date != null) {
-                      event.setEndDate(date);
-                      print(date);
-                    }
-                    TimeOfDay selected = await showTimePicker(
+
+                    TimeOfDay time = await showTimePicker(
                       context: context,
-                      initialTime: event.getTimeofDayEnd(),
+                      initialTime: TimeOfDay.now(),
                     );
-                    if (selected != null) {
-                      event.setTimeOfEnd(selected);
+                    if (time != null && date != null) {
+                      DateTime endDate = new DateTime(
+                        date.year,
+                        date.month,
+                        date.day,
+                        time.hour,
+                        time.minute,
+                      );
+                      event.setEndDate(endDate);
                     }
                   },
                   date:
-                      '${DateFormat('EEE,d/M,y').format(event.getSelectedEndDate())} at ${event.getTimeofDayEnd().hour}:${event.getTimeofDayEnd().minute}',
+                      '${DateFormat('EEE,d/M,y').format(event.getEndDate())} at ${DateFormat('jm').format(event.getEndDate())}',
                 ),
-                ListTile(
-                  leading: Text(
-                    'Set a reminder',
-                  ),
-                  trailing: Switch(
-                    activeColor: kmainColor,
-                    value: event
-                        .remindedStatus, //TO DO : handle the being reminded Feature
-                    onChanged: (value) {
-                      event.toggleTobeReminded();
-                      //TODO: Show a datePicker
-                      //TODO :Show a timePicker
-                    },
-                  ),
-                ),
+                CustomStartEndWidget(
+                  name: 'Reminder',
+                  onPressed: () {},
+                  date: 'NOW',
+                )
               ],
             ),
           ),
@@ -138,8 +141,3 @@ class AddEventsSheet extends StatelessWidget {
     });
   }
 }
-
-/**
- * () async {
-        
- */

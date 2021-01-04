@@ -1,6 +1,6 @@
 class Task {
   //Attributes
-  final String _task;
+  String _task;
   bool _state;
   final int _index;
 
@@ -13,6 +13,10 @@ class Task {
   //Method to toggle the state
   void toggleState() {
     _state = !_state;
+  }
+
+  set task(String task) {
+    _task = task;
   }
 
   String getTask() {

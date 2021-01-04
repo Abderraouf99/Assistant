@@ -15,6 +15,7 @@ class EventTile extends StatelessWidget {
     @required this.delete,
     @required this.markAsDone,
   });
+
   @override
   Widget build(BuildContext context) {
     return FocusedMenuHolder(
@@ -23,8 +24,8 @@ class EventTile extends StatelessWidget {
         FocusedMenuItem(
           title: Row(
             children: [
-              (theEvent.getStatus()) ? Icon(Icons.pending) : Icon(Icons.done),
-              (theEvent.getStatus())
+              (theEvent.eventStatus) ? Icon(Icons.pending) : Icon(Icons.done),
+              (theEvent.eventStatus)
                   ? Text('Mark as pending')
                   : Text('Mark as done'),
             ],
@@ -58,11 +59,9 @@ class EventTile extends StatelessWidget {
             ),
             EventInfoTile(
               title: '${theEvent.title}',
-              startTime:
-                  '${theEvent.timeStart.hour}:${theEvent.timeStart.minute} ${(theEvent.timeStart.period == DayPeriod.am) ? 'am' : 'pm'}',
-              endTime:
-                  '${theEvent.timeEnds.hour}:${theEvent.timeEnds.minute} ${(theEvent.timeEnds.period == DayPeriod.am) ? 'am' : 'pm'}',
-              status: theEvent.getStatus(),
+              startTime: '${DateFormat('jm').format(theEvent.dateStart)}',
+              endTime: '${DateFormat('jm').format(theEvent.dateEnd)}',
+              status: theEvent.eventStatus,
             ),
           ],
         ),

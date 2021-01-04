@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
-import 'package:to_do_app/Screens/AddEventsTaskScreen.dart';
+import 'package:to_do_app/Screens/AddEventsScreen.dart';
 import 'package:to_do_app/Widgets/EventsList.dart';
 import 'package:to_do_app/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_app/models/DataEvents.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:to_do_app/models/Event.dart';
+import 'package:to_do_app/models/DataFirebase.dart';
 
 class EventsScreen extends StatelessWidget {
   static String eventsScreenId = 'eventsScreen';
@@ -14,7 +15,15 @@ class EventsScreen extends StatelessWidget {
       child: Container(
         padding:
             EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-        child: AddEventsSheet(),
+        child: AddEventsSheet(
+          functionality: (Event eventToadd) {
+            Provider.of<EventsController>(context, listen: false)
+                .addEvent(eventToadd);
+            Provider.of<FirebaseController>(context, listen: false)
+                .addEvent(eventToadd);
+            Navigator.pop(context);
+          },
+        ),
       ),
     );
   }
