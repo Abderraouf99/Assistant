@@ -7,6 +7,13 @@ import 'Event.dart';
 class FirebaseController extends ChangeNotifier {
   final _auth = FirebaseAuth.instance;
   final _firestoreReference = FirebaseFirestore.instance.collection('users');
+  bool _loading = false;
+
+  bool get loading => _loading;
+  void toggleLoading() {
+    _loading = !_loading;
+    notifyListeners();
+  }
 
   Future<List> fetchTasks() async {
     var task = await _firestoreReference

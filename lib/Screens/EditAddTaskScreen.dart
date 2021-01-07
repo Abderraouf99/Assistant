@@ -25,7 +25,7 @@ class EditAddTaskScreen extends StatelessWidget {
                     Text(
                       'Add a task',
                       style: TextStyle(
-                          color: Color(0xff8ADFCB),
+                          color: Color(0xff00ADB5),
                           fontSize: 30,
                           fontWeight: FontWeight.w400),
                     ),
@@ -43,7 +43,7 @@ class EditAddTaskScreen extends StatelessWidget {
                           Icons.add,
                           color: Colors.white,
                         ),
-                        backgroundColor: kmainColor,
+                        backgroundColor: Color(0xff00ADB5),
                       ),
                     )
                   ],

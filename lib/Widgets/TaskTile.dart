@@ -18,17 +18,28 @@ class TaskTile extends StatelessWidget {
     return FocusedMenuHolder(
       onPressed: () {},
       menuItems: menu,
-      child: ListTile(
-        title: Text(
-          theTask.getTask(),
-          style: TextStyle(
-            decoration: theTask.getState() ? TextDecoration.lineThrough : null,
-          ),
+      child: Container(
+        margin: EdgeInsets.symmetric(
+          vertical: 10,
         ),
-        trailing: Checkbox(
-          activeColor: Color(0xff8ADFCB),
-          value: theTask.getState(),
-          onChanged: checkBoxCallBack,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5),
+          color: (theTask.getState()) ? Color(0xffA7DBDD) : Color(0xffB1B3B5),
+        ),
+        child: ListTile(
+          title: Text(
+            theTask.getTask(),
+            style: TextStyle(
+              color: Color(0xff222831),
+              decoration:
+                  theTask.getState() ? TextDecoration.lineThrough : null,
+            ),
+          ),
+          trailing: Checkbox(
+            activeColor: Color(0xffA7DBDD),
+            value: theTask.getState(),
+            onChanged: checkBoxCallBack,
+          ),
         ),
       ),
     );

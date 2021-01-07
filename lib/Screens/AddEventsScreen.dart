@@ -127,11 +127,6 @@ class AddEventsSheet extends StatelessWidget {
                   date:
                       '${DateFormat('EEE,d/M,y').format(event.getEndDate())} at ${DateFormat('jm').format(event.getEndDate())}',
                 ),
-                CustomStartEndWidget(
-                  name: 'Reminder',
-                  onPressed: () {},
-                  date: 'NOW',
-                )
               ],
             ),
           ),

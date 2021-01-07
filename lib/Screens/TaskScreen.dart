@@ -11,7 +11,8 @@ import 'WelcomeScreenUpdated.dart';
 
 class TasksScreen extends StatelessWidget {
   static String taskScreenId = 'taskScreen';
-  Widget buildBottomSheet(BuildContext context) {
+
+  Widget _buildBottomSheet(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
         padding:
@@ -30,37 +31,26 @@ class TasksScreen extends StatelessWidget {
     );
   }
 
-  int getProgress(BuildContext context) {
-    double completed = Provider.of<ControllerTask>(context)
-        .getNumberOfTaskCompleted()
-        .toDouble();
-    double total =
-        Provider.of<ControllerTask>(context).getNumberOfTasks().toDouble();
-    if (total == 0) {
-      return 0;
-    }
-    double result = (completed / total) * 100;
-    return result.toInt();
-  }
-
   @override
   Widget build(BuildContext context) {
+    final currentUser =
+        Provider.of<FirebaseController>(context).getAuthInstance().currentUser;
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Color(0xff8ADFCB),
+        backgroundColor: Color(0xff00ADB5),
         elevation: 3,
         child: Icon(
           Icons.add,
-          color: Colors.white,
+          color: Color(0xffEEEEEE),
         ),
         onPressed: () async {
           await showModalBottomSheet(
               context: context,
-              builder: buildBottomSheet,
+              builder: _buildBottomSheet,
               isScrollControlled: true);
         },
       ),
-      backgroundColor: Color(0xff8ADFCB),
+      backgroundColor: Color(0xff00ADB5),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,48 +61,71 @@ class TasksScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.white,
-                        radius: 30,
-                        child: Icon(
-                          Icons.school,
-                          size: 30,
-                          color: Color(0xff8ADFCB),
-                        ),
-                      ),
-                      FlatButton(
-                        onPressed: () {
-                          Provider.of<FirebaseController>(context,
-                                  listen: false)
-                              .getAuthInstance()
-                              .signOut();
-                          Navigator.popAndPushNamed(
-                              context, WelcomeScreenNew.welcomeScreenID);
-                        },
-                        child: CircleAvatar(
-                          backgroundColor: Colors.white,
-                          radius: 30,
-                          child: Icon(
-                            Icons.logout,
-                            size: 30,
-                            color: Color(0xff8ADFCB),
+                  PopupMenuButton(
+                    offset: Offset(0, 110),
+                    itemBuilder: (context) => [
+                      PopupMenuItem(
+                        child: FlatButton(
+                          onPressed: () {},
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.nightlight_round,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text('Dark mode'),
+                            ],
                           ),
                         ),
                       ),
+                      PopupMenuItem(
+                        child: FlatButton(
+                          onPressed: () {
+                            Provider.of<FirebaseController>(context,
+                                    listen: false)
+                                .getAuthInstance()
+                                .signOut();
+                            Navigator.popAndPushNamed(
+                                context, WelcomeScreenNew.welcomeScreenID);
+                          },
+                          child: Row(
+                            children: [
+                              Icon(Icons.logout),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text('Log out'),
+                            ],
+                          ),
+                        ),
+                      )
                     ],
+                    child: Container(
+                      width: 60,
+                      height: 60,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          image: NetworkImage(currentUser.photoURL),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
                   ),
                   SizedBox(
                     height: 10,
                   ),
                   Text(
-                    'To-do',
+                    'Tasks',
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 40,
+                        fontSize: 30,
                         fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 20,
                   ),
                   Row(
                     children: [
@@ -128,16 +141,6 @@ class TasksScreen extends StatelessWidget {
                         style: kTaskPreviewTextStyle,
                       ),
                     ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  FAProgressBar(
-                    currentValue: getProgress(context),
-                    progressColor: Color(0xffA2EEDC),
-                    displayText: '% ',
-                    displayTextStyle:
-                        TextStyle(color: Colors.white, fontSize: 20),
                   ),
                 ],
               ),

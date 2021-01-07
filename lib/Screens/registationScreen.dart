@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/Screens/pageViewScreen.dart';
 import 'package:to_do_app/Widgets/GoogleSignInButton.dart';
+import 'package:to_do_app/constants.dart';
 
 import 'package:to_do_app/models/DataFirebase.dart';
 import 'package:to_do_app/models/SocialMediaLogin_RegistationHandler.dart';
@@ -36,7 +37,7 @@ class RegistrationScreen extends StatelessWidget {
               children: [
                 Flexible(
                   child: Text(
-                    'Welcome to your student companion',
+                    'Create your account',
                     style: TextStyle(
                       fontSize: 36,
                       fontFamily: 'Pacifico',
@@ -47,70 +48,28 @@ class RegistrationScreen extends StatelessWidget {
                   height: 40,
                 ),
                 Opacity(
-                  opacity: 0.4,
+                  opacity: 0.7,
                   child: TextField(
                     onChanged: (value) {
                       _email = value;
                     },
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Color(0xffEEEEEE),
-                      hintText: 'Email',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(5),
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                        ),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(5),
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                        ),
-                      ),
-                    ),
+                    decoration:
+                        kLogin_registerTextFields.copyWith(hintText: 'Email'),
                   ),
                 ),
                 SizedBox(
                   height: 20,
                 ),
                 Opacity(
-                  opacity: 0.4,
+                  opacity: 0.7,
                   child: TextField(
                     keyboardType: TextInputType.emailAddress,
                     obscureText: true,
                     onChanged: (value) {
                       _password = value;
                     },
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Color(0xffEEEEEE),
-                      hintText: 'Password',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(5),
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                        ),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(5),
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                        ),
-                      ),
-                    ),
+                    decoration: kLogin_registerTextFields.copyWith(
+                        hintText: 'Password'),
                   ),
                 ),
                 SizedBox(
