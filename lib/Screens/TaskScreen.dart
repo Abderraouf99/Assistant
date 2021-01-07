@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/Screens/EditAddTaskScreen.dart';
-import 'package:to_do_app/Screens/WelcomeScreen.dart';
 import 'package:to_do_app/Widgets/TaskList.dart';
 import 'package:to_do_app/constants.dart';
 import 'package:to_do_app/models/DataFirebase.dart';
@@ -8,6 +7,7 @@ import 'package:to_do_app/models/DataTask.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_app/models/Tasks.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
+import 'WelcomeScreenUpdated.dart';
 
 class TasksScreen extends StatelessWidget {
   static String taskScreenId = 'taskScreen';
@@ -90,7 +90,7 @@ class TasksScreen extends StatelessWidget {
                               .getAuthInstance()
                               .signOut();
                           Navigator.popAndPushNamed(
-                              context, WelcomeScreen.welcomeScreenID);
+                              context, WelcomeScreenNew.welcomeScreenID);
                         },
                         child: CircleAvatar(
                           backgroundColor: Colors.white,

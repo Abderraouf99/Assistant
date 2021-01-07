@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:to_do_app/Screens/pageViewScreen.dart';
 import 'package:to_do_app/Widgets/CustomButtonWidget.dart';
 import 'package:to_do_app/Widgets/GoogleSignInButton.dart';
-import 'package:to_do_app/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:to_do_app/models/DataEvents.dart';
 import 'package:to_do_app/models/DataFirebase.dart';
@@ -17,94 +16,157 @@ class LoginScreen extends StatelessWidget {
     String _email;
     String _password;
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
+      resizeToAvoidBottomInset: false,
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/background.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: SafeArea(
           child: Padding(
             padding: EdgeInsets.all(20),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Hero(
-                  tag: 'StudentTag',
-                  child: Container(
-                    child: Text(
-                      '👨‍🎓️',
-                      style: TextStyle(fontSize: 80),
+                Flexible(
+                  child: Text(
+                    'Welcome to your student companion',
+                    style: TextStyle(
+                      fontSize: 36,
+                      fontFamily: 'Pacifico',
                     ),
                   ),
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 70,
                 ),
-                TextField(
-                  onChanged: (value) {
-                    _email = value;
-                  },
-                  textAlign: TextAlign.center,
-                  decoration: kTextFieldDecoration.copyWith(
-                      hintText: 'Enter your email address'),
+                Opacity(
+                  opacity: 0.4,
+                  child: TextField(
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Color(0xffEEEEEE),
+                      hintText: 'Email',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(5),
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.transparent,
+                        ),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(5),
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.transparent,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
                 SizedBox(
                   height: 20,
                 ),
-                TextField(
-                  onChanged: (value) {
-                    _password = value;
-                  },
-                  textAlign: TextAlign.center,
-                  obscureText: true,
-                  decoration: kTextFieldDecoration.copyWith(
-                      hintText: 'Enter you password'),
+                Opacity(
+                  opacity: 0.4,
+                  child: TextField(
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Color(0xffEEEEEE),
+                      hintText: 'Password',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(5),
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.transparent,
+                        ),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(5),
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.transparent,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
                 SizedBox(
                   height: 20,
                 ),
                 CustomButton(
-                    backgroundColor: Color(0xff8ADFCB),
-                    onTap: () async {
-                      try {
-                        var logIn = await Provider.of<FirebaseController>(
+                  backgroundColor: Color(0xff222831),
+                  onTap: () async {
+                    //TODO : add the functionnality of the login here
+                    try {
+                      var logIn = await Provider.of<FirebaseController>(context,
+                              listen: false)
+                          .getAuthInstance()
+                          .signInWithEmailAndPassword(
+                              email: _email, password: _password);
+                      if (logIn != null) {
+                        Provider.of<ControllerTask>(context, listen: false)
+                            .setTasks(
+                          await Provider.of<FirebaseController>(context,
+                                  listen: false)
+                              .fetchTasks(),
+                        );
+                        Provider.of<EventsController>(context, listen: false)
+                            .events = await Provider.of<FirebaseController>(
                                 context,
                                 listen: false)
-                            .getAuthInstance()
-                            .signInWithEmailAndPassword(
-                                email: _email, password: _password);
-                        if (logIn != null) {
-                          //TODO : fetch the data availble online
-                          Provider.of<ControllerTask>(context, listen: false)
-                              .setTasks(
-                            await Provider.of<FirebaseController>(context,
-                                    listen: false)
-                                .fetchTasks(),
-                          );
-                          Provider.of<EventsController>(context, listen: false)
-                              .events = await Provider.of<FirebaseController>(
-                                  context,
-                                  listen: false)
-                              .fetchEvents();
-                          Navigator.pushNamed(
-                              context, PageViewNavigation.pageViewNavigationID);
-                        }
-                      } on FirebaseAuthException catch (e) {
-                        print(e);
+                            .fetchEvents();
+                        Navigator.pushNamed(
+                            context, PageViewNavigation.pageViewNavigationID);
                       }
-                    },
-                    name: 'Log in'),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  'Other log in option',
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Colors.grey,
-                  ),
+                    } on FirebaseAuthException catch (e) {
+                      print(e);
+                    }
+                  },
+                  name: 'Login',
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 15,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(
+                        right: 10,
+                      ),
+                      height: 2,
+                      width: 100,
+                      color: Color(0xff222831),
+                    ),
+                    Text(
+                      'OR',
+                      style: TextStyle(fontSize: 18, color: Color(0xff222831)),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(
+                        left: 10,
+                      ),
+                      height: 2,
+                      width: 100,
+                      color: Color(0xff222831),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 35,
                 ),
                 GoogleButton(
-                  type: 'Sign in with Google',
                   onTap: () async {
                     try {
                       var userCredentials = await SocialMediaHandler()

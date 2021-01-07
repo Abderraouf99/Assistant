@@ -128,7 +128,6 @@ class RegistrationScreen extends StatelessWidget {
                   height: 10,
                 ),
                 GoogleButton(
-                  type: 'Sign up with Google',
                   onTap: () async {
                     try {
                       var userCredentials = await SocialMediaHandler()

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:to_do_app/Screens/EventsScreen.dart';
 import 'package:to_do_app/Screens/TaskScreen.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do_app/Screens/WelcomeScreen.dart';
+import 'package:to_do_app/Screens/WelcomeScreenUpdated.dart';
 import 'package:to_do_app/Screens/loginScreen.dart';
 import 'package:to_do_app/Screens/pageViewScreen.dart';
 import 'package:to_do_app/Screens/registationScreen.dart';
@@ -15,7 +15,9 @@ import 'package:firebase_core/firebase_core.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(
+    MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -52,9 +54,9 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        initialRoute: WelcomeScreen.welcomeScreenID,
+        initialRoute: WelcomeScreenNew.welcomeScreenID,
         routes: {
-          WelcomeScreen.welcomeScreenID: (context) => WelcomeScreen(),
+          WelcomeScreenNew.welcomeScreenID: (context) => WelcomeScreenNew(),
           LoginScreen.loginScreenId: (context) => LoginScreen(),
           RegistrationScreen.registrationScreenID: (context) =>
               RegistrationScreen(),
