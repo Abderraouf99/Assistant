@@ -6,7 +6,6 @@ import 'package:to_do_app/models/DataFirebase.dart';
 import 'package:to_do_app/models/DataTask.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_app/models/Tasks.dart';
-import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 import 'WelcomeScreenUpdated.dart';
 
 class TasksScreen extends StatelessWidget {
@@ -66,7 +65,9 @@ class TasksScreen extends StatelessWidget {
                     itemBuilder: (context) => [
                       PopupMenuItem(
                         child: FlatButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            //TODO: add dark mode support
+                          },
                           child: Row(
                             children: [
                               Icon(

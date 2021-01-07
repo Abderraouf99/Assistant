@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 import 'package:to_do_app/Screens/AddEventsScreen.dart';
 import 'package:to_do_app/Widgets/EventsList.dart';
 import 'package:to_do_app/constants.dart';

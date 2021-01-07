@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/Screens/pageViewScreen.dart';
-import 'package:to_do_app/Widgets/GoogleSignInButton.dart';
 import 'package:to_do_app/constants.dart';
 
 import 'package:to_do_app/models/DataFirebase.dart';
-import 'package:to_do_app/models/SocialMediaLogin_RegistationHandler.dart';
 import 'package:to_do_app/Widgets/CustomButtonWidget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
@@ -18,7 +16,6 @@ class RegistrationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     String _email;
     String _password;
-    String _name;
 
     return Scaffold(
       resizeToAvoidBottomInset: false,

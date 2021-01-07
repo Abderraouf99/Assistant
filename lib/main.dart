@@ -36,6 +36,7 @@ class MyApp extends StatelessWidget {
         )
       ],
       child: MaterialApp(
+        //TODO: look at the themes and make a better one
         theme: ThemeData(
           colorScheme: ColorScheme.light().copyWith(
             primary: kmainColor,
