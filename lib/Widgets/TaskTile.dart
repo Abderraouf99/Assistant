@@ -24,7 +24,7 @@ class TaskTile extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
-          color: (theTask.getState()) ? Color(0xffA7DBDD) : Color(0xffB1B3B5),
+          color: (theTask.getState()) ? Color(0xffA7DBDD) : Colors.transparent,
         ),
         child: ListTile(
           title: Text(
