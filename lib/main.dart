@@ -11,9 +11,17 @@ import 'package:to_do_app/models/DataEvents.dart';
 import 'package:to_do_app/models/DataFirebase.dart';
 import 'package:to_do_app/models/DataTask.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  var initializeSettingAndroid = AndroidInitializationSettings('appicon');
+  var initSettings = InitializationSettings(android: initializeSettingAndroid);
+  await flutterLocalNotificationsPlugin.initialize(initSettings);
+
   await Firebase.initializeApp();
   runApp(
     MyApp(),
@@ -36,6 +44,29 @@ class MyApp extends StatelessWidget {
         )
       ],
       child: MaterialApp(
+        themeMode: ThemeMode.system,
+        darkTheme: ThemeData(
+          brightness: Brightness.dark,
+          highlightColor: Colors.grey[500],
+          hintColor: Color(0xff202040),
+          primaryColor: Color(0xff162447),
+          textButtonTheme: TextButtonThemeData(
+            style: ButtonStyle(
+              foregroundColor: MaterialStateProperty.all<Color>(
+                Color(0xffff6363),
+              ),
+            ),
+          ),
+          accentColor: Color(0xffEEEEEE),
+          scaffoldBackgroundColor: Color(0xff1F4068),
+          floatingActionButtonTheme: FloatingActionButtonThemeData(
+            backgroundColor: Color(0xff1F4068),
+          ),
+          popupMenuTheme: PopupMenuThemeData(
+            color: Color(0xff29335F),
+            elevation: 3,
+          ),
+        ),
         //TODO: look at the themes and make a better one
         theme: ThemeData(
           colorScheme: ColorScheme.light().copyWith(

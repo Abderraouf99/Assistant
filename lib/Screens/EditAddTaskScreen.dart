@@ -16,7 +16,8 @@ class EditAddTaskScreen extends StatelessWidget {
           color: Color(0xff757575),
           child: Container(
             padding: EdgeInsets.all(20),
-            decoration: kRoundedContainerDecorator,
+            decoration: kRoundedContainerDecorator.copyWith(
+                color: Theme.of(context).primaryColor),
             child: Column(
               children: [
                 Row(
@@ -25,9 +26,10 @@ class EditAddTaskScreen extends StatelessWidget {
                     Text(
                       'Add a task',
                       style: TextStyle(
-                          color: Color(0xff00ADB5),
-                          fontSize: 30,
-                          fontWeight: FontWeight.w400),
+                        color: Color(0xffffbd69),
+                        fontSize: 30,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                     InkWell(
                       onTap: () {
@@ -43,7 +45,7 @@ class EditAddTaskScreen extends StatelessWidget {
                           Icons.add,
                           color: Colors.white,
                         ),
-                        backgroundColor: Color(0xff00ADB5),
+                        backgroundColor: Color(0xffffbd69),
                       ),
                     )
                   ],
@@ -56,7 +58,13 @@ class EditAddTaskScreen extends StatelessWidget {
                   onChanged: (value) {
                     task.setTask(value);
                   },
-                  decoration: kTextFieldDecoration.copyWith(hintText: 'Task'),
+                  decoration: kTextFieldDecoration.copyWith(
+                    hintText: 'Task',
+                    focusColor: Color(0xffffbd69),
+                    hintStyle: TextStyle(
+                      color: Color(0xffEEEEEE),
+                    ),
+                  ),
                 ),
                 SizedBox(
                   height: 20,

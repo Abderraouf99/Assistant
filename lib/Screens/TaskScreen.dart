@@ -36,7 +36,6 @@ class TasksScreen extends StatelessWidget {
         Provider.of<FirebaseController>(context).getAuthInstance().currentUser;
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Color(0xff00ADB5),
         elevation: 3,
         child: Icon(
           Icons.add,
@@ -49,7 +48,6 @@ class TasksScreen extends StatelessWidget {
               isScrollControlled: true);
         },
       ),
-      backgroundColor: Color(0xff00ADB5),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,9 +119,11 @@ class TasksScreen extends StatelessWidget {
                   Text(
                     'Tasks',
                     style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold),
+                      fontFamily: 'Pacifico',
+                      color: Color(0xffEEEEEE),
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   SizedBox(
                     height: 20,
@@ -150,7 +150,9 @@ class TasksScreen extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: TasksList(),
-                decoration: kRoundedContainerDecorator,
+                decoration: kRoundedContainerDecorator.copyWith(
+                  color: Theme.of(context).primaryColor,
+                ),
               ),
             ),
           ],

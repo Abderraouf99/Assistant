@@ -17,9 +17,7 @@ class EventInfoTile extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         decoration: BoxDecoration(
-          border: Border.all(
-              color: (status) ? Color(0xffEEEEEE) : Color(0xff222831)),
-          color: (status) ? Color(0xffA7DBDD) : Colors.transparent,
+          color: (status) ? Color(0xffffbd69) : Color(0xffff6363),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Column(
@@ -31,12 +29,12 @@ class EventInfoTile extends StatelessWidget {
                 Text(
                   title,
                   style: kEventTextStyle.copyWith(
-                    color: (status) ? Color(0xffEEEEEE) : Color(0xff222831),
+                    color: Color(0xffEEEEEE),
                   ),
                 ),
                 Icon(
                   (status) ? Icons.done : Icons.pending,
-                  color: (status) ? Color(0xffEEEEEE) : Color(0xff222831),
+                  color: Color(0xffEEEEEE),
                 ),
               ],
             ),
@@ -46,13 +44,13 @@ class EventInfoTile extends StatelessWidget {
                 Text(
                   'Starts at: $startTime ',
                   style: kEventTextStyle.copyWith(
-                    color: (status) ? Color(0xffEEEEEE) : Color(0xff222831),
+                    color: Color(0xffEEEEEE),
                   ),
                 ),
                 Text(
                   'Ends at: $endTime ',
                   style: kEventTextStyle.copyWith(
-                    color: (status) ? Color(0xffEEEEEE) : Color(0xff222831),
+                    color: Color(0xffEEEEEE),
                   ),
                 ),
               ],

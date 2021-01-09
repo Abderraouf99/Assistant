@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 const kRoundedContainerDecorator = BoxDecoration(
   color: Color(0xffEEEEEE),
   borderRadius: BorderRadius.only(
-    topLeft: Radius.circular(10),
-    topRight: Radius.circular(10),
+    topLeft: Radius.circular(5),
+    topRight: Radius.circular(5),
   ),
 );
 
@@ -14,7 +14,7 @@ const kTaskPreviewTextStyle = TextStyle(
 );
 const kTextFieldDecoration = InputDecoration(
   hintText: '',
-  focusColor: kmainColor,
+  focusColor: Color(0xffffbd69),
   border: OutlineInputBorder(
     borderRadius: BorderRadius.all(
       Radius.circular(10),
@@ -30,7 +30,7 @@ const kTextFieldDecoration = InputDecoration(
   ),
   focusedBorder: OutlineInputBorder(
     borderSide: BorderSide(
-      color: kmainColor,
+      color: Color(0xffffbd69),
     ),
     borderRadius: BorderRadius.all(
       Radius.circular(10),
@@ -41,7 +41,6 @@ const kTextFieldDecoration = InputDecoration(
 const kmainColor = Color(0xff00ADB5);
 
 const kEventTextStyle = TextStyle(
-  color: Colors.black,
   fontSize: 15,
   fontWeight: FontWeight.bold,
 );

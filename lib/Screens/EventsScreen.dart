@@ -37,14 +37,12 @@ class EventsScreen extends StatelessWidget {
               builder: _buildEventsBottomSheet,
               isScrollControlled: true);
         },
-        backgroundColor: kmainColor,
         elevation: 3,
         child: Icon(
           Icons.add,
           color: Color(0xffEEEEEE),
         ),
       ),
-      backgroundColor: kmainColor,
       body: SafeArea(
         child: Column(
           children: [
@@ -64,8 +62,9 @@ class EventsScreen extends StatelessWidget {
                   Text(
                     'Events',
                     style: TextStyle(
+                      fontFamily: 'Pacifico',
                       color: Color(0xffEEEEEE),
-                      fontSize: 40,
+                      fontSize: 37,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -96,7 +95,9 @@ class EventsScreen extends StatelessWidget {
             Expanded(
               child: Container(
                 child: EventsList(),
-                decoration: kRoundedContainerDecorator,
+                decoration: kRoundedContainerDecorator.copyWith(
+                  color: Theme.of(context).primaryColor,
+                ),
               ),
             ),
           ],

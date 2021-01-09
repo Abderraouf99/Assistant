@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:focused_menu/modals.dart';
 import 'package:to_do_app/models/DataFirebase.dart';
 import 'TaskTile.dart';
 import 'package:provider/provider.dart';
@@ -11,29 +10,34 @@ class TasksList extends StatelessWidget {
       builder: (context, taskList, child) {
         return ListView.builder(
           itemBuilder: (context, index) {
-            return TaskTile(
-              menu: [
-                FocusedMenuItem(
-                  title: Row(
-                    children: [
-                      Icon(Icons.delete),
-                      Text('Delete'),
-                    ],
-                  ),
-                  onPressed: () {
-                    taskList.deleteTask(index);
-                    Provider.of<FirebaseController>(context, listen: false)
-                        .deleteTask(index);
-                  },
+            return Dismissible(
+              background: Container(
+                margin: EdgeInsets.symmetric(vertical: 10, horizontal: 0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: Colors.red,
                 ),
-              ],
-              longPressToDelete: () {},
-              theTask: taskList.getTasks()[index],
-              checkBoxCallBack: (checkBoxState) {
-                taskList.toggleState(index);
+                child: Icon(
+                  Icons.delete,
+                  color: Colors.white,
+                ),
+              ),
+              key: UniqueKey(),
+              child: TaskTile(
+                theTask: taskList.getTasks()[index],
+                checkBoxCallBack: (checkBoxState) {
+                  taskList.toggleState(index);
+                  Provider.of<FirebaseController>(context, listen: false)
+                      .toggleStatusTask(
+                    index,
+                    taskList.getTasks()[index].getState(),
+                  );
+                },
+              ),
+              onDismissed: (direction) {
+                taskList.deleteTask(index);
                 Provider.of<FirebaseController>(context, listen: false)
-                    .toggleStatusTask(
-                        index, taskList.getTasks()[index].getState());
+                    .deleteTask(index);
               },
             );
           },
