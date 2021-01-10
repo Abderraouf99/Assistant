@@ -1,37 +1,41 @@
 import 'package:flutter/material.dart';
 
 class GoogleButton extends StatelessWidget {
-  final String type;
   final Function onTap;
-  GoogleButton({@required this.type, @required this.onTap});
+  GoogleButton({@required this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    return OutlineButton(
-      splashColor: Colors.grey,
+    return FlatButton(
       onPressed: onTap,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
-      highlightElevation: 0,
-      borderSide: BorderSide(color: Colors.grey),
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Image(image: AssetImage("assets/googleLogo.png"), height: 35.0),
-            Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Text(
-                type,
+      child: Container(
+        height: 60,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(
+            Radius.circular(5),
+          ),
+        ),
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Image(
+                image: AssetImage('assets/googleLogo.png'),
+                height: 35,
+              ),
+              Text(
+                'Sign in with Google',
                 style: TextStyle(
+                  color: Color(0xff222831),
+                  fontSize: 24,
                   fontFamily: 'Roboto',
-                  fontSize: 20,
-                  color: Colors.grey,
                 ),
               ),
-            )
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:to_do_app/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_app/models/DataEvents.dart';
 import 'package:to_do_app/Widgets/CustomStartEndWidget.dart';
-import 'package:to_do_app/models/DataFirebase.dart';
 import 'package:to_do_app/models/Event.dart';
 import 'package:intl/intl.dart';
+import 'package:to_do_app/main.dart';
 
 class AddEventsSheet extends StatelessWidget {
   final Function functionality;
@@ -20,7 +21,9 @@ class AddEventsSheet extends StatelessWidget {
           color: Color(0xff757575),
           child: Container(
             padding: EdgeInsets.all(20),
-            decoration: kRoundedContainerDecorator,
+            decoration: kRoundedContainerDecorator.copyWith(
+              color: Theme.of(context).primaryColor,
+            ),
             child: Column(
               children: [
                 Row(
@@ -29,7 +32,7 @@ class AddEventsSheet extends StatelessWidget {
                     Text(
                       'Add an event',
                       style: TextStyle(
-                        color: kmainColor,
+                        color: Theme.of(context).primaryColorDark,
                         fontSize: 30,
                         fontWeight: FontWeight.w400,
                       ),
@@ -43,13 +46,14 @@ class AddEventsSheet extends StatelessWidget {
                           event.tempEvent.toBereminded,
                         );
                         functionality(newEvent);
+                        _createNotification(event.getStartDate());
                       },
                       child: CircleAvatar(
                         child: Icon(
                           Icons.add,
-                          color: Colors.white,
+                          color: Color(0xffEEEEEE),
                         ),
-                        backgroundColor: kmainColor,
+                        backgroundColor: Theme.of(context).primaryColorDark,
                       ),
                     ),
                   ],
@@ -62,7 +66,19 @@ class AddEventsSheet extends StatelessWidget {
                   onChanged: (value) {
                     event.setTitle(value);
                   },
-                  decoration: kTextFieldDecoration.copyWith(hintText: 'Title'),
+                  decoration: (Theme.of(context).brightness == Brightness.dark)
+                      ? kTextFieldDecoration.copyWith(
+                          hintText: 'Title',
+                          hintStyle: TextStyle(
+                            color: Color(0xffEEEEEE),
+                          ),
+                        )
+                      : kTextFieldDecoration.copyWith(
+                          hintText: 'Title',
+                          hintStyle: TextStyle(
+                            color: Color(0xff222831),
+                          ),
+                        ),
                 ),
                 SizedBox(
                   height: 10,
@@ -128,11 +144,6 @@ class AddEventsSheet extends StatelessWidget {
                   date:
                       '${DateFormat('EEE,d/M,y').format(event.getEndDate())} at ${DateFormat('jm').format(event.getEndDate())}',
                 ),
-                CustomStartEndWidget(
-                  name: 'Reminder',
-                  onPressed: () {},
-                  date: 'NOW',
-                )
               ],
             ),
           ),
@@ -140,4 +151,40 @@ class AddEventsSheet extends StatelessWidget {
       );
     });
   }
+}
+
+void _createNotification(DateTime time) async {
+  var scheduledNotificationTime = time.subtract(
+    Duration(days: 1),
+  );
+
+  var scheduledNotificationTime2 = time.subtract(
+    Duration(minutes: 30),
+  );
+  var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+    'reminderNotification',
+    'reminderNotification',
+    'channelForreminderNotification',
+    icon: 'appicon',
+    importance: Importance.high,
+    priority: Priority.high,
+    showWhen: false,
+  );
+
+  var platformSpecifics =
+      NotificationDetails(android: androidPlatformChannelSpecifics);
+  await flutterLocalNotificationsPlugin.schedule(
+      0,
+      'You have an event coming',
+      'Get ready you have an event tomorrow',
+      scheduledNotificationTime,
+      platformSpecifics,
+      androidAllowWhileIdle: true);
+  await flutterLocalNotificationsPlugin.schedule(
+      0,
+      'You have an event coming',
+      'Get ready you have an event in 30 minutes',
+      scheduledNotificationTime2,
+      platformSpecifics,
+      androidAllowWhileIdle: true);
 }

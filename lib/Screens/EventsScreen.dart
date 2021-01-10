@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 import 'package:to_do_app/Screens/AddEventsScreen.dart';
 import 'package:to_do_app/Widgets/EventsList.dart';
 import 'package:to_do_app/constants.dart';
@@ -10,7 +9,7 @@ import 'package:to_do_app/models/DataFirebase.dart';
 
 class EventsScreen extends StatelessWidget {
   static String eventsScreenId = 'eventsScreen';
-  Widget buildEventsBottomSheet(BuildContext context) {
+  Widget _buildEventsBottomSheet(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
         padding:
@@ -28,17 +27,6 @@ class EventsScreen extends StatelessWidget {
     );
   }
 
-  int calculateProgressBarValue(BuildContext context) {
-    int total = Provider.of<EventsController>(context).events.length;
-    if (total == 0) {
-      return 0;
-    }
-    int completed =
-        Provider.of<EventsController>(context).findNumberOfCompletedEvents();
-    double ratio = (completed.toDouble() / total.toDouble()) * 100;
-    return ratio.toInt();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,17 +34,15 @@ class EventsScreen extends StatelessWidget {
         onPressed: () {
           showModalBottomSheet(
               context: context,
-              builder: buildEventsBottomSheet,
+              builder: _buildEventsBottomSheet,
               isScrollControlled: true);
         },
-        backgroundColor: Color(0xff8ADFCB),
         elevation: 3,
         child: Icon(
           Icons.add,
-          color: Colors.white,
+          color: Color(0xffEEEEEE),
         ),
       ),
-      backgroundColor: kmainColor,
       body: SafeArea(
         child: Column(
           children: [
@@ -67,25 +53,23 @@ class EventsScreen extends StatelessWidget {
                 //mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.white,
-                    radius: 30,
-                    child: Icon(
-                      Icons.schedule,
-                      color: kmainColor,
-                      size: 30,
-                    ),
-                  ),
                   SizedBox(
                     height: 10,
+                  ),
+                  SizedBox(
+                    height: 28,
                   ),
                   Text(
                     'Events',
                     style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 40,
+                      fontFamily: 'Pacifico',
+                      color: Color(0xffEEEEEE),
+                      fontSize: 37,
                       fontWeight: FontWeight.bold,
                     ),
+                  ),
+                  SizedBox(
+                    height: 30,
                   ),
                   Row(
                     children: [
@@ -105,20 +89,15 @@ class EventsScreen extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                  FAProgressBar(
-                    currentValue: calculateProgressBarValue(context),
-                    progressColor: Color(0xffA2EEDC),
-                    displayText: '% ',
-                    displayTextStyle:
-                        TextStyle(color: Colors.white, fontSize: 20),
-                  ),
                 ],
               ),
             ),
             Expanded(
               child: Container(
                 child: EventsList(),
-                decoration: kRoundedContainerDecorator,
+                decoration: kRoundedContainerDecorator.copyWith(
+                  color: Theme.of(context).primaryColor,
+                ),
               ),
             ),
           ],

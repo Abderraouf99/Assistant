@@ -16,7 +16,8 @@ class EditAddTaskScreen extends StatelessWidget {
           color: Color(0xff757575),
           child: Container(
             padding: EdgeInsets.all(20),
-            decoration: kRoundedContainerDecorator,
+            decoration: kRoundedContainerDecorator.copyWith(
+                color: Theme.of(context).primaryColor),
             child: Column(
               children: [
                 Row(
@@ -25,9 +26,10 @@ class EditAddTaskScreen extends StatelessWidget {
                     Text(
                       'Add a task',
                       style: TextStyle(
-                          color: Color(0xff8ADFCB),
-                          fontSize: 30,
-                          fontWeight: FontWeight.w400),
+                        color: Theme.of(context).primaryColorDark,
+                        fontSize: 30,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                     InkWell(
                       onTap: () {
@@ -43,7 +45,7 @@ class EditAddTaskScreen extends StatelessWidget {
                           Icons.add,
                           color: Colors.white,
                         ),
-                        backgroundColor: kmainColor,
+                        backgroundColor: Theme.of(context).primaryColorDark,
                       ),
                     )
                   ],
@@ -56,7 +58,18 @@ class EditAddTaskScreen extends StatelessWidget {
                   onChanged: (value) {
                     task.setTask(value);
                   },
-                  decoration: kTextFieldDecoration.copyWith(hintText: 'Task'),
+                  decoration: (Theme.of(context).brightness == Brightness.dark)
+                      ? kTextFieldDecoration.copyWith(
+                          hintText: 'Task',
+                          focusColor: Color(0xffffbd69),
+                          hintStyle: TextStyle(
+                            color: Color(0xffEEEEEE),
+                          ),
+                        )
+                      : kTextFieldDecoration.copyWith(
+                          hintText: 'Task',
+                          focusColor: Color(0xff222831),
+                        ),
                 ),
                 SizedBox(
                   height: 20,

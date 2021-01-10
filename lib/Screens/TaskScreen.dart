@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/Screens/EditAddTaskScreen.dart';
-import 'package:to_do_app/Screens/WelcomeScreen.dart';
+import 'package:to_do_app/Screens/EventsScreen.dart';
 import 'package:to_do_app/Widgets/TaskList.dart';
 import 'package:to_do_app/constants.dart';
 import 'package:to_do_app/models/DataFirebase.dart';
 import 'package:to_do_app/models/DataTask.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_app/models/Tasks.dart';
-import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
+import 'WelcomeScreenUpdated.dart';
 
 class TasksScreen extends StatelessWidget {
   static String taskScreenId = 'taskScreen';
-  Widget buildBottomSheet(BuildContext context) {
+
+  Widget _buildBottomSheet(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
         padding:
@@ -30,37 +31,25 @@ class TasksScreen extends StatelessWidget {
     );
   }
 
-  int getProgress(BuildContext context) {
-    double completed = Provider.of<ControllerTask>(context)
-        .getNumberOfTaskCompleted()
-        .toDouble();
-    double total =
-        Provider.of<ControllerTask>(context).getNumberOfTasks().toDouble();
-    if (total == 0) {
-      return 0;
-    }
-    double result = (completed / total) * 100;
-    return result.toInt();
-  }
-
   @override
   Widget build(BuildContext context) {
+    final currentUser =
+        Provider.of<FirebaseController>(context).getAuthInstance().currentUser;
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Color(0xff8ADFCB),
         elevation: 3,
         child: Icon(
           Icons.add,
-          color: Colors.white,
+          color: Color(0xffEEEEEE),
         ),
         onPressed: () async {
           await showModalBottomSheet(
               context: context,
-              builder: buildBottomSheet,
+              builder: _buildBottomSheet,
               isScrollControlled: true);
         },
       ),
-      backgroundColor: Color(0xff8ADFCB),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,48 +60,61 @@ class TasksScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.white,
-                        radius: 30,
-                        child: Icon(
-                          Icons.school,
-                          size: 30,
-                          color: Color(0xff8ADFCB),
-                        ),
-                      ),
-                      FlatButton(
-                        onPressed: () {
-                          Provider.of<FirebaseController>(context,
-                                  listen: false)
-                              .getAuthInstance()
-                              .signOut();
-                          Navigator.popAndPushNamed(
-                              context, WelcomeScreen.welcomeScreenID);
-                        },
-                        child: CircleAvatar(
-                          backgroundColor: Colors.white,
-                          radius: 30,
-                          child: Icon(
-                            Icons.logout,
-                            size: 30,
-                            color: Color(0xff8ADFCB),
+                  PopupMenuButton(
+                    offset: Offset(0, 110),
+                    itemBuilder: (context) => [
+                      PopupMenuItem(
+                        child: FlatButton(
+                          onPressed: () {
+                            Provider.of<FirebaseController>(context,
+                                    listen: false)
+                                .getAuthInstance()
+                                .signOut();
+                            Navigator.popAndPushNamed(
+                                context, WelcomeScreenNew.welcomeScreenID);
+                          },
+                          child: Row(
+                            children: [
+                              Icon(Icons.logout),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text('Log out'),
+                            ],
                           ),
                         ),
-                      ),
+                      )
                     ],
+                    child: Container(
+                      width: 60,
+                      height: 60,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          image: (currentUser.photoURL != null)
+                              ? NetworkImage(currentUser.photoURL)
+                              : AssetImage(
+                                  'assets/avataaars.png',
+                                ),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
                   ),
                   SizedBox(
                     height: 10,
                   ),
                   Text(
-                    'To-do',
+                    'Tasks',
                     style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold),
+                      fontFamily: 'Pacifico',
+                      color: Color(0xffEEEEEE),
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
                   ),
                   Row(
                     children: [
@@ -129,16 +131,6 @@ class TasksScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  FAProgressBar(
-                    currentValue: getProgress(context),
-                    progressColor: Color(0xffA2EEDC),
-                    displayText: '% ',
-                    displayTextStyle:
-                        TextStyle(color: Colors.white, fontSize: 20),
-                  ),
                 ],
               ),
             ),
@@ -146,7 +138,9 @@ class TasksScreen extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: TasksList(),
-                decoration: kRoundedContainerDecorator,
+                decoration: kRoundedContainerDecorator.copyWith(
+                  color: Theme.of(context).primaryColor,
+                ),
               ),
             ),
           ],

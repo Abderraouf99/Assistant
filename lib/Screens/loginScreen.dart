@@ -3,66 +3,87 @@ import 'package:provider/provider.dart';
 import 'package:to_do_app/Screens/pageViewScreen.dart';
 import 'package:to_do_app/Widgets/CustomButtonWidget.dart';
 import 'package:to_do_app/Widgets/GoogleSignInButton.dart';
-import 'package:to_do_app/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:to_do_app/constants.dart';
 import 'package:to_do_app/models/DataEvents.dart';
 import 'package:to_do_app/models/DataFirebase.dart';
 import 'package:to_do_app/models/DataTask.dart';
 import 'package:to_do_app/models/SocialMediaLogin_RegistationHandler.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class LoginScreen extends StatelessWidget {
   static String loginScreenId = 'loginScreen';
+  String _email;
+  String _password;
   @override
   Widget build(BuildContext context) {
-    String _email;
-    String _password;
+    bool loading =
+        Provider.of<FirebaseController>(context, listen: false).loading;
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Hero(
-                  tag: 'StudentTag',
-                  child: Container(
+      resizeToAvoidBottomInset: false,
+      body: ModalProgressHUD(
+        color: Color(0xff222831),
+        inAsyncCall: loading,
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/background.jpg'),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: SafeArea(
+            child: Padding(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Flexible(
                     child: Text(
-                      '👨‍🎓️',
-                      style: TextStyle(fontSize: 80),
+                      'Log in to your account',
+                      style: TextStyle(
+                        fontSize: 36,
+                        fontFamily: 'Pacifico',
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                TextField(
-                  onChanged: (value) {
-                    _email = value;
-                  },
-                  textAlign: TextAlign.center,
-                  decoration: kTextFieldDecoration.copyWith(
-                      hintText: 'Enter your email address'),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                TextField(
-                  onChanged: (value) {
-                    _password = value;
-                  },
-                  textAlign: TextAlign.center,
-                  obscureText: true,
-                  decoration: kTextFieldDecoration.copyWith(
-                      hintText: 'Enter you password'),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                CustomButton(
-                    backgroundColor: Color(0xff8ADFCB),
+                  SizedBox(
+                    height: 70,
+                  ),
+                  Opacity(
+                    opacity: 0.7,
+                    child: TextField(
+                      onChanged: (value) {
+                        _email = value;
+                      },
+                      decoration: kLogin_registerTextFields.copyWith(
+                        hintText: 'Email',
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Opacity(
+                    opacity: 0.7,
+                    child: TextField(
+                      onChanged: (value) {
+                        _password = value;
+                      },
+                      obscureText: true,
+                      decoration: kLogin_registerTextFields.copyWith(
+                        hintText: 'Password',
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  CustomButton(
+                    backgroundColor: Color(0xff222831),
                     onTap: () async {
                       try {
+                        Provider.of<FirebaseController>(context, listen: false)
+                            .toggleLoading();
                         var logIn = await Provider.of<FirebaseController>(
                                 context,
                                 listen: false)
@@ -70,7 +91,6 @@ class LoginScreen extends StatelessWidget {
                             .signInWithEmailAndPassword(
                                 email: _email, password: _password);
                         if (logIn != null) {
-                          //TODO : fetch the data availble online
                           Provider.of<ControllerTask>(context, listen: false)
                               .setTasks(
                             await Provider.of<FirebaseController>(context,
@@ -82,6 +102,9 @@ class LoginScreen extends StatelessWidget {
                                   context,
                                   listen: false)
                               .fetchEvents();
+                          Provider.of<FirebaseController>(context,
+                                  listen: false)
+                              .toggleLoading();
                           Navigator.pushNamed(
                               context, PageViewNavigation.pageViewNavigationID);
                         }
@@ -89,50 +112,75 @@ class LoginScreen extends StatelessWidget {
                         print(e);
                       }
                     },
-                    name: 'Log in'),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  'Other log in option',
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Colors.grey,
+                    name: 'Login',
                   ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                GoogleButton(
-                  type: 'Sign in with Google',
-                  onTap: () async {
-                    try {
-                      var userCredentials = await SocialMediaHandler()
-                          .signInWithGoogle(Provider.of<FirebaseController>(
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(
+                          right: 10,
+                        ),
+                        height: 2,
+                        width: 100,
+                        color: Color(0xff222831),
+                      ),
+                      Text(
+                        'OR',
+                        style:
+                            TextStyle(fontSize: 18, color: Color(0xff222831)),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(
+                          left: 10,
+                        ),
+                        height: 2,
+                        width: 100,
+                        color: Color(0xff222831),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 35,
+                  ),
+                  GoogleButton(
+                    onTap: () async {
+                      try {
+                        Provider.of<FirebaseController>(context, listen: false)
+                            .toggleLoading();
+                        var userCredentials = await SocialMediaHandler()
+                            .signInWithGoogle(Provider.of<FirebaseController>(
+                                    context,
+                                    listen: false)
+                                .getAuthInstance());
+                        if (userCredentials != null) {
+                          Provider.of<ControllerTask>(context, listen: false)
+                              .setTasks(
+                            await Provider.of<FirebaseController>(context,
+                                    listen: false)
+                                .fetchTasks(),
+                          );
+                          Provider.of<EventsController>(context, listen: false)
+                              .events = await Provider.of<FirebaseController>(
                                   context,
                                   listen: false)
-                              .getAuthInstance());
-                      if (userCredentials != null) {
-                        Provider.of<ControllerTask>(context, listen: false)
-                            .setTasks(
-                          await Provider.of<FirebaseController>(context,
+                              .fetchEvents();
+                          Provider.of<FirebaseController>(context,
                                   listen: false)
-                              .fetchTasks(),
-                        );
-                        Provider.of<EventsController>(context, listen: false)
-                            .events = await Provider.of<FirebaseController>(
-                                context,
-                                listen: false)
-                            .fetchEvents();
-                        Navigator.popAndPushNamed(
-                            context, PageViewNavigation.pageViewNavigationID);
+                              .toggleLoading();
+                          Navigator.popAndPushNamed(
+                              context, PageViewNavigation.pageViewNavigationID);
+                        }
+                      } on FirebaseAuthException catch (e) {
+                        print(e.code);
                       }
-                    } on FirebaseAuthException catch (e) {
-                      print(e.code);
-                    }
-                  },
-                ),
-              ],
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),
