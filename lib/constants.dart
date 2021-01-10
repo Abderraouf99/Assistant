@@ -14,7 +14,6 @@ const kTaskPreviewTextStyle = TextStyle(
 );
 const kTextFieldDecoration = InputDecoration(
   hintText: '',
-  focusColor: Color(0xffffbd69),
   border: OutlineInputBorder(
     borderRadius: BorderRadius.all(
       Radius.circular(10),
@@ -29,9 +28,7 @@ const kTextFieldDecoration = InputDecoration(
     ),
   ),
   focusedBorder: OutlineInputBorder(
-    borderSide: BorderSide(
-      color: Color(0xffffbd69),
-    ),
+    borderSide: BorderSide(),
     borderRadius: BorderRadius.all(
       Radius.circular(10),
     ),
@@ -68,3 +65,18 @@ const kLogin_registerTextFields = InputDecoration(
     ),
   ),
 );
+Color determineColor(Brightness brightness, bool state) {
+  if (brightness == Brightness.dark) {
+    if (state) {
+      return Color(0xffffbd69);
+    } else {
+      return Color(0xffff6363);
+    }
+  } else {
+    if (state) {
+      return Color(0xff30475e);
+    } else {
+      return Color(0xfff05454);
+    }
+  }
+}

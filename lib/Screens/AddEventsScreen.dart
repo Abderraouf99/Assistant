@@ -32,7 +32,7 @@ class AddEventsSheet extends StatelessWidget {
                     Text(
                       'Add an event',
                       style: TextStyle(
-                        color: Color(0xffffbd69),
+                        color: Theme.of(context).primaryColorDark,
                         fontSize: 30,
                         fontWeight: FontWeight.w400,
                       ),
@@ -53,7 +53,7 @@ class AddEventsSheet extends StatelessWidget {
                           Icons.add,
                           color: Color(0xffEEEEEE),
                         ),
-                        backgroundColor: Color(0xffffbd69),
+                        backgroundColor: Theme.of(context).primaryColorDark,
                       ),
                     ),
                   ],
@@ -66,7 +66,19 @@ class AddEventsSheet extends StatelessWidget {
                   onChanged: (value) {
                     event.setTitle(value);
                   },
-                  decoration: kTextFieldDecoration.copyWith(hintText: 'Title'),
+                  decoration: (Theme.of(context).brightness == Brightness.dark)
+                      ? kTextFieldDecoration.copyWith(
+                          hintText: 'Title',
+                          hintStyle: TextStyle(
+                            color: Color(0xffEEEEEE),
+                          ),
+                        )
+                      : kTextFieldDecoration.copyWith(
+                          hintText: 'Title',
+                          hintStyle: TextStyle(
+                            color: Color(0xff222831),
+                          ),
+                        ),
                 ),
                 SizedBox(
                   height: 10,

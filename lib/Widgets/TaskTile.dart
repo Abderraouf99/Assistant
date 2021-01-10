@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/models/Tasks.dart';
+import 'package:to_do_app/constants.dart';
 
 class TaskTile extends StatelessWidget {
   final Task theTask;
@@ -17,7 +18,10 @@ class TaskTile extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
-        color: (theTask.getState()) ? Color(0xffffbd69) : Color(0xffff6363),
+        color: determineColor(
+          Theme.of(context).brightness,
+          theTask.getState(),
+        ),
       ),
       child: ListTile(
         title: Text(
@@ -28,7 +32,9 @@ class TaskTile extends StatelessWidget {
           ),
         ),
         trailing: Checkbox(
-          activeColor: Color(0xffffbd69),
+          activeColor: (Theme.of(context).brightness == Brightness.dark)
+              ? Color(0xffffbd69)
+              : Color(0xff30475e),
           value: theTask.getState(),
           onChanged: checkBoxCallBack,
         ),

@@ -46,10 +46,14 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         themeMode: ThemeMode.system,
         darkTheme: ThemeData(
+          colorScheme: ColorScheme.dark().copyWith(
+            primary: Color(0xffffbd69),
+          ),
           brightness: Brightness.dark,
           highlightColor: Colors.grey[500],
           hintColor: Color(0xff202040),
           primaryColor: Color(0xff162447),
+          primaryColorDark: Color(0xffffbd69),
           textButtonTheme: TextButtonThemeData(
             style: ButtonStyle(
               foregroundColor: MaterialStateProperty.all<Color>(
@@ -67,11 +71,16 @@ class MyApp extends StatelessWidget {
             elevation: 3,
           ),
         ),
-        //TODO: look at the themes and make a better one
         theme: ThemeData(
+          scaffoldBackgroundColor: Color(0xff222831),
+          floatingActionButtonTheme: FloatingActionButtonThemeData(
+            backgroundColor: Color(0xff30475e),
+          ),
           colorScheme: ColorScheme.light().copyWith(
             primary: kmainColor,
           ),
+          primaryColor: Color(0xffdddddd),
+          primaryColorDark: Color(0xff222831),
           fontFamily: 'Roboto',
           highlightColor: kmainColor,
           timePickerTheme: TimePickerThemeData(

@@ -26,7 +26,7 @@ class EditAddTaskScreen extends StatelessWidget {
                     Text(
                       'Add a task',
                       style: TextStyle(
-                        color: Color(0xffffbd69),
+                        color: Theme.of(context).primaryColorDark,
                         fontSize: 30,
                         fontWeight: FontWeight.w400,
                       ),
@@ -45,7 +45,7 @@ class EditAddTaskScreen extends StatelessWidget {
                           Icons.add,
                           color: Colors.white,
                         ),
-                        backgroundColor: Color(0xffffbd69),
+                        backgroundColor: Theme.of(context).primaryColorDark,
                       ),
                     )
                   ],
@@ -58,13 +58,18 @@ class EditAddTaskScreen extends StatelessWidget {
                   onChanged: (value) {
                     task.setTask(value);
                   },
-                  decoration: kTextFieldDecoration.copyWith(
-                    hintText: 'Task',
-                    focusColor: Color(0xffffbd69),
-                    hintStyle: TextStyle(
-                      color: Color(0xffEEEEEE),
-                    ),
-                  ),
+                  decoration: (Theme.of(context).brightness == Brightness.dark)
+                      ? kTextFieldDecoration.copyWith(
+                          hintText: 'Task',
+                          focusColor: Color(0xffffbd69),
+                          hintStyle: TextStyle(
+                            color: Color(0xffEEEEEE),
+                          ),
+                        )
+                      : kTextFieldDecoration.copyWith(
+                          hintText: 'Task',
+                          focusColor: Color(0xff222831),
+                        ),
                 ),
                 SizedBox(
                   height: 20,

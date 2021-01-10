@@ -17,7 +17,10 @@ class EventInfoTile extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         decoration: BoxDecoration(
-          color: (status) ? Color(0xffffbd69) : Color(0xffff6363),
+          color: determineColor(
+            Theme.of(context).brightness,
+            status,
+          ),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Column(
