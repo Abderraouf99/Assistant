@@ -66,24 +66,6 @@ class TasksScreen extends StatelessWidget {
                       PopupMenuItem(
                         child: FlatButton(
                           onPressed: () {
-                            //TODO: add dark mode support
-                          },
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.nightlight_round,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text('Dark mode'),
-                            ],
-                          ),
-                        ),
-                      ),
-                      PopupMenuItem(
-                        child: FlatButton(
-                          onPressed: () {
                             Provider.of<FirebaseController>(context,
                                     listen: false)
                                 .getAuthInstance()
@@ -109,7 +91,11 @@ class TasksScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         image: DecorationImage(
-                          image: NetworkImage(currentUser.photoURL),
+                          image: (currentUser.photoURL != null)
+                              ? NetworkImage(currentUser.photoURL)
+                              : AssetImage(
+                                  'assets/avataaars.png',
+                                ),
                           fit: BoxFit.cover,
                         ),
                       ),

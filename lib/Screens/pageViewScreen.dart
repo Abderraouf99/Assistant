@@ -12,25 +12,29 @@ class _PageViewNavigationState extends State<PageViewNavigation> {
   PageController _controller = PageController(
     initialPage: 0,
   );
+  int _currentIndex = 0;
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
 
-  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
+        currentIndex: _currentIndex,
         type: BottomNavigationBarType.fixed,
         selectedItemColor: Theme.of(context).primaryColorDark,
+        backgroundColor: Theme.of(context).primaryColor,
+        elevation: 20,
         onTap: (value) {
-          setState(() {
-            currentIndex = value;
-            _controller.jumpToPage(currentIndex);
-          });
+          setState(
+            () {
+              _currentIndex = value;
+              _controller.jumpToPage(_currentIndex);
+            },
+          );
         },
         items: [
           BottomNavigationBarItem(
@@ -44,6 +48,13 @@ class _PageViewNavigationState extends State<PageViewNavigation> {
         ],
       ),
       body: PageView(
+        onPageChanged: (value) {
+          setState(
+            () {
+              _currentIndex = value;
+            },
+          );
+        },
         controller: _controller,
         children: [
           TasksScreen(),

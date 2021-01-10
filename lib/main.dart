@@ -6,7 +6,6 @@ import 'package:to_do_app/Screens/WelcomeScreenUpdated.dart';
 import 'package:to_do_app/Screens/loginScreen.dart';
 import 'package:to_do_app/Screens/pageViewScreen.dart';
 import 'package:to_do_app/Screens/registationScreen.dart';
-import 'package:to_do_app/constants.dart';
 import 'package:to_do_app/models/DataEvents.dart';
 import 'package:to_do_app/models/DataFirebase.dart';
 import 'package:to_do_app/models/DataTask.dart';
@@ -41,7 +40,7 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => FirebaseController(),
-        )
+        ),
       ],
       child: MaterialApp(
         themeMode: ThemeMode.system,

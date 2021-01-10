@@ -13,10 +13,10 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class LoginScreen extends StatelessWidget {
   static String loginScreenId = 'loginScreen';
+  String _email;
+  String _password;
   @override
   Widget build(BuildContext context) {
-    String _email;
-    String _password;
     bool loading =
         Provider.of<FirebaseController>(context, listen: false).loading;
     return Scaffold(
@@ -52,6 +52,9 @@ class LoginScreen extends StatelessWidget {
                   Opacity(
                     opacity: 0.7,
                     child: TextField(
+                      onChanged: (value) {
+                        _email = value;
+                      },
                       decoration: kLogin_registerTextFields.copyWith(
                         hintText: 'Email',
                       ),
@@ -63,6 +66,9 @@ class LoginScreen extends StatelessWidget {
                   Opacity(
                     opacity: 0.7,
                     child: TextField(
+                      onChanged: (value) {
+                        _password = value;
+                      },
                       obscureText: true,
                       decoration: kLogin_registerTextFields.copyWith(
                         hintText: 'Password',
