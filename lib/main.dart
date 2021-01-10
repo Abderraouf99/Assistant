@@ -77,20 +77,22 @@ class MyApp extends StatelessWidget {
             backgroundColor: Color(0xff30475e),
           ),
           colorScheme: ColorScheme.light().copyWith(
-            primary: kmainColor,
+            primary: Color(0xff222831),
           ),
           primaryColor: Color(0xffdddddd),
           primaryColorDark: Color(0xff222831),
           fontFamily: 'Roboto',
-          highlightColor: kmainColor,
+          highlightColor: Color(0xff222831),
           timePickerTheme: TimePickerThemeData(
-            dialHandColor: kmainColor,
-            hourMinuteTextColor: kmainColor,
+            dialHandColor: Color(0xff222831),
+            hourMinuteTextColor: Color(0xff222831),
             inputDecorationTheme: InputDecorationTheme(),
           ),
           textButtonTheme: TextButtonThemeData(
             style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.all<Color>(kmainColor),
+              foregroundColor: MaterialStateProperty.all<Color>(
+                Color(0xff222831),
+              ),
               overlayColor: MaterialStateProperty.all<Color>(Colors.grey[200]),
             ),
           ),
