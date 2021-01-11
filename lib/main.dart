@@ -77,8 +77,8 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.light().copyWith(
             primary: Color(0xff222831),
           ),
-          primaryColor: Color(0xffdddddd),
-          primaryColorDark: Color(0xff222831),
+          primaryColor: Color(0xff30475e),
+          primaryColorDark: Color(0xffdddddd),
           fontFamily: 'Roboto',
           highlightColor: Color(0xff222831),
           timePickerTheme: TimePickerThemeData(
