@@ -25,11 +25,11 @@ class WelcomeScreenNew extends StatelessWidget {
               children: [
                 Flexible(
                   child: Text(
-                    'Welcome to your student companion',
+                    'Welcome to your assistant',
                     style: TextStyle(
-                      fontSize: 36,
+                      fontSize: 40,
                       fontFamily: 'Pacifico',
-                      color: Theme.of(context).primaryColorDark,
+                      color: Color(0xff162447),
                     ),
                   ),
                 ),

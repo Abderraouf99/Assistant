@@ -1,13 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="0a6ae363-8f2d-44e7-9a1d-7127917073ca" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/android/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/.idea/markdown-navigator-enh.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/.idea/markdown-navigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/.idea/modules/android.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Screens/TaskScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/TaskScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/StudentCompanion.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/StudentCompanion.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Screens/WelcomeScreenUpdated.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/WelcomeScreenUpdated.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Screens/loginScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/loginScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Screens/pageViewScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/pageViewScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Screens/registationScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/registationScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/to_do_app/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/to_do_app/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,11 +53,16 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RunManager">
@@ -36,6 +71,7 @@
       <method v="2" />
     </configuration>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -46,29 +82,30 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1610295738901</updated>
+      <workItem from="1610324905665" duration="2109000" />
+      <workItem from="1610329924988" duration="1743000" />
+      <workItem from="1610372845347" duration="169000" />
+      <workItem from="1610373025115" duration="2720000" />
     </task>
     <servers />
   </component>
-  <component name="WindowStateProjectService">
-    <state x="411" y="275" width="673" height="564" key="#com.intellij.ide.fileTemplates.ui.ConfigureTemplatesDialog" timestamp="1610296360622">
-      <screen x="0" y="27" width="1920" height="1053" />
-    </state>
-    <state x="411" y="275" width="673" height="564" key="#com.intellij.ide.fileTemplates.ui.ConfigureTemplatesDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1610296360622" />
-    <state width="1463" height="277" key="GridCell.Tab.0.bottom" timestamp="1610296161011">
-      <screen x="0" y="27" width="1920" height="1053" />
-    </state>
-    <state width="1463" height="277" key="GridCell.Tab.0.bottom/0.27.1920.1053@0.27.1920.1053" timestamp="1610296161011" />
-    <state width="1463" height="277" key="GridCell.Tab.0.center" timestamp="1610296161011">
-      <screen x="0" y="27" width="1920" height="1053" />
-    </state>
-    <state width="1463" height="277" key="GridCell.Tab.0.center/0.27.1920.1053@0.27.1920.1053" timestamp="1610296161011" />
-    <state width="1463" height="277" key="GridCell.Tab.0.left" timestamp="1610296161010">
-      <screen x="0" y="27" width="1920" height="1053" />
-    </state>
-    <state width="1463" height="277" key="GridCell.Tab.0.left/0.27.1920.1053@0.27.1920.1053" timestamp="1610296161010" />
-    <state width="1463" height="277" key="GridCell.Tab.0.right" timestamp="1610296161011">
-      <screen x="0" y="27" width="1920" height="1053" />
-    </state>
-    <state width="1463" height="277" key="GridCell.Tab.0.right/0.27.1920.1053@0.27.1920.1053" timestamp="1610296161011" />
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

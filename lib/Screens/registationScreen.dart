@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:to_do_app/Screens/loginScreen.dart';
 import 'package:to_do_app/Screens/pageViewScreen.dart';
 import 'package:to_do_app/constants.dart';
 
@@ -38,7 +39,7 @@ class RegistrationScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 36,
                       fontFamily: 'Pacifico',
-                      color: Theme.of(context).primaryColorDark,
+                      color: Color(0xff162447),
                     ),
                   ),
                 ),
@@ -49,7 +50,7 @@ class RegistrationScreen extends StatelessWidget {
                   opacity: 0.7,
                   child: TextField(
                     style: TextStyle(
-                      color: Theme.of(context).primaryColorDark,
+                      color: Color(0xff162447),
                     ),
                     onChanged: (value) {
                       _email = value;
@@ -65,7 +66,7 @@ class RegistrationScreen extends StatelessWidget {
                   opacity: 0.7,
                   child: TextField(
                     style: TextStyle(
-                      color: Theme.of(context).primaryColorDark,
+                      color: Color(0xff162447),
                     ),
                     keyboardType: TextInputType.emailAddress,
                     obscureText: true,
@@ -125,8 +126,9 @@ class RegistrationScreen extends StatelessWidget {
                       } on FirebaseAuthException catch (e) {
                         print(e.code);
                         if (e.code == 'email-already-in-use') {
+                          await showAlertDialog(context: context,title: 'You already have an account',message: 'You are going to be directed to the login screen',);
                           Navigator.popAndPushNamed(
-                              context, PageViewNavigation.pageViewNavigationID);
+                              context, LoginScreen.loginScreenId);
                         }
                       }
                     },

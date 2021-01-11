@@ -38,7 +38,7 @@ class LoginScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 36,
                       fontFamily: 'Pacifico',
-                      color: Theme.of(context).primaryColorDark,
+                      color: Color(0xff162447),
                     ),
                   ),
                 ),
@@ -49,7 +49,7 @@ class LoginScreen extends StatelessWidget {
                   opacity: 0.7,
                   child: TextField(
                     style: TextStyle(
-                      color: Theme.of(context).primaryColorDark,
+                      color: Color(0xff162447),
                     ),
                     onChanged: (value) {
                       _email = value;
@@ -66,7 +66,7 @@ class LoginScreen extends StatelessWidget {
                   opacity: 0.7,
                   child: TextField(
                     style: TextStyle(
-                      color: Theme.of(context).primaryColorDark,
+                      color: Color(0xff162447),
                     ),
                     onChanged: (value) {
                       _password = value;
@@ -102,6 +102,7 @@ class LoginScreen extends StatelessWidget {
                                 listen: false)
                             .fetchEvents();
 
+
                         Navigator.pushNamed(
                             context, PageViewNavigation.pageViewNavigationID);
                       }
@@ -122,7 +123,7 @@ class LoginScreen extends StatelessWidget {
                           context: context,
                           title: 'Wrong password',
                           message:
-                              'Please make sure your password is at least 6 characters long',
+                              'Please make sure you type the right password',
                           okLabel: 'Continue',
                           barrierDismissible: false,
                         );
