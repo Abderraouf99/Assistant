@@ -1,3 +1,4 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:to_do_app/constants.dart';
@@ -11,9 +12,11 @@ import 'dart:math';
 
 class AddEventsSheet extends StatelessWidget {
   final Function functionality;
+
   AddEventsSheet({
     @required this.functionality,
   });
+
   @override
   Widget build(BuildContext context) {
     return Consumer<EventsController>(builder: (context, event, child) {
@@ -45,11 +48,19 @@ class AddEventsSheet extends StatelessWidget {
                           event.tempEvent.dateStart,
                           event.tempEvent.dateEnd,
                           0,
+                          0,
                         );
                         Random random = new Random.secure();
                         int randomID = random.nextInt(10000);
                         newEvent.setId = randomID;
+                        newEvent.setId2 = randomID + 10000;
                         functionality(newEvent);
+                        await showAlertDialog(
+                          context: context,
+                          title: 'Reminder',
+                          message:
+                              'The application will remind you 30 minutes before the event',
+                        );
                         await _createNotification(newEvent);
                       },
                       child: CircleAvatar(
@@ -161,6 +172,9 @@ Future _createNotification(Event theEvent) async {
   var scheduledNotification = theEvent.dateStart.subtract(
     Duration(minutes: 30),
   );
+  var scheduledNotification2 = theEvent.dateStart.subtract(
+    Duration(days: 1),
+  );
   var androidPlatformChannelSpecefics = AndroidNotificationDetails(
     '30minBefore',
     '30minutesBefore',
@@ -173,9 +187,17 @@ Future _createNotification(Event theEvent) async {
   );
   await localNotificationsPlugin.schedule(
     theEvent.id(),
-    'You have an event comming',
+    'You have an event coming',
     'You have ${theEvent.title} in 30 minutes',
     scheduledNotification,
+    platformSpecifics,
+    androidAllowWhileIdle: true,
+  );
+  await localNotificationsPlugin.schedule(
+    theEvent.id2(),
+    'You have an event coming',
+    'You have ${theEvent.title} tomorrow',
+    scheduledNotification2,
     platformSpecifics,
     androidAllowWhileIdle: true,
   );

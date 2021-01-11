@@ -5,13 +5,16 @@ class Event {
   DateTime _dateEnd;
   bool _status = false;
   int _id;
+  int _id2;
+
   //Constructor
 
-  Event(String title, DateTime dateStart, DateTime dateEnd, int id)
+  Event(String title, DateTime dateStart, DateTime dateEnd, int id, int id2)
       : _title = title,
         _dateStart = dateStart,
         _dateEnd = dateEnd,
-        _id = id;
+        _id = id,
+        _id2 = id2;
 
   //Getters
   String get title => _title;
@@ -26,6 +29,12 @@ class Event {
 
   set setId(int id) {
     _id = id;
+  }
+
+  int id2() => _id2;
+
+  set setId2(int id) {
+    _id2 = id;
   }
 
   set setTitle(String title) {

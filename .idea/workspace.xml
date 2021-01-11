@@ -20,34 +20,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0a6ae363-8f2d-44e7-9a1d-7127917073ca" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/android/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/.idea/markdown-navigator-enh.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/.idea/markdown-navigator.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/.idea/modules/android.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/StudentCompanion.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/StudentCompanion.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Screens/AddEventsScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/AddEventsScreen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Screens/WelcomeScreenUpdated.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/WelcomeScreenUpdated.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Screens/loginScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/loginScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Screens/registationScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/registationScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/to_do_app/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/to_do_app/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/DataEvents.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/DataEvents.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/DataFirebase.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/DataFirebase.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/DataTask.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/DataTask.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/Event.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/Event.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dart File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1mswjBszFCTNO5mPi0dPRrAhZgr" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -65,11 +68,38 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Flutter.main.dart">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
       <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
       <method v="2" />
     </configuration>
+    <configuration name="Task" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="Task" />
+      <option name="testFile" value="$PROJECT_DIR$/test/task_test.dart" />
+      <method v="2" />
+    </configuration>
+    <configuration name="state should be toggled" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="state should be toggled" />
+      <option name="testFile" value="$PROJECT_DIR$/test/task_test.dart" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Flutter Test.Task" />
+        <item itemvalue="Flutter Test.state should be toggled" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
@@ -85,7 +115,8 @@
       <workItem from="1610324905665" duration="2109000" />
       <workItem from="1610329924988" duration="1743000" />
       <workItem from="1610372845347" duration="169000" />
-      <workItem from="1610373025115" duration="2720000" />
+      <workItem from="1610373025115" duration="6275000" />
+      <workItem from="1610379438956" duration="2695000" />
     </task>
     <servers />
   </component>

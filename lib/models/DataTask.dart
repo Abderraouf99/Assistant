@@ -12,6 +12,7 @@ class ControllerTask extends ChangeNotifier {
   }
 
   String get task => _task1.getTask();
+
   void setTasks(List<Task> taskList) {
     _myTasks = taskList;
   }

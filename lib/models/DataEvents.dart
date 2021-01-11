@@ -10,6 +10,7 @@ class EventsController extends ChangeNotifier {
     DateTime.now(),
     DateTime.now(),
     0,
+    0,
   );
 
   set events(List<Event> events) {
