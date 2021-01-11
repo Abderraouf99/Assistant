@@ -17,7 +17,7 @@ class EditAddTaskScreen extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.all(20),
             decoration: kRoundedContainerDecorator.copyWith(
-                color: Theme.of(context).primaryColor),
+                color: Theme.of(context).primaryColorDark),
             child: Column(
               children: [
                 Row(
@@ -26,7 +26,7 @@ class EditAddTaskScreen extends StatelessWidget {
                     Text(
                       'Add a task',
                       style: TextStyle(
-                        color: Theme.of(context).primaryColorDark,
+                        color: Theme.of(context).primaryColor,
                         fontSize: 30,
                         fontWeight: FontWeight.w400,
                       ),
@@ -45,7 +45,7 @@ class EditAddTaskScreen extends StatelessWidget {
                           Icons.add,
                           color: Colors.white,
                         ),
-                        backgroundColor: Theme.of(context).primaryColorDark,
+                        backgroundColor: Theme.of(context).primaryColor,
                       ),
                     )
                   ],

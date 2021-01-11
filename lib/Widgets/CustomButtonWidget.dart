@@ -16,7 +16,7 @@ class CustomButton extends StatelessWidget {
         highlightColor: backgroundColor,
         onTap: onTap,
         child: Container(
-          height: 60,
+          height: 50,
           padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
           child: Center(
             child: Text(

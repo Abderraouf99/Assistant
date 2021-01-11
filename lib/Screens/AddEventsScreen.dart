@@ -7,6 +7,7 @@ import 'package:to_do_app/Widgets/CustomStartEndWidget.dart';
 import 'package:to_do_app/models/Event.dart';
 import 'package:intl/intl.dart';
 import 'package:to_do_app/main.dart';
+import 'dart:math';
 
 class AddEventsSheet extends StatelessWidget {
   final Function functionality;
@@ -22,7 +23,7 @@ class AddEventsSheet extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.all(20),
             decoration: kRoundedContainerDecorator.copyWith(
-              color: Theme.of(context).primaryColor,
+              color: Theme.of(context).primaryColorDark,
             ),
             child: Column(
               children: [
@@ -32,28 +33,31 @@ class AddEventsSheet extends StatelessWidget {
                     Text(
                       'Add an event',
                       style: TextStyle(
-                        color: Theme.of(context).primaryColorDark,
+                        color: Theme.of(context).primaryColor,
                         fontSize: 30,
                         fontWeight: FontWeight.w400,
                       ),
                     ),
                     InkWell(
-                      onTap: () {
+                      onTap: () async {
                         Event newEvent = Event(
                           event.tempEvent.title,
                           event.tempEvent.dateStart,
                           event.tempEvent.dateEnd,
-                          event.tempEvent.toBereminded,
+                          0,
                         );
+                        Random random = new Random.secure();
+                        int randomID = random.nextInt(10000);
+                        newEvent.setId = randomID;
                         functionality(newEvent);
-                        _createNotification(event.getStartDate());
+                        await _createNotification(newEvent);
                       },
                       child: CircleAvatar(
                         child: Icon(
                           Icons.add,
                           color: Color(0xffEEEEEE),
                         ),
-                        backgroundColor: Theme.of(context).primaryColorDark,
+                        backgroundColor: Theme.of(context).primaryColor,
                       ),
                     ),
                   ],
@@ -153,38 +157,26 @@ class AddEventsSheet extends StatelessWidget {
   }
 }
 
-void _createNotification(DateTime time) async {
-  var scheduledNotificationTime = time.subtract(
-    Duration(days: 1),
-  );
-
-  var scheduledNotificationTime2 = time.subtract(
+Future _createNotification(Event theEvent) async {
+  var scheduledNotification = theEvent.dateStart.subtract(
     Duration(minutes: 30),
   );
-  var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-    'reminderNotification',
-    'reminderNotification',
-    'channelForreminderNotification',
-    icon: 'appicon',
+  var androidPlatformChannelSpecefics = AndroidNotificationDetails(
+    '30minBefore',
+    '30minutesBefore',
+    'channelReminder30minBefore',
     importance: Importance.high,
     priority: Priority.high,
-    showWhen: false,
   );
-
-  var platformSpecifics =
-      NotificationDetails(android: androidPlatformChannelSpecifics);
-  await flutterLocalNotificationsPlugin.schedule(
-      0,
-      'You have an event coming',
-      'Get ready you have an event tomorrow',
-      scheduledNotificationTime,
-      platformSpecifics,
-      androidAllowWhileIdle: true);
-  await flutterLocalNotificationsPlugin.schedule(
-      0,
-      'You have an event coming',
-      'Get ready you have an event in 30 minutes',
-      scheduledNotificationTime2,
-      platformSpecifics,
-      androidAllowWhileIdle: true);
+  var platformSpecifics = NotificationDetails(
+    android: androidPlatformChannelSpecefics,
+  );
+  await localNotificationsPlugin.schedule(
+    theEvent.id(),
+    'You have an event comming',
+    'You have ${theEvent.title} in 30 minutes',
+    scheduledNotification,
+    platformSpecifics,
+    androidAllowWhileIdle: true,
+  );
 }

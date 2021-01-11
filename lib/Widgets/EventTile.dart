@@ -31,7 +31,7 @@ class EventTile extends StatelessWidget {
             title: '${theEvent.title}',
             startTime: '${DateFormat('jm').format(theEvent.dateStart)}',
             endTime: '${DateFormat('jm').format(theEvent.dateEnd)}',
-            status: theEvent.eventStatus,
+            status: theEvent.eventStatus(),
           ),
         ],
       ),

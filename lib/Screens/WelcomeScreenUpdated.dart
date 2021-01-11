@@ -29,6 +29,7 @@ class WelcomeScreenNew extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 36,
                       fontFamily: 'Pacifico',
+                      color: Theme.of(context).primaryColorDark,
                     ),
                   ),
                 ),

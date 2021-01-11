@@ -9,7 +9,7 @@ class GoogleButton extends StatelessWidget {
     return FlatButton(
       onPressed: onTap,
       child: Container(
-        height: 60,
+        height: 50,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(

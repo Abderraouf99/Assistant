@@ -12,14 +12,13 @@ import 'package:to_do_app/models/DataTask.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+final FlutterLocalNotificationsPlugin localNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   var initializeSettingAndroid = AndroidInitializationSettings('appicon');
   var initSettings = InitializationSettings(android: initializeSettingAndroid);
-  await flutterLocalNotificationsPlugin.initialize(initSettings);
+  await localNotificationsPlugin.initialize(initSettings);
 
   await Firebase.initializeApp();
   runApp(
@@ -51,8 +50,8 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.dark,
           highlightColor: Colors.grey[500],
           hintColor: Color(0xff202040),
-          primaryColor: Color(0xff162447),
-          primaryColorDark: Color(0xffffbd69),
+          primaryColorDark: Color(0xff162447),
+          primaryColor: Color(0xffffbd69),
           textButtonTheme: TextButtonThemeData(
             style: ButtonStyle(
               foregroundColor: MaterialStateProperty.all<Color>(

@@ -96,7 +96,7 @@ class EventsScreen extends StatelessWidget {
               child: Container(
                 child: EventsList(),
                 decoration: kRoundedContainerDecorator.copyWith(
-                  color: Theme.of(context).primaryColor,
+                  color: Theme.of(context).primaryColorDark,
                 ),
               ),
             ),

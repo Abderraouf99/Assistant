@@ -38,6 +38,7 @@ class RegistrationScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 36,
                       fontFamily: 'Pacifico',
+                      color: Theme.of(context).primaryColorDark,
                     ),
                   ),
                 ),
@@ -47,6 +48,9 @@ class RegistrationScreen extends StatelessWidget {
                 Opacity(
                   opacity: 0.7,
                   child: TextField(
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColorDark,
+                    ),
                     onChanged: (value) {
                       _email = value;
                     },
@@ -60,6 +64,9 @@ class RegistrationScreen extends StatelessWidget {
                 Opacity(
                   opacity: 0.7,
                   child: TextField(
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColorDark,
+                    ),
                     keyboardType: TextInputType.emailAddress,
                     obscureText: true,
                     onChanged: (value) {

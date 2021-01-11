@@ -7,13 +7,6 @@ import 'Event.dart';
 class FirebaseController extends ChangeNotifier {
   final _auth = FirebaseAuth.instance;
   final _firestoreReference = FirebaseFirestore.instance.collection('users');
-  bool _loading = false;
-
-  bool get loading => _loading;
-  void toggleLoading() {
-    _loading = !_loading;
-    notifyListeners();
-  }
 
   Future<List> fetchTasks() async {
     var task = await _firestoreReference
@@ -65,8 +58,8 @@ class FirebaseController extends ChangeNotifier {
         'eventTitle': event.title,
         'eventStartDate': event.dateStart,
         'eventEndDate': event.dateEnd,
-        'eventReminderStatus': event.toBereminded,
-        'eventStatus': event.eventStatus,
+        'eventStatus': event.eventStatus(),
+        'eventID': event.id(),
       },
     );
   }
@@ -167,7 +160,7 @@ class FirebaseController extends ChangeNotifier {
           doc.get('eventTitle'),
           doc.get('eventStartDate').toDate(),
           doc.get('eventEndDate').toDate(),
-          doc.get('eventReminderStatus'),
+          doc.get('eventID'),
         ),
       );
     }

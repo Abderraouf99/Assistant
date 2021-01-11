@@ -25,8 +25,8 @@ class _PageViewNavigationState extends State<PageViewNavigation> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: Theme.of(context).primaryColorDark,
-        backgroundColor: Theme.of(context).primaryColor,
+        selectedItemColor: Theme.of(context).primaryColor,
+        backgroundColor: Theme.of(context).primaryColorDark,
         elevation: 20,
         onTap: (value) {
           setState(

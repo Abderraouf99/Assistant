@@ -65,6 +65,7 @@ const kLogin_registerTextFields = InputDecoration(
     ),
   ),
 );
+
 Color determineColor(Brightness brightness, bool state) {
   if (brightness == Brightness.dark) {
     if (state) {

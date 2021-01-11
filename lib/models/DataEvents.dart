@@ -9,7 +9,7 @@ class EventsController extends ChangeNotifier {
     '',
     DateTime.now(),
     DateTime.now(),
-    false,
+    0,
   );
 
   set events(List<Event> events) {
@@ -25,7 +25,7 @@ class EventsController extends ChangeNotifier {
   int findNumberOfCompletedEvents() {
     int counter = 0;
     for (Event currentEvent in _myEvents) {
-      if (currentEvent.eventStatus) {
+      if (currentEvent.eventStatus()) {
         counter++;
       }
     }

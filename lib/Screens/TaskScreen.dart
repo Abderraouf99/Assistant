@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/Screens/EditAddTaskScreen.dart';
-import 'package:to_do_app/Screens/EventsScreen.dart';
 import 'package:to_do_app/Widgets/TaskList.dart';
 import 'package:to_do_app/constants.dart';
 import 'package:to_do_app/models/DataFirebase.dart';
@@ -139,7 +138,7 @@ class TasksScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: TasksList(),
                 decoration: kRoundedContainerDecorator.copyWith(
-                  color: Theme.of(context).primaryColor,
+                  color: Theme.of(context).primaryColorDark,
                 ),
               ),
             ),
