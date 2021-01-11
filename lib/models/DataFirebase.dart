@@ -9,10 +9,11 @@ class FirebaseController extends ChangeNotifier {
   final _firestoreReference = FirebaseFirestore.instance.collection('users');
   bool _isLoading = false;
   bool get isLoading => _isLoading;
-  void toggleIsLoading(){
-    _isLoading = ! _isLoading;
+  void toggleIsLoading() {
+    _isLoading = !_isLoading;
     notifyListeners();
   }
+
   Future<List> fetchTasks() async {
     var task = await _firestoreReference
         .doc('${_auth.currentUser.email}')
@@ -65,7 +66,7 @@ class FirebaseController extends ChangeNotifier {
         'eventEndDate': event.dateEnd,
         'eventStatus': event.eventStatus(),
         'eventID': event.id(),
-        'eventID2':event.id2(),
+        'eventID2': event.id2(),
       },
     );
   }
@@ -163,12 +164,11 @@ class FirebaseController extends ChangeNotifier {
     for (var doc in events.docs) {
       eventList.add(
         Event(
-          doc.get('eventTitle'),
-          doc.get('eventStartDate').toDate(),
-          doc.get('eventEndDate').toDate(),
-          doc.get('eventID'),
-          doc.get('eventID2')
-        ),
+            doc.get('eventTitle'),
+            doc.get('eventStartDate').toDate(),
+            doc.get('eventEndDate').toDate(),
+            doc.get('eventID'),
+            doc.get('eventID2')),
       );
     }
 

@@ -41,6 +41,7 @@ dependencies:
   modal_progress_hud: ^0.1.3
   flutter_local_notifications: ^3.0.2
   test: ^1.15.7
+  animated_text_kit: ^3.1.0
 
 
 
@@ -74,7 +75,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/googleLogo.png
-    - assets/background.jpg
+    - assets/background.png
     - assets/avataaars.png
   #   - images/a_dot_ham.jpeg
 

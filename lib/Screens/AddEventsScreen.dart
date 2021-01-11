@@ -59,7 +59,7 @@ class AddEventsSheet extends StatelessWidget {
                           context: context,
                           title: 'Reminder',
                           message:
-                              'The application will remind you 30 minutes before the event',
+                              'The application will notify you one day before the event and 30min before the event',
                         );
                         await _createNotification(newEvent);
                       },

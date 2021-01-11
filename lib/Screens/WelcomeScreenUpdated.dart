@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:to_do_app/Widgets/CustomButtonWidget.dart';
 import 'loginScreen.dart';
 import 'registationScreen.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
 class WelcomeScreenNew extends StatelessWidget {
   static String welcomeScreenID = 'welcomeScreenid';
@@ -11,12 +12,11 @@ class WelcomeScreenNew extends StatelessWidget {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-
             image: AssetImage(
-              'assets/background.jpg',
+              'assets/background.png',
             ),
-            fit: BoxFit.fill,
-            scale: 2,
+            fit: BoxFit.cover,
+            scale: 0.5,
           ),
         ),
         child: SafeArea(
@@ -25,10 +25,15 @@ class WelcomeScreenNew extends StatelessWidget {
             child: Column(
               children: [
                 Flexible(
-                  child: Text(
-                    'Welcome to your assistant',
-                    style: TextStyle(
-                      fontSize: 40,
+                  child: TypewriterAnimatedTextKit(
+                    text: [
+                      'Assistant',
+                      'Fast',
+                      'Easy to use',
+                      'Task and event app'
+                    ],
+                    textStyle: TextStyle(
+                      fontSize: 35,
                       fontFamily: 'Pacifico',
                       color: Color(0xff162447),
                     ),
