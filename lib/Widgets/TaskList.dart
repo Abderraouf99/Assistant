@@ -1,3 +1,4 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do_app/models/DataFirebase.dart';
 import 'TaskTile.dart';
@@ -11,6 +12,21 @@ class TasksList extends StatelessWidget {
         return ListView.builder(
           itemBuilder: (context, index) {
             return Dismissible(
+              dismissThresholds: {
+                DismissDirection.endToStart: 0.4,
+              },
+              confirmDismiss: (direction) async {
+                await showAlertDialog(
+                  context: context,
+                  title: 'Task moved to the bin',
+                  message: 'When you delete a task it will be moved to the bin',
+                  barrierDismissible: false,
+                  actions: [
+                    AlertDialogAction(label: 'Ok'),
+                  ],
+                );
+                return true;
+              },
               background: Container(
                 margin: EdgeInsets.symmetric(vertical: 10, horizontal: 0),
                 decoration: BoxDecoration(

@@ -112,7 +112,7 @@ class LoginScreen extends StatelessWidget {
                           Provider.of<FirebaseController>(context,
                                   listen: false)
                               .toggleIsLoading();
-                          Navigator.pushNamed(
+                          Navigator.popAndPushNamed(
                               context, PageViewNavigation.pageViewNavigationID);
                         }
                       } on FirebaseAuthException catch (e) {
