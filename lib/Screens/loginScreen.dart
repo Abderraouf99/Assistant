@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do_app/Screens/pageViewScreen.dart';
+import 'package:to_do_app/Screens/TaskScreen.dart';
 import 'package:to_do_app/Widgets/CustomButtonWidget.dart';
 import 'package:to_do_app/Widgets/GoogleSignInButton.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -113,7 +113,7 @@ class LoginScreen extends StatelessWidget {
                                   listen: false)
                               .toggleIsLoading();
                           Navigator.popAndPushNamed(
-                              context, PageViewNavigation.pageViewNavigationID);
+                              context, TasksScreen.taskScreenId);
                         }
                       } on FirebaseAuthException catch (e) {
                         print(e.code);
@@ -210,7 +210,7 @@ class LoginScreen extends StatelessWidget {
                               .toggleIsLoading();
 
                           Navigator.popAndPushNamed(
-                              context, PageViewNavigation.pageViewNavigationID);
+                              context, TasksScreen.taskScreenId);
                         }
                       } on FirebaseAuthException catch (e) {
                         print(e.code);

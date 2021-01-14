@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:to_do_app/Screens/ArchiveScreen.dart';
+import 'package:to_do_app/Screens/BinScreen.dart';
 import 'package:to_do_app/Screens/EventsScreen.dart';
+import 'package:to_do_app/Screens/NotesScreen.dart';
 import 'package:to_do_app/Screens/TaskScreen.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_app/Screens/WelcomeScreenUpdated.dart';
 import 'package:to_do_app/Screens/loginScreen.dart';
-import 'package:to_do_app/Screens/pageViewScreen.dart';
 import 'package:to_do_app/Screens/registationScreen.dart';
 import 'package:to_do_app/models/DataEvents.dart';
 import 'package:to_do_app/models/DataFirebase.dart';
+import 'package:to_do_app/models/DataNotes.dart';
 import 'package:to_do_app/models/DataTask.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -43,6 +46,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => FirebaseController(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => NotesController(),
+        ),
       ],
       child: MaterialApp(
         themeMode: ThemeMode.system,
@@ -50,6 +56,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.dark().copyWith(
             primary: Color(0xffffbd69),
           ),
+          canvasColor: Color(0xff162447),
           brightness: Brightness.dark,
           highlightColor: Colors.grey[500],
           hintColor: Color(0xff202040),
@@ -73,6 +80,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         theme: ThemeData(
+          canvasColor: Color(0xffdddddd),
           scaffoldBackgroundColor: Color(0xff222831),
           floatingActionButtonTheme: FloatingActionButtonThemeData(
             backgroundColor: Color(0xff30475e),
@@ -106,8 +114,9 @@ class MyApp extends StatelessWidget {
               RegistrationScreen(),
           TasksScreen.taskScreenId: (context) => TasksScreen(),
           EventsScreen.eventsScreenId: (context) => EventsScreen(),
-          PageViewNavigation.pageViewNavigationID: (context) =>
-              PageViewNavigation(),
+          NoteScreen.noteScreenID: (context) => NoteScreen(),
+          ArchiveScreen.archiveScreenID: (context) => ArchiveScreen(),
+          BinScreen.id: (context) => BinScreen(),
         },
       ),
     );

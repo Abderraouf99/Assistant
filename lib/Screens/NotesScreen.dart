@@ -1,29 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:to_do_app/Screens/AddEventsScreen.dart';
-import 'package:to_do_app/Widgets/EventsList.dart';
+import 'package:to_do_app/Screens/addNote.dart';
+import 'package:to_do_app/Widgets/NotesList.dart';
 import 'package:to_do_app/Widgets/SideNavigationDrawer.dart';
 import 'package:to_do_app/constants.dart';
-import 'package:provider/provider.dart';
-import 'package:to_do_app/models/DataEvents.dart';
-import 'package:to_do_app/models/Event.dart';
-import 'package:to_do_app/models/DataFirebase.dart';
 
-class EventsScreen extends StatelessWidget {
-  static String eventsScreenId = 'eventsScreen';
-  Widget _buildEventsBottomSheet(BuildContext context) {
+class NoteScreen extends StatelessWidget {
+  static String noteScreenID = "NoteScreenID";
+
+  Widget _buildBottomSheet(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
+        child: AddNote(),
         padding:
             EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-        child: AddEventsSheet(
-          functionality: (Event eventToadd) {
-            Provider.of<EventsController>(context, listen: false)
-                .addEvent(eventToadd);
-            Provider.of<FirebaseController>(context, listen: false)
-                .addEvent(eventToadd);
-            Navigator.pop(context);
-          },
-        ),
       ),
     );
   }
@@ -36,7 +25,7 @@ class EventsScreen extends StatelessWidget {
         onPressed: () {
           showModalBottomSheet(
               context: context,
-              builder: _buildEventsBottomSheet,
+              builder: _buildBottomSheet,
               isScrollControlled: true);
         },
         elevation: 3,
@@ -53,11 +42,10 @@ class EventsScreen extends StatelessWidget {
               padding:
                   EdgeInsets.only(left: 30, top: 25, bottom: 30, right: 30),
               child: Column(
-                //mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Events',
+                    'Notes',
                     style: TextStyle(
                       fontFamily: 'Pacifico',
                       color: Color(0xffEEEEEE),
@@ -70,7 +58,10 @@ class EventsScreen extends StatelessWidget {
             ),
             Expanded(
               child: Container(
-                child: EventsList(),
+                child: NoteList(),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20,
+                ),
                 decoration: kRoundedContainerDecorator.copyWith(
                   color: Theme.of(context).primaryColorDark,
                 ),

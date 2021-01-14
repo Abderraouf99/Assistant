@@ -1,12 +1,12 @@
 # This is a generated file; do not edit or check into version control.
-cloud_firestore=/home/abderraouf/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore-0.14.4/
-cloud_firestore_web=/home/abderraouf/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore_web-0.2.1+2/
-firebase_auth=/home/abderraouf/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth-0.18.4+1/
-firebase_auth_web=/home/abderraouf/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth_web-0.3.2+3/
-firebase_core=/home/abderraouf/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-0.5.3/
-firebase_core_web=/home/abderraouf/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_web-0.2.1+1/
-firebase_messaging=/home/abderraouf/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_messaging-8.0.0-dev.11/
-firebase_messaging_web=/home/abderraouf/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_messaging_web-0.1.0-dev.2/
-flutter_local_notifications=/home/abderraouf/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_local_notifications-3.0.3/
-google_sign_in=/home/abderraouf/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/google_sign_in-4.5.9/
-google_sign_in_web=/home/abderraouf/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/google_sign_in_web-0.9.2/
+cloud_firestore=C:\\Users\\abder\\Documents\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\cloud_firestore-0.14.4\\
+cloud_firestore_web=C:\\Users\\abder\\Documents\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\cloud_firestore_web-0.2.1+2\\
+firebase_auth=C:\\Users\\abder\\Documents\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_auth-0.18.4+1\\
+firebase_auth_web=C:\\Users\\abder\\Documents\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_auth_web-0.3.2+3\\
+firebase_core=C:\\Users\\abder\\Documents\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_core-0.5.3\\
+firebase_core_web=C:\\Users\\abder\\Documents\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_core_web-0.2.1+1\\
+firebase_messaging=C:\\Users\\abder\\Documents\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_messaging-8.0.0-dev.11\\
+firebase_messaging_web=C:\\Users\\abder\\Documents\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_messaging_web-0.1.0-dev.2\\
+flutter_local_notifications=C:\\Users\\abder\\Documents\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\flutter_local_notifications-3.0.3\\
+google_sign_in=C:\\Users\\abder\\Documents\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\google_sign_in-4.5.9\\
+google_sign_in_web=C:\\Users\\abder\\Documents\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\google_sign_in_web-0.9.2\\

@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:to_do_app/Screens/ArchiveScreen.dart';
+import 'package:to_do_app/Screens/BinScreen.dart';
+import 'package:to_do_app/Screens/EventsScreen.dart';
+import 'package:to_do_app/Screens/NotesScreen.dart';
+import 'package:to_do_app/Screens/TaskScreen.dart';
 
 class DrawerCustom extends StatelessWidget {
   @override
@@ -33,7 +38,9 @@ class DrawerCustom extends StatelessWidget {
                   fontFamily: 'Roboto',
                 ),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, TasksScreen.taskScreenId);
+              },
             ),
             ListTile(
               leading: Icon(Icons.event),
@@ -44,7 +51,9 @@ class DrawerCustom extends StatelessWidget {
                   fontFamily: 'Roboto',
                 ),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, EventsScreen.eventsScreenId);
+              },
             ),
             ListTile(
               leading: Icon(Icons.note),
@@ -55,7 +64,9 @@ class DrawerCustom extends StatelessWidget {
                   fontFamily: 'Roboto',
                 ),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, NoteScreen.noteScreenID);
+              },
             ),
             Divider(),
             ListTile(
@@ -67,7 +78,9 @@ class DrawerCustom extends StatelessWidget {
                   fontFamily: 'Roboto',
                 ),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, ArchiveScreen.archiveScreenID);
+              },
             ),
             ListTile(
               leading: Icon(Icons.delete_rounded),
@@ -78,7 +91,9 @@ class DrawerCustom extends StatelessWidget {
                   fontFamily: 'Roboto',
                 ),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, BinScreen.id);
+              },
             ),
             ListTile(),
           ],

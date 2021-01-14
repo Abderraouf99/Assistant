@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:to_do_app/Screens/TaskScreen.dart';
 import 'package:to_do_app/Screens/loginScreen.dart';
-import 'package:to_do_app/Screens/pageViewScreen.dart';
 import 'package:to_do_app/constants.dart';
 
 import 'package:to_do_app/models/DataFirebase.dart';
@@ -122,8 +122,8 @@ class RegistrationScreen extends StatelessWidget {
                                     listen: false)
                                 .createNewUserDocument();
 
-                            Navigator.popAndPushNamed(context,
-                                PageViewNavigation.pageViewNavigationID);
+                            Navigator.popAndPushNamed(
+                                context, TasksScreen.taskScreenId);
                           } else {
                             showModalActionSheet(
                               context: context,
