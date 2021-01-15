@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:to_do_app/models/Note.dart';
 import 'Tasks.dart';
 import 'Event.dart';
 
@@ -14,6 +15,17 @@ class FirebaseController extends ChangeNotifier {
     notifyListeners();
   }
 
+  FirebaseAuth getAuthInstance() {
+    return _auth;
+  }
+
+  void createNewUserDocument() async {
+    await _firestoreReference.doc('${_auth.currentUser.email}').set(
+      {'id': '${_auth.currentUser.email}'},
+    );
+  }
+
+  /// ***********************************Task related actions**************************************/
   Future<List> fetchTasks() async {
     var task = await _firestoreReference
         .doc('${_auth.currentUser.email}')
@@ -32,16 +44,6 @@ class FirebaseController extends ChangeNotifier {
     return taskList;
   }
 
-  FirebaseAuth getAuthInstance() {
-    return _auth;
-  }
-
-  void createNewUserDocument() async {
-    await _firestoreReference.doc('${_auth.currentUser.email}').set(
-      {'id': '${_auth.currentUser.email}'},
-    );
-  }
-
   void addTask(Task task) async {
     await _firestoreReference
         .doc('${_auth.currentUser.email}')
@@ -51,22 +53,6 @@ class FirebaseController extends ChangeNotifier {
         'taskText': task.getTask(),
         'taskStatus': task.getState(),
         'taskIndex': task.getIndex(),
-      },
-    );
-  }
-
-  void addEvent(Event event) async {
-    await _firestoreReference
-        .doc('${_auth.currentUser.email}')
-        .collection('events')
-        .add(
-      {
-        'eventTitle': event.title,
-        'eventStartDate': event.dateStart,
-        'eventEndDate': event.dateEnd,
-        'eventStatus': event.eventStatus(),
-        'eventID': event.id(),
-        'eventID2': event.id2(),
       },
     );
   }
@@ -122,6 +108,23 @@ class FirebaseController extends ChangeNotifier {
     document.reference.update(
       {
         'taskStatus': status,
+      },
+    );
+  }
+
+  /// *****************************************************Event related actions *************************/
+  void addEvent(Event event) async {
+    await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection('events')
+        .add(
+      {
+        'eventTitle': event.title,
+        'eventStartDate': event.dateStart,
+        'eventEndDate': event.dateEnd,
+        'eventStatus': event.eventStatus(),
+        'eventID': event.id(),
+        'eventID2': event.id2(),
       },
     );
   }
@@ -182,5 +185,53 @@ class FirebaseController extends ChangeNotifier {
         .collection('events')
         .doc(docID)
         .delete();
+  }
+
+  /// *************************************************Notes related Events***************************/
+  void addNote(Note note) async {
+    await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection('notes')
+        .add(
+      {
+        'noteTitle': note.getTitle,
+        'noteText': note.getNote,
+        'noteDate': note.getDate,
+      },
+    );
+  }
+
+  Future<String> _findNoteInDataBase(String title) async {
+    var notes = await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection('notes')
+        .get();
+    String docID;
+    for (var doc in notes.docs) {
+      if (doc.data()['noteTitle'] == title) {
+        docID = doc.id;
+        break;
+      }
+    }
+    return docID;
+  }
+
+  void deleteNoteAndTransferToBin(Note note) async {
+    String docID = await _findNoteInDataBase(note.getTitle);
+    await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection('notes')
+        .doc(docID)
+        .delete();
+    await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection('binNotes')
+        .add(
+      {
+        'noteTitle': note.getTitle,
+        'noteText': note.getNote,
+        'noteDate': note.getDate,
+      },
+    );
   }
 }

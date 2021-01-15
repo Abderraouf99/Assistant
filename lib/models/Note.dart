@@ -2,7 +2,6 @@ class Note {
   String _note;
   String _title;
   DateTime _date;
-
   Note(String note, String title, DateTime date)
       : _note = note,
         _title = title,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_app/Widgets/NoteTile.dart';
+import 'package:to_do_app/models/DataFirebase.dart';
 import 'package:to_do_app/models/DataNotes.dart';
 
 class NoteList extends StatelessWidget {
@@ -9,13 +10,22 @@ class NoteList extends StatelessWidget {
     return Consumer<NotesController>(
       builder: (context, note, child) {
         return ListView.builder(
-          // padding: EdgeInsets.all(5),
           itemBuilder: (context, index) {
             return NoteTile(
               note: note.notes[index],
+              deleteFunction: () {
+                Provider.of<FirebaseController>(context, listen: false)
+                    .deleteNoteAndTransferToBin(
+                  note.notes[index],
+                );
+                note.removeAndAddTobin(index);
+              },
+              archiveFunction: () {
+                note.removeAndAddToArchive(index);
+              },
             );
           },
-          itemCount: note.notes.length,
+          itemCount: (note.notes != null) ? note.notes.length : 0,
         );
       },
     );

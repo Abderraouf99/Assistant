@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_app/constants.dart';
+import 'package:to_do_app/models/DataFirebase.dart';
 import 'package:to_do_app/models/DataNotes.dart';
 import 'package:intl/intl.dart';
 import 'package:to_do_app/models/Note.dart';
@@ -39,6 +40,9 @@ class AddNote extends StatelessWidget {
                           note.date,
                         );
                         note.addNote(newNote);
+                        Provider.of<FirebaseController>(context, listen: false)
+                            .addNote(newNote);
+                        Navigator.pop(context);
                       },
                       child: CircleAvatar(
                         child: Icon(
