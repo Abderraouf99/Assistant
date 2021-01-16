@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
+import 'package:to_do_app/models/DataTask.dart';
 import 'package:to_do_app/models/Note.dart';
 import 'Tasks.dart';
 import 'Event.dart';
@@ -26,45 +28,62 @@ class FirebaseController extends ChangeNotifier {
   }
 
   /// ***********************************Task related actions**************************************/
-  Future<List> fetchTasks() async {
-    var task = await _firestoreReference
-        .doc('${_auth.currentUser.email}')
-        .collection('tasks')
-        .get();
-    List<Task> taskList = [];
-    for (var doc in task.docs) {
-      taskList.add(
-        Task(
-          task: doc.get('taskText'),
-          status: doc.get('taskStatus'),
-          index: doc.get('taskIndex'),
-        ),
-      );
-    }
-    return taskList;
-  }
 
-  void addTask(Task task) async {
+  final String kArchivedTasks = 'archiveTask';
+  final String kTask = 'tasks';
+  final String kdeletedTasks = "binTasks";
+
+  Future<void> addTask(Task task) async {
     await _firestoreReference
         .doc('${_auth.currentUser.email}')
-        .collection('tasks')
+        .collection(kTask)
         .add(
       {
         'taskText': task.getTask(),
         'taskStatus': task.getState(),
-        'taskIndex': task.getIndex(),
       },
     );
   }
 
-  Future<String> _findInDataBase(int index) async {
+  Future<String> _findInArchiveDataBase(Task task) async {
+    String docID;
+    var archivedTasks = await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection(kArchivedTasks)
+        .get();
+    for (var document in archivedTasks.docs) {
+      if (document.data()['taskText'] == task.getTask()) {
+        docID = document.id;
+        break;
+      }
+    }
+    return docID;
+  }
+
+  Future<String> _findInTaskDataBase(Task task) async {
+    String docID;
     var tasks = await _firestoreReference
         .doc('${_auth.currentUser.email}')
-        .collection('tasks')
+        .collection(kTask)
         .get();
-    var docID;
+    for (var document in tasks.docs) {
+      if (document.data()['taskText'] == task.getTask()) {
+        docID = document.id;
+        break;
+      }
+    }
+    return docID;
+  }
+
+  Future<String> _findInTaskBinDataBase(Task task) async {
+    String docID = '';
+    var tasks = await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection(kdeletedTasks)
+        .get();
+
     for (var doc in tasks.docs) {
-      if (doc.data()['taskIndex'] == index) {
+      if (doc.data()['taskText'] == task.getTask()) {
         docID = doc.id;
         break;
       }
@@ -72,37 +91,165 @@ class FirebaseController extends ChangeNotifier {
     return docID;
   }
 
-  Future<void> _updateIndex() async {
-    var tasksUpdated = await _firestoreReference
-        .doc('${_auth.currentUser.email}')
-        .collection('tasks')
-        .get();
-    int counter = 0;
-    for (var doc in tasksUpdated.docs) {
-      doc.reference.update(
-        {
-          'taskIndex': counter,
-        },
-      );
-      counter++;
-    }
-  }
-
-  void deleteTask(int index) async {
-    String docID = await _findInDataBase(index);
+  Future<void> _deleteFromArchive(String docID) async {
     await _firestoreReference
         .doc('${_auth.currentUser.email}')
-        .collection('tasks')
+        .collection(kArchivedTasks)
         .doc(docID)
         .delete();
-    await _updateIndex();
   }
 
-  void toggleStatusTask(int index, bool status) async {
-    String docID = await _findInDataBase(index);
+  Future<void> _deleteFromBin(String docID) async {
+    await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection(kdeletedTasks)
+        .doc(docID)
+        .delete();
+  }
+
+  Future<void> _deleteFromTasks(String docID) async {
+    await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection(kTask)
+        .doc(docID)
+        .delete();
+  }
+
+  Future<void> _addToBin(Task task) async {
+    await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection(kdeletedTasks)
+        .add(
+      {
+        'taskText': task.getTask(),
+        'taskStatus': task.getState(),
+      },
+    );
+  }
+
+  Future<void> _addToArchive(Task task) async {
+    await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection(kArchivedTasks)
+        .add(
+      {
+        'taskText': task.getTask(),
+        'taskStatus': task.getState(),
+      },
+    );
+  }
+
+  Future<void> _fetchMainTasks(BuildContext context) async {
+    var task = await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection(kTask)
+        .get();
+    List<Task> taskList = [];
+    for (var doc in task.docs) {
+      taskList.add(
+        Task(
+          task: doc.get('taskText'),
+          status: doc.get('taskStatus'),
+        ),
+      );
+    }
+    Provider.of<TaskController>(context, listen: false).setTasks(taskList);
+  }
+
+  Future<void> _fetchArchivedTasks(BuildContext context) async {
+    var archivedTasks = await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection(kArchivedTasks)
+        .get();
+    List<Task> archive = [];
+    for (var doc in archivedTasks.docs) {
+      archive.add(
+        Task(
+          task: doc.get('taskText'),
+          status: doc.get('taskStatus'),
+        ),
+      );
+    }
+    Provider.of<TaskController>(context, listen: false).setArchived(archive);
+  }
+
+  Future<void> _fetchDeletedTasks(BuildContext context) async {
+    var deletedTasks = await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection(kdeletedTasks)
+        .get();
+    List<Task> deleted = [];
+    for (var doc in deletedTasks.docs) {
+      deleted.add(
+        Task(
+          task: doc.get('taskText'),
+          status: doc.get('taskStatus'),
+        ),
+      );
+    }
+    Provider.of<TaskController>(context, listen: false).setDeleted(deleted);
+  }
+
+  Future<void> moveTobin(Task task, bool isArchived) async {
+    String docID = '';
+    if (isArchived) {
+      docID = await _findInArchiveDataBase(task);
+      await _deleteFromArchive(docID);
+    } else {
+      docID = await _findInTaskDataBase(task);
+      await _deleteFromTasks(docID);
+    }
+    await _addToBin(task);
+  }
+
+  Future<void> archiveTask(Task task) async {
+    String docID = await _findInTaskDataBase(task);
+    await _deleteFromTasks(docID);
+    await _addToArchive(task);
+  }
+
+  Future<void> unArchiveTask(Task task) async {
+    String docID = await _findInArchiveDataBase(task);
+    await _deleteFromArchive(docID);
+    await addTask(task);
+  }
+
+  Future<void> deleteTaskForever(Task task) async {
+    String docID = await _findInTaskBinDataBase(task);
+    await _deleteFromBin(docID);
+  }
+
+  Future<void> recoverTask(Task task) async {
+    String docID = await _findInTaskBinDataBase(task);
+    await _deleteFromBin(docID);
+    await addTask(task);
+  }
+
+  Future<void> fetchAllTasks(BuildContext context) async {
+    _fetchMainTasks(context);
+    _fetchArchivedTasks(context);
+    _fetchDeletedTasks(context);
+  }
+
+  Future<void> _toggleTaskStatusArchived(Task task, bool status) async {
+    String docID = await _findInArchiveDataBase(task);
+    var theTask = await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection(kArchivedTasks)
+        .doc(docID)
+        .get();
+    theTask.reference.update(
+      {
+        'taskStatus': status,
+      },
+    );
+  }
+
+  Future<void> _toggleTaskStatusMain(Task task, bool status) async {
+    String docID = await _findInTaskDataBase(task);
     var document = await _firestoreReference
         .doc('${_auth.currentUser.email}')
-        .collection('tasks')
+        .collection(kTask)
         .doc(docID)
         .get();
     document.reference.update(
@@ -110,6 +257,15 @@ class FirebaseController extends ChangeNotifier {
         'taskStatus': status,
       },
     );
+  }
+
+  Future<void> toggleStatusTasks(
+      Task task, bool isArchived, bool status) async {
+    if (isArchived) {
+      await _toggleTaskStatusArchived(task, status);
+    } else {
+      await _toggleTaskStatusMain(task, status);
+    }
   }
 
   /// *****************************************************Event related actions *************************/
@@ -233,5 +389,39 @@ class FirebaseController extends ChangeNotifier {
         'noteDate': note.getDate,
       },
     );
+  }
+
+  void deleteNoteAndTransferToArchieve(Note note) async {
+    String docID = await _findNoteInDataBase(note.getTitle);
+    await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection('notes')
+        .doc(docID)
+        .delete();
+    await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection('archieveNotes')
+        .add(
+      {
+        'noteTitle': note.getTitle,
+        'noteText': note.getNote,
+        'noteDate': note.getDate,
+      },
+    );
+  }
+
+  Future<List> fetchNotes() async {
+    var notes = await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection('notes')
+        .get();
+    List<Note> notesList = [];
+    for (var doc in notes.docs) {
+      notesList.add(
+        Note(doc.get('noteText'), doc.get('noteTitle'),
+            doc.get('noteDate').toDate()),
+      );
+    }
+    return notesList;
   }
 }

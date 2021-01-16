@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:to_do_app/constants.dart';
 import 'package:to_do_app/models/DataEvents.dart';
 import 'package:to_do_app/models/DataFirebase.dart';
+import 'package:to_do_app/models/DataNotes.dart';
 import 'package:to_do_app/models/DataTask.dart';
 import 'package:to_do_app/models/SocialMediaLogin_RegistationHandler.dart';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
@@ -97,17 +98,20 @@ class LoginScreen extends StatelessWidget {
                             .signInWithEmailAndPassword(
                                 email: _email, password: _password);
                         if (logIn != null) {
-                          Provider.of<ControllerTask>(context, listen: false)
-                              .setTasks(
-                            await Provider.of<FirebaseController>(context,
-                                    listen: false)
-                                .fetchTasks(),
-                          );
+                          await Provider.of<FirebaseController>(context,
+                                  listen: false)
+                              .fetchAllTasks(context);
                           Provider.of<EventsController>(context, listen: false)
                               .events = await Provider.of<FirebaseController>(
                                   context,
                                   listen: false)
                               .fetchEvents();
+                          Provider.of<NotesController>(context, listen: false)
+                              .setNote(
+                            await Provider.of<FirebaseController>(context,
+                                    listen: false)
+                                .fetchNotes(),
+                          );
 
                           Provider.of<FirebaseController>(context,
                                   listen: false)
@@ -194,12 +198,9 @@ class LoginScreen extends StatelessWidget {
                                     listen: false)
                                 .getAuthInstance());
                         if (userCredentials != null) {
-                          Provider.of<ControllerTask>(context, listen: false)
-                              .setTasks(
-                            await Provider.of<FirebaseController>(context,
-                                    listen: false)
-                                .fetchTasks(),
-                          );
+                          await Provider.of<FirebaseController>(context,
+                                  listen: false)
+                              .fetchAllTasks(context);
                           Provider.of<EventsController>(context, listen: false)
                               .events = await Provider.of<FirebaseController>(
                                   context,

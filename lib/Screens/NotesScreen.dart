@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/Screens/addNote.dart';
 import 'package:to_do_app/Widgets/NotesList.dart';
+import 'package:to_do_app/Widgets/PageHeader.dart';
 import 'package:to_do_app/Widgets/SideNavigationDrawer.dart';
 import 'package:to_do_app/constants.dart';
 
@@ -38,23 +39,8 @@ class NoteScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              padding:
-                  EdgeInsets.only(left: 30, top: 25, bottom: 30, right: 30),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Notes',
-                    style: TextStyle(
-                      fontFamily: 'Pacifico',
-                      color: Color(0xffEEEEEE),
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
+            PageHeader(
+              pageName: 'Notes',
             ),
             Expanded(
               child: Container(

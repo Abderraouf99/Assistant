@@ -18,6 +18,8 @@ class NotesController extends ChangeNotifier {
   }
 
   List get notes => _notes;
+  List get archieve => _archivedNotes;
+  List get deleted => _deletedNotes;
 
   void removeAndAddToArchive(int index) {
     Note toBeMoved = _notes[index];
@@ -37,5 +39,9 @@ class NotesController extends ChangeNotifier {
       (a, b) => a.getDate.compareTo(b.getDate),
     );
     notifyListeners();
+  }
+
+  void setNote(List<Note> notes) {
+    _notes = notes;
   }
 }

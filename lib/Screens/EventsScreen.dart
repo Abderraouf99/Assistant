@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/Screens/AddEventsScreen.dart';
 import 'package:to_do_app/Widgets/EventsList.dart';
+import 'package:to_do_app/Widgets/PageHeader.dart';
 import 'package:to_do_app/Widgets/SideNavigationDrawer.dart';
 import 'package:to_do_app/constants.dart';
 import 'package:provider/provider.dart';
@@ -49,24 +50,8 @@ class EventsScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              padding:
-                  EdgeInsets.only(left: 30, top: 25, bottom: 30, right: 30),
-              child: Column(
-                //mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Events',
-                    style: TextStyle(
-                      fontFamily: 'Pacifico',
-                      color: Color(0xffEEEEEE),
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
+            PageHeader(
+              pageName: 'Events',
             ),
             Expanded(
               child: Container(

@@ -15,9 +15,7 @@ import 'package:to_do_app/models/DataTask.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-//TODO: refactor code
-//TODO: Add a bin functionnality
-//TODO: Add an archive functionnality
+
 final FlutterLocalNotificationsPlugin localNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 Future<void> main() async {
@@ -38,7 +36,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => ControllerTask(),
+          create: (context) => TaskController(),
         ),
         ChangeNotifierProvider(
           create: (context) => EventsController(),

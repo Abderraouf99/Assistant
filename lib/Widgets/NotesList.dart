@@ -21,6 +21,11 @@ class NoteList extends StatelessWidget {
                 note.removeAndAddTobin(index);
               },
               archiveFunction: () {
+                Provider.of<FirebaseController>(context, listen: false)
+                    .deleteNoteAndTransferToArchieve(
+                  note.notes[index],
+                );
+
                 note.removeAndAddToArchive(index);
               },
             );

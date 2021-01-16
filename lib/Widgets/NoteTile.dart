@@ -8,10 +8,7 @@ class NoteTile extends StatelessWidget {
   final Note note;
   final Function deleteFunction;
   final Function archiveFunction;
-  NoteTile(
-      {@required this.note,
-      @required this.deleteFunction,
-      @required this.archiveFunction});
+  NoteTile({@required this.note, this.deleteFunction, this.archiveFunction});
 
   @override
   Widget build(BuildContext context) {

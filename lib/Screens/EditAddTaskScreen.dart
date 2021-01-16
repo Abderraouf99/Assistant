@@ -10,7 +10,7 @@ class EditAddTaskScreen extends StatelessWidget {
   EditAddTaskScreen({@required this.type, @required this.functionnality});
   @override
   Widget build(BuildContext context) {
-    return Consumer<ControllerTask>(
+    return Consumer<TaskController>(
       builder: (context, task, child) {
         return Container(
           color: Color(0xff757575),
@@ -36,7 +36,6 @@ class EditAddTaskScreen extends StatelessWidget {
                         Task taskToadd = Task(
                           task: task.task,
                           status: false,
-                          index: task.getTasks().length,
                         );
                         functionnality(taskToadd);
                       },
