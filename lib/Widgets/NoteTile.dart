@@ -1,6 +1,5 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:to_do_app/constants.dart';
 import 'package:to_do_app/models/Note.dart';
 import 'package:intl/intl.dart';
 

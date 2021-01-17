@@ -47,7 +47,6 @@ class TaskArchieveList extends StatelessWidget {
                       .toggleStatusTasks(
                     tasks.archived[index],
                     _isArchived,
-                    tasks.archived[index].getState(),
                   );
                 },
               ),

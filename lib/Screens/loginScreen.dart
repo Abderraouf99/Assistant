@@ -6,10 +6,8 @@ import 'package:to_do_app/Widgets/CustomButtonWidget.dart';
 import 'package:to_do_app/Widgets/GoogleSignInButton.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:to_do_app/constants.dart';
-import 'package:to_do_app/models/DataEvents.dart';
 import 'package:to_do_app/models/DataFirebase.dart';
-import 'package:to_do_app/models/DataNotes.dart';
-import 'package:to_do_app/models/DataTask.dart';
+
 import 'package:to_do_app/models/SocialMediaLogin_RegistationHandler.dart';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 
