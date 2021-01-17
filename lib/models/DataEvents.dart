@@ -38,7 +38,8 @@ class EventsController extends ChangeNotifier {
 
   Event get tempEvent => _tempEvent;
   List<Event> get events => _myEvents;
-
+  List<Event> get archive => _archived;
+  List<Event> get removed => _deleted;
   int findNumberOfCompletedEvents() {
     int counter = 0;
     for (Event currentEvent in _myEvents) {
@@ -49,8 +50,10 @@ class EventsController extends ChangeNotifier {
     return counter;
   }
 
-  void toggleStatus(int index) {
-    _myEvents[index].toggleStatus();
+  void toggleStatus(int index, bool isArchived) {
+    (isArchived)
+        ? _archived[index].toggleStatus()
+        : _myEvents[index].toggleStatus();
     notifyListeners();
   }
 
@@ -62,7 +65,22 @@ class EventsController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void removeEvent(int index) {
+  void moveToBin(int index, bool isArchived) {
+    Event event = (isArchived) ? _archived[index] : _myEvents[index];
+    _deleted.add(event);
+    _deleted.sort(
+      (a, b) => a.dateStart.compareTo(b.dateStart),
+    );
+    (isArchived) ? _archived.removeAt(index) : _myEvents.removeAt(index);
+    notifyListeners();
+  }
+
+  void moveToArchive(int index) {
+    Event event = _myEvents[index];
+    _archived.add(event);
+    _archived.sort(
+      (a, b) => a.dateStart.compareTo(b.dateStart),
+    );
     _myEvents.removeAt(index);
     notifyListeners();
   }

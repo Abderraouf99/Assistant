@@ -6,6 +6,7 @@ import 'package:to_do_app/models/DataEvents.dart';
 import 'package:to_do_app/models/DataFirebase.dart';
 
 class EventsList extends StatelessWidget {
+  final bool _isArchived = false;
   @override
   Widget build(BuildContext context) {
     return Consumer<EventsController>(
@@ -16,19 +17,12 @@ class EventsList extends StatelessWidget {
               background: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
-                  color: (eventsList.events[index].eventStatus())
-                      ? Colors.orange[300]
-                      : Colors.green,
+                  color: Colors.green,
                 ),
-                child: (eventsList.events[index].eventStatus())
-                    ? Icon(
-                        Icons.pending_actions,
-                        color: Colors.white,
-                      )
-                    : Icon(
-                        Icons.done,
-                        color: Colors.white,
-                      ),
+                child: Icon(
+                  Icons.done,
+                  color: Colors.white,
+                ),
               ),
               secondaryBackground: Container(
                 decoration: BoxDecoration(
@@ -41,18 +35,21 @@ class EventsList extends StatelessWidget {
                 ),
               ),
               onDismissed: (direction) async {
-                if (direction == DismissDirection.endToStart) {
-                  Provider.of<FirebaseController>(context, listen: false)
-                      .deleteEvent(eventsList.events[index].title);
-                  eventsList.removeEvent(index);
-                } else {
-                  eventsList.toggleStatus(index);
-                  Provider.of<FirebaseController>(context, listen: false)
-                      .toggleStatusEvents(eventsList.events[index].title,
-                          eventsList.events[index].eventStatus());
-                }
                 await localNotificationsPlugin
                     .cancel(eventsList.events[index].id());
+                if (direction == DismissDirection.endToStart) {
+                  await Provider.of<FirebaseController>(context, listen: false)
+                      .moveEventToBin(eventsList.events[index], _isArchived);
+                  eventsList.moveToBin(index, _isArchived);
+                } else {
+                  eventsList.toggleStatus(index, _isArchived);
+                  await Provider.of<FirebaseController>(context, listen: false)
+                      .toggleStatusEvents(
+                          eventsList.events[index], _isArchived);
+                  await Provider.of<FirebaseController>(context, listen: false)
+                      .archiveEvent(eventsList.events[index]);
+                  eventsList.moveToArchive(index);
+                }
               },
               key: UniqueKey(),
               child: EventTile(
