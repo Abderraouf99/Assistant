@@ -77,7 +77,7 @@ class TasksList extends StatelessWidget {
               onDismissed: (direction) {
                 if (direction == DismissDirection.endToStart) {
                   Provider.of<FirebaseController>(context, listen: false)
-                      .moveTobin(taskList.getTasks()[index], _isNotArchived);
+                      .moveTaskTobin(taskList.getTasks()[index], _isNotArchived);
                   taskList.deleteTask(index);
                 } else {
                   Provider.of<FirebaseController>(context, listen: false)

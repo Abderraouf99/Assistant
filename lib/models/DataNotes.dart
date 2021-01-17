@@ -5,8 +5,8 @@ class NotesController extends ChangeNotifier {
   List<Note> _notes = [];
   List<Note> _archivedNotes = [];
   List<Note> _deletedNotes = [];
-  String note;
-  String title;
+  String note = '';
+  String title = '';
   DateTime date = DateTime.now();
 
   void addNote(Note newNote) {
@@ -14,6 +14,12 @@ class NotesController extends ChangeNotifier {
     _notes.sort(
       (a, b) => a.getDate.compareTo(b.getDate),
     );
+    notifyListeners();
+  }
+
+  void unArchive(int index) {
+    _notes.add(_archivedNotes[index]);
+    _archivedNotes.removeAt(index);
     notifyListeners();
   }
 
@@ -31,10 +37,17 @@ class NotesController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void removeAndAddTobin(int index) {
-    Note toBeDeleted = _notes[index];
-    _notes.removeAt(index);
-    _deletedNotes.add(toBeDeleted);
+  void removeAndAddTobin(int index, bool isArchived) {
+    Note note;
+    if (isArchived) {
+      note = _archivedNotes[index];
+      _archivedNotes.removeAt(index);
+    } else {
+      note = _notes[index];
+      _notes.removeAt(index);
+    }
+
+    _deletedNotes.add(note);
     _deletedNotes.sort(
       (a, b) => a.getDate.compareTo(b.getDate),
     );
@@ -43,5 +56,13 @@ class NotesController extends ChangeNotifier {
 
   void setNote(List<Note> notes) {
     _notes = notes;
+  }
+
+  void setArchivedNotes(List<Note> notes) {
+    _archivedNotes = notes;
+  }
+
+  void setDeletedNotes(List<Note> notes) {
+    _deletedNotes = notes;
   }
 }

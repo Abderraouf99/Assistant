@@ -8,23 +8,41 @@ class NoteTile extends StatelessWidget {
   final Note note;
   final Function deleteFunction;
   final Function archiveFunction;
-  NoteTile({@required this.note, this.deleteFunction, this.archiveFunction});
+  final bool isArchived;
+  NoteTile(
+      {@required this.note,
+      this.deleteFunction,
+      this.archiveFunction,
+      @required this.isArchived});
 
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-      background: Container(
-        margin: EdgeInsets.symmetric(vertical: 10),
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        decoration: BoxDecoration(
-          color: Colors.orange,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Icon(
-          Icons.archive,
-          color: Colors.white,
-        ),
-      ),
+      background: (!isArchived)
+          ? Container(
+              margin: EdgeInsets.symmetric(vertical: 10),
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              decoration: BoxDecoration(
+                color: Colors.orange,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Icon(
+                Icons.archive,
+                color: Colors.white,
+              ),
+            )
+          : Container(
+              margin: EdgeInsets.symmetric(vertical: 10),
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              decoration: BoxDecoration(
+                color: Colors.green,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Icon(
+                Icons.unarchive,
+                color: Colors.white,
+              ),
+            ),
       secondaryBackground: Container(
         margin: EdgeInsets.symmetric(vertical: 10),
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -56,15 +74,25 @@ class NoteTile extends StatelessWidget {
             ],
           );
         } else {
-          await showAlertDialog(
-            context: context,
-            title: 'Archived notes',
-            message: 'This note will be moved to the archive',
-            barrierDismissible: false,
-            actions: [
-              AlertDialogAction(label: 'Confirm'),
-            ],
-          );
+          (!isArchived)
+              ? await showAlertDialog(
+                  context: context,
+                  title: 'Archived notes',
+                  message: 'This note will be moved to the archive',
+                  barrierDismissible: false,
+                  actions: [
+                    AlertDialogAction(label: 'Confirm'),
+                  ],
+                )
+              : await showAlertDialog(
+                  context: context,
+                  title: 'Note un-archived',
+                  message: 'This note will be moved to the main note screen',
+                  barrierDismissible: false,
+                  actions: [
+                    AlertDialogAction(label: 'Confirm'),
+                  ],
+                );
         }
         return true;
       },

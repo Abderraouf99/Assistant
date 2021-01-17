@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
+import 'package:to_do_app/models/DataNotes.dart';
 import 'package:to_do_app/models/DataTask.dart';
 import 'package:to_do_app/models/Note.dart';
 import 'Tasks.dart';
@@ -91,7 +92,7 @@ class FirebaseController extends ChangeNotifier {
     return docID;
   }
 
-  Future<void> _deleteFromArchive(String docID) async {
+  Future<void> _deleteTaskFromArchive(String docID) async {
     await _firestoreReference
         .doc('${_auth.currentUser.email}')
         .collection(kArchivedTasks)
@@ -99,7 +100,7 @@ class FirebaseController extends ChangeNotifier {
         .delete();
   }
 
-  Future<void> _deleteFromBin(String docID) async {
+  Future<void> _deleteTaskFromBin(String docID) async {
     await _firestoreReference
         .doc('${_auth.currentUser.email}')
         .collection(kdeletedTasks)
@@ -115,7 +116,7 @@ class FirebaseController extends ChangeNotifier {
         .delete();
   }
 
-  Future<void> _addToBin(Task task) async {
+  Future<void> _addToTaskBin(Task task) async {
     await _firestoreReference
         .doc('${_auth.currentUser.email}')
         .collection(kdeletedTasks)
@@ -127,7 +128,7 @@ class FirebaseController extends ChangeNotifier {
     );
   }
 
-  Future<void> _addToArchive(Task task) async {
+  Future<void> _addToArchiveTask(Task task) async {
     await _firestoreReference
         .doc('${_auth.currentUser.email}')
         .collection(kArchivedTasks)
@@ -190,45 +191,48 @@ class FirebaseController extends ChangeNotifier {
     Provider.of<TaskController>(context, listen: false).setDeleted(deleted);
   }
 
-  Future<void> moveTobin(Task task, bool isArchived) async {
+  Future<void> moveTaskTobin(Task task, bool isArchived) async {
     String docID = '';
     if (isArchived) {
       docID = await _findInArchiveDataBase(task);
-      await _deleteFromArchive(docID);
+      await _deleteTaskFromArchive(docID);
     } else {
       docID = await _findInTaskDataBase(task);
       await _deleteFromTasks(docID);
     }
-    await _addToBin(task);
+    await _addToTaskBin(task);
   }
 
   Future<void> archiveTask(Task task) async {
     String docID = await _findInTaskDataBase(task);
     await _deleteFromTasks(docID);
-    await _addToArchive(task);
+    await _addToArchiveTask(task);
   }
 
   Future<void> unArchiveTask(Task task) async {
     String docID = await _findInArchiveDataBase(task);
-    await _deleteFromArchive(docID);
+    await _deleteTaskFromArchive(docID);
     await addTask(task);
   }
 
   Future<void> deleteTaskForever(Task task) async {
     String docID = await _findInTaskBinDataBase(task);
-    await _deleteFromBin(docID);
+    await _deleteTaskFromBin(docID);
   }
 
   Future<void> recoverTask(Task task) async {
     String docID = await _findInTaskBinDataBase(task);
-    await _deleteFromBin(docID);
+    await _deleteTaskFromBin(docID);
     await addTask(task);
   }
 
-  Future<void> fetchAllTasks(BuildContext context) async {
-    _fetchMainTasks(context);
-    _fetchArchivedTasks(context);
-    _fetchDeletedTasks(context);
+  Future<void> fetchData(BuildContext context) async {
+    await _fetchMainTasks(context);
+    await _fetchArchivedTasks(context);
+    await _fetchDeletedTasks(context);
+    await _fetchMainNotes(context);
+    await _fetchArchivedNotes(context);
+    await _fetchDeletedNotes(context);
   }
 
   Future<void> _toggleTaskStatusArchived(Task task, bool status) async {
@@ -344,7 +348,11 @@ class FirebaseController extends ChangeNotifier {
   }
 
   /// *************************************************Notes related Events***************************/
-  void addNote(Note note) async {
+  final String kNote = 'notes';
+  final String kArchivedNotes = 'archieveNotes';
+  final String kDeletedNotes = 'binNotes';
+
+  Future<void> addNote(Note note) async {
     await _firestoreReference
         .doc('${_auth.currentUser.email}')
         .collection('notes')
@@ -357,14 +365,15 @@ class FirebaseController extends ChangeNotifier {
     );
   }
 
-  Future<String> _findNoteInDataBase(String title) async {
+  Future<String> _findArchivedNote(Note note) async {
+    String docID = '';
     var notes = await _firestoreReference
         .doc('${_auth.currentUser.email}')
-        .collection('notes')
+        .collection(kArchivedNotes)
         .get();
-    String docID;
+
     for (var doc in notes.docs) {
-      if (doc.data()['noteTitle'] == title) {
+      if (doc.data()['noteTitle'] == note.getTitle) {
         docID = doc.id;
         break;
       }
@@ -372,48 +381,92 @@ class FirebaseController extends ChangeNotifier {
     return docID;
   }
 
-  void deleteNoteAndTransferToBin(Note note) async {
-    String docID = await _findNoteInDataBase(note.getTitle);
-    await _firestoreReference
-        .doc('${_auth.currentUser.email}')
-        .collection('notes')
-        .doc(docID)
-        .delete();
-    await _firestoreReference
-        .doc('${_auth.currentUser.email}')
-        .collection('binNotes')
-        .add(
-      {
-        'noteTitle': note.getTitle,
-        'noteText': note.getNote,
-        'noteDate': note.getDate,
-      },
-    );
-  }
-
-  void deleteNoteAndTransferToArchieve(Note note) async {
-    String docID = await _findNoteInDataBase(note.getTitle);
-    await _firestoreReference
-        .doc('${_auth.currentUser.email}')
-        .collection('notes')
-        .doc(docID)
-        .delete();
-    await _firestoreReference
-        .doc('${_auth.currentUser.email}')
-        .collection('archieveNotes')
-        .add(
-      {
-        'noteTitle': note.getTitle,
-        'noteText': note.getNote,
-        'noteDate': note.getDate,
-      },
-    );
-  }
-
-  Future<List> fetchNotes() async {
+  Future<String> _findMainNote(Note note) async {
+    String docID = '';
     var notes = await _firestoreReference
         .doc('${_auth.currentUser.email}')
-        .collection('notes')
+        .collection(kNote)
+        .get();
+
+    for (var doc in notes.docs) {
+      if (doc.data()['noteTitle'] == note.getTitle) {
+        docID = doc.id;
+        break;
+      }
+    }
+    return docID;
+  }
+
+  Future<String> _findDeletedNote(Note note) async {
+    String docID = '';
+    var notes = await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection(kDeletedNotes)
+        .get();
+
+    for (var doc in notes.docs) {
+      if (doc.data()['noteTitle'] == note.getTitle) {
+        docID = doc.id;
+        break;
+      }
+    }
+    return docID;
+  }
+
+  Future<void> _deleteNoteFromArchive(String docID) async {
+    await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection(kArchivedNotes)
+        .doc(docID)
+        .delete();
+  }
+
+  Future<void> _deleteNoteFromMain(String docID) async {
+    await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection(kNote)
+        .doc(docID)
+        .delete();
+  }
+
+  Future<void> _deleteNoteFromBin(String docID) async {
+    await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection(kDeletedNotes)
+        .doc(docID)
+        .delete();
+  }
+
+  Future<void> _addToNoteBin(Note note) async {
+    await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection(kDeletedNotes)
+        .add(
+      {
+        'noteTitle': note.getTitle,
+        'noteText': note.getNote,
+        'noteDate': note.getDate,
+      },
+    );
+  }
+
+  Future<void> _addToNoteArchive(Note note) async {
+    await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection(kArchivedNotes)
+        .add(
+      {
+        'noteTitle': note.getTitle,
+        'noteText': note.getNote,
+        'noteDate': note.getDate,
+      },
+    );
+  }
+
+  Future<void> _fetchMainNotes(BuildContext context) async {
+    var notes = await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection(kNote)
         .get();
     List<Note> notesList = [];
     for (var doc in notes.docs) {
@@ -422,6 +475,73 @@ class FirebaseController extends ChangeNotifier {
             doc.get('noteDate').toDate()),
       );
     }
-    return notesList;
+    Provider.of<NotesController>(context, listen: false).setNote(notesList);
+  }
+
+  Future<void> _fetchArchivedNotes(BuildContext context) async {
+    var notes = await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection(kArchivedNotes)
+        .get();
+    List<Note> notesList = [];
+    for (var doc in notes.docs) {
+      notesList.add(
+        Note(doc.get('noteText'), doc.get('noteTitle'),
+            doc.get('noteDate').toDate()),
+      );
+    }
+    Provider.of<NotesController>(context, listen: false)
+        .setArchivedNotes(notesList);
+  }
+
+  Future<void> _fetchDeletedNotes(BuildContext context) async {
+    var notes = await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection(kDeletedNotes)
+        .get();
+    List<Note> notesList = [];
+    for (var doc in notes.docs) {
+      notesList.add(
+        Note(doc.get('noteText'), doc.get('noteTitle'),
+            doc.get('noteDate').toDate()),
+      );
+    }
+    Provider.of<NotesController>(context, listen: false)
+        .setDeletedNotes(notesList);
+  }
+
+  Future<void> moveNoteToBin(Note note, bool isArchived) async {
+    String docID = '';
+    if (isArchived) {
+      docID = await _findArchivedNote(note);
+      await _deleteNoteFromArchive(docID);
+    } else {
+      docID = await _findMainNote(note);
+      await _deleteNoteFromMain(docID);
+    }
+    await _addToNoteBin(note);
+  }
+
+  Future<void> archiveNote(Note note) async {
+    String docID = await _findMainNote(note);
+    await _deleteNoteFromMain(docID);
+    await _addToNoteArchive(note);
+  }
+
+  Future<void> unArchiveNote(Note note) async {
+    String docID = await _findArchivedNote(note);
+    await _deleteNoteFromArchive(docID);
+    await addNote(note);
+  }
+
+  Future<void> deleteNoteForever(Note note) async {
+    String docID = await _findDeletedNote(note);
+    await _deleteNoteFromBin(docID);
+  }
+
+  Future<void> recoverNote(Note note) async {
+    String docID = await _findDeletedNote(note);
+    await _deleteNoteFromBin(docID);
+    await addNote(note);
   }
 }

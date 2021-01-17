@@ -1,3 +1,4 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_app/constants.dart';
@@ -33,16 +34,25 @@ class AddNote extends StatelessWidget {
                     ),
                     FlatButton(
                       shape: CircleBorder(),
-                      onPressed: () {
-                        Note newNote = new Note(
-                          note.note,
-                          note.title,
-                          note.date,
-                        );
-                        note.addNote(newNote);
-                        Provider.of<FirebaseController>(context, listen: false)
-                            .addNote(newNote);
-                        Navigator.pop(context);
+                      onPressed: () async {
+                        if (note.note == null || note.title == null) {
+                          await showAlertDialog(
+                            context: context,
+                            title: 'Empty note 😓',
+                            message: 'You can\'t add an empty note ',
+                          );
+                        } else {
+                          Note newNote = new Note(
+                            note.note,
+                            note.title,
+                            note.date,
+                          );
+                          note.addNote(newNote);
+                          Provider.of<FirebaseController>(context,
+                                  listen: false)
+                              .addNote(newNote);
+                          Navigator.pop(context);
+                        }
                       },
                       child: CircleAvatar(
                         child: Icon(

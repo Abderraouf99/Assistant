@@ -100,19 +100,12 @@ class LoginScreen extends StatelessWidget {
                         if (logIn != null) {
                           await Provider.of<FirebaseController>(context,
                                   listen: false)
-                              .fetchAllTasks(context);
+                              .fetchData(context);
                           Provider.of<EventsController>(context, listen: false)
                               .events = await Provider.of<FirebaseController>(
                                   context,
                                   listen: false)
                               .fetchEvents();
-                          Provider.of<NotesController>(context, listen: false)
-                              .setNote(
-                            await Provider.of<FirebaseController>(context,
-                                    listen: false)
-                                .fetchNotes(),
-                          );
-
                           Provider.of<FirebaseController>(context,
                                   listen: false)
                               .toggleIsLoading();
@@ -200,7 +193,7 @@ class LoginScreen extends StatelessWidget {
                         if (userCredentials != null) {
                           await Provider.of<FirebaseController>(context,
                                   listen: false)
-                              .fetchAllTasks(context);
+                              .fetchData(context);
                           Provider.of<EventsController>(context, listen: false)
                               .events = await Provider.of<FirebaseController>(
                                   context,

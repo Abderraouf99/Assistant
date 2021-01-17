@@ -5,6 +5,9 @@ import 'package:to_do_app/models/Event.dart';
 class EventsController extends ChangeNotifier {
   //Events Controller
   List<Event> _myEvents = [];
+  List<Event> _archived = [];
+  List<Event> _deleted = [];
+
   Event _tempEvent = Event(
     '',
     DateTime.now(),
@@ -12,6 +15,19 @@ class EventsController extends ChangeNotifier {
     0,
     0,
   );
+  set archived(List<Event> events) {
+    _archived = events;
+    _archived.sort(
+      (a, b) => a.dateStart.compareTo(b.dateStart),
+    );
+  }
+
+  set deleted(List<Event> events) {
+    _deleted = events;
+    _deleted.sort(
+      (a, b) => a.dateStart.compareTo(b.dateStart),
+    );
+  }
 
   set events(List<Event> events) {
     _myEvents = events;
