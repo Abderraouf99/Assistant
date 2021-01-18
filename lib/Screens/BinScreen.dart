@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/Widgets/EventsLists/EventBinList.dart';
+import 'package:to_do_app/Widgets/NotesList/NoteBinList.dart';
 import 'package:to_do_app/Widgets/PageHeader.dart';
 import 'package:to_do_app/Widgets/SideNavigationDrawer.dart';
 import 'package:to_do_app/Widgets/TasksLists/TaskBinList.dart';
@@ -23,7 +24,7 @@ class _BinScreenState extends State<BinScreen> {
       return EventBinList();
     }
     else{
-      return Container();
+      return NoteBinList();
     }
   }
 

@@ -27,7 +27,7 @@ class NotesController extends ChangeNotifier {
   List get archive => _archivedNotes;
   List get deleted => _deletedNotes;
 
-  void removeAndAddToArchive(int index) {
+  void archiveNote(int index) {
     Note toBeMoved = _notes[index];
     _notes.removeAt(index);
     _archivedNotes.add(toBeMoved);
@@ -37,18 +37,25 @@ class NotesController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void removeAndAddTobin(int index, bool isArchived) {
-    Note note;
-    if (isArchived) {
-      note = _archivedNotes[index];
-      _archivedNotes.removeAt(index);
-    } else {
-      note = _notes[index];
-      _notes.removeAt(index);
-    }
-
-    _deletedNotes.add(note);
+  void moveToBin(int index, bool isArchived) {
+    Note temp = (isArchived) ? _archivedNotes[index] : notes[index];
+    _deletedNotes.add(temp);
+    (isArchived) ? _archivedNotes.removeAt(index) : notes.removeAt(index);
     _deletedNotes.sort(
+      (a, b) => a.getDate.compareTo(b.getDate),
+    );
+    notifyListeners();
+  }
+
+  void purge(int index) {
+    _deletedNotes.removeAt(index);
+    notifyListeners();
+  }
+
+  void recover(int index) {
+    _notes.add(_deletedNotes[index]);
+    _deletedNotes.removeAt(index);
+    _notes.sort(
       (a, b) => a.getDate.compareTo(b.getDate),
     );
     notifyListeners();
