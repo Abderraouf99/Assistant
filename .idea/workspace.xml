@@ -25,11 +25,11 @@
     <list default="true" id="0a6ae363-8f2d-44e7-9a1d-7127917073ca" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Screens/ArchiveScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/ArchiveScreen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Screens/BinScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/BinScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Widgets/NoteTile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Widgets/NoteTile.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Widgets/NotesList/NoteArchieveList.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Widgets/NotesList/NoteArchieveList.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Widgets/NotesList/NotesList.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Widgets/NotesList/NotesList.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/DataNotes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/DataNotes.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Screens/loginScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/loginScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Widgets/EventsLists/EventsList.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Widgets/EventsLists/EventsList.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Widgets/TopBarSelectors.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Widgets/TopBarSelectors.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,7 +140,7 @@
       <workItem from="1610373025115" duration="6275000" />
       <workItem from="1610379438956" duration="2808000" />
       <workItem from="1610743548067" duration="510000" />
-      <workItem from="1610921782158" duration="17226000" />
+      <workItem from="1610921782158" duration="18463000" />
     </task>
     <servers />
   </component>

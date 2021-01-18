@@ -43,6 +43,7 @@ class _BinScreenState extends State<BinScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   TopBarSelectors(
+                    title: 'Tasks',
                     iconData: Icons.list,
                     colorCondition: (page == 0),
                     onPressed: () {
@@ -52,6 +53,7 @@ class _BinScreenState extends State<BinScreen> {
                     },
                   ),
                   TopBarSelectors(
+                    title: 'Events',
                     iconData: Icons.event,
                     colorCondition: (page == 1),
                     onPressed: () {
@@ -61,6 +63,7 @@ class _BinScreenState extends State<BinScreen> {
                     },
                   ),
                   TopBarSelectors(
+                    title: 'Notes',
                     iconData: Icons.note,
                     colorCondition: (page == 2),
                     onPressed: () {

@@ -57,8 +57,8 @@ class EventsList extends StatelessWidget {
                 } else {
                   decision = await _showAlertDialog(
                     context,
-                    title: 'Event archived',
-                    message: 'Archived events will be moved to the archive tab',
+                    title: 'Event completed',
+                    message: 'Completed events will be moved to the archive tab',
                   );
                 }
 

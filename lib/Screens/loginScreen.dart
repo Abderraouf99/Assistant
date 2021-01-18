@@ -106,6 +106,9 @@ class LoginScreen extends StatelessWidget {
                               context, TasksScreen.taskScreenId);
                         }
                       } on FirebaseAuthException catch (e) {
+                        Provider.of<FirebaseController>(context,
+                            listen: false)
+                            .toggleIsLoading();
                         print(e.code);
                         if (e.code == 'user-not-found') {
                           await showOkAlertDialog(
@@ -195,6 +198,9 @@ class LoginScreen extends StatelessWidget {
                               context, TasksScreen.taskScreenId);
                         }
                       } on FirebaseAuthException catch (e) {
+                        Provider.of<FirebaseController>(context,
+                            listen: false)
+                            .toggleIsLoading();
                         print(e.code);
                       }
                     },

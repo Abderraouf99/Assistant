@@ -41,6 +41,7 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   TopBarSelectors(
+                    title: 'Tasks',
                     iconData: Icons.list,
                     colorCondition: (page == 0),
                     onPressed: () {
@@ -50,6 +51,7 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
                     },
                   ),
                   TopBarSelectors(
+                    title: 'Events',
                     iconData: Icons.event,
                     colorCondition: (page == 1),
                     onPressed: () {
@@ -59,6 +61,7 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
                     },
                   ),
                   TopBarSelectors(
+                    title: 'Notes',
                     iconData: Icons.note,
                     colorCondition: (page == 2),
                     onPressed: () {
