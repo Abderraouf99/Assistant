@@ -175,7 +175,7 @@ Future _createNotification(Event theEvent) async {
   var scheduledNotification2 = theEvent.dateStart.subtract(
     Duration(days: 1),
   );
-  var androidPlatformChannelSpecefics = AndroidNotificationDetails(
+  var androidPlatformChannelSpecifics = AndroidNotificationDetails(
     '30minBefore',
     '30minutesBefore',
     'channelReminder30minBefore',
@@ -183,7 +183,7 @@ Future _createNotification(Event theEvent) async {
     priority: Priority.high,
   );
   var platformSpecifics = NotificationDetails(
-    android: androidPlatformChannelSpecefics,
+    android: androidPlatformChannelSpecifics,
   );
   await localNotificationsPlugin.schedule(
     theEvent.id(),

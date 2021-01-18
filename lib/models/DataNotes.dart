@@ -24,7 +24,7 @@ class NotesController extends ChangeNotifier {
   }
 
   List get notes => _notes;
-  List get archieve => _archivedNotes;
+  List get archive => _archivedNotes;
   List get deleted => _deletedNotes;
 
   void removeAndAddToArchive(int index) {

@@ -1,5 +1,4 @@
 class Event {
-  //Atributes
   String _title;
   DateTime _dateStart;
   DateTime _dateEnd;

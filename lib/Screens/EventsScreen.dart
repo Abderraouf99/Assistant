@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/Screens/AddEventsScreen.dart';
-import 'package:to_do_app/Widgets/EventsList.dart';
+import 'package:to_do_app/Widgets/EventsLists/EventsList.dart';
 import 'package:to_do_app/Widgets/PageHeader.dart';
 import 'package:to_do_app/Widgets/SideNavigationDrawer.dart';
 import 'package:to_do_app/constants.dart';

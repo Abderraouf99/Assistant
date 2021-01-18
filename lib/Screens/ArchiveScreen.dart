@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:to_do_app/Widgets/EventArchiveList.dart';
-import 'package:to_do_app/Widgets/NoteArchieveList.dart';
+import 'package:to_do_app/Widgets/EventsLists/EventArchiveList.dart';
+import 'package:to_do_app/Widgets/TasksLists/TaskArchieveList.dart';
+import 'package:to_do_app/Widgets/NotesList/NoteArchieveList.dart';
+
 import 'package:to_do_app/Widgets/PageHeader.dart';
 import 'package:to_do_app/Widgets/SideNavigationDrawer.dart';
-import 'package:to_do_app/Widgets/TaskArchieveList.dart';
 import 'package:to_do_app/Widgets/TopBarSelectors.dart';
 import 'package:to_do_app/constants.dart';
 
@@ -21,7 +22,7 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
     } else if (page == 1) {
       return EventArchiveList();
     } else {
-      return NoteArchieveList();
+      return NoteArchiveList();
     }
   }
 

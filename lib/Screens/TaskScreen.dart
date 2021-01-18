@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:to_do_app/Screens/EditAddTaskScreen.dart';
 import 'package:to_do_app/Widgets/PageHeader.dart';
 import 'package:to_do_app/Widgets/SideNavigationDrawer.dart';
-import 'package:to_do_app/Widgets/TaskList.dart';
+import 'file:///C:/Users/abder/Documents/Assistant/lib/Widgets/TasksLists/TaskList.dart';
 import 'package:to_do_app/constants.dart';
 import 'package:to_do_app/models/DataFirebase.dart';
 import 'package:to_do_app/models/DataTask.dart';
@@ -19,7 +19,7 @@ class TasksScreen extends StatelessWidget {
             EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: EditAddTaskScreen(
           type: 'Add',
-          functionnality: (Task taskToadd) async {
+          function: (Task taskToadd) async {
             Provider.of<TaskController>(context, listen: false)
                 .addTasks(taskToadd);
             Provider.of<FirebaseController>(context, listen: false)

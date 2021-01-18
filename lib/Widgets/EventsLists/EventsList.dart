@@ -7,6 +7,38 @@ import 'package:to_do_app/models/DataFirebase.dart';
 
 class EventsList extends StatelessWidget {
   final bool _isArchived = false;
+  Future<bool> _showAlertDialog(BuildContext context,
+      {String title, String message}) async {
+    bool choice = false;
+    Widget cancelButton = TextButton(
+      onPressed: () {
+        Navigator.pop(context);
+      },
+      child: Text('Cancel'),
+    );
+    Widget okButton = TextButton(
+      onPressed: () {
+        choice = true;
+        Navigator.pop(context);
+      },
+      child: Text('Ok'),
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: Text(title),
+      content: Text(message),
+      actions: [cancelButton, okButton],
+    );
+
+    await showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return alert;
+        });
+    return choice;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<EventsController>(
@@ -14,6 +46,24 @@ class EventsList extends StatelessWidget {
         return ListView.builder(
           itemBuilder: (context, index) {
             return Dismissible(
+              confirmDismiss: (direction) async {
+                bool decision;
+                if (direction == DismissDirection.endToStart) {
+                  decision = await _showAlertDialog(
+                    context,
+                    title: 'Event deleted',
+                    message: 'Deleted events will be moved to the bin tab',
+                  );
+                } else {
+                  decision = await _showAlertDialog(
+                    context,
+                    title: 'Event archived',
+                    message: 'Archived events will be moved to the archive tab',
+                  );
+                }
+
+                return decision;
+              },
               background: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),

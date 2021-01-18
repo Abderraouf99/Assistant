@@ -25,14 +25,25 @@
     <list default="true" id="0a6ae363-8f2d-44e7-9a1d-7127917073ca" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Screens/AddEventsScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/AddEventsScreen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Screens/ArchiveScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/ArchiveScreen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Screens/BinScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/BinScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Widgets/NoteTile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Widgets/NoteTile.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Widgets/TaskArchieveList.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Widgets/TaskArchieveList.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Widgets/TaskList.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Widgets/TaskList.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Screens/EditAddTaskScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/EditAddTaskScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Screens/EventsScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/EventsScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Screens/NotesScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/NotesScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Screens/TaskScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/TaskScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Widgets/EventArchiveList.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Widgets/EventsLists/EventArchiveList.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Widgets/EventsList.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Widgets/EventsLists/EventsList.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Widgets/NoteArchieveList.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Widgets/NotesList/NoteArchieveList.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Widgets/NotesList.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Widgets/NotesList/NotesList.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Widgets/TaskArchieveList.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Widgets/TasksLists/TaskArchieveList.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Widgets/TaskBinList.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Widgets/TasksLists/TaskBinList.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Widgets/TaskList.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Widgets/TasksLists/TaskList.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/DataEvents.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/DataEvents.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/models/DataFirebase.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/DataFirebase.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/DataNotes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/DataNotes.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/models/DataTask.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/DataTask.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/Tasks.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/Tasks.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/Event.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/Event.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +59,14 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectId" id="1mswjBszFCTNO5mPi0dPRrAhZgr" />
   <component name="ProjectLevelVcsManager">
@@ -75,6 +94,13 @@
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\abder\Documents\Assistant\lib\Widgets\NotesList" />
+      <recent name="C:\Users\abder\Documents\Assistant\lib\Widgets\EventsLists" />
+      <recent name="C:\Users\abder\Documents\Assistant\lib\Widgets\TasksLists" />
+    </key>
   </component>
   <component name="RunManager" selected="Flutter.main.dart">
     <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
@@ -128,7 +154,7 @@
       <workItem from="1610373025115" duration="6275000" />
       <workItem from="1610379438956" duration="2808000" />
       <workItem from="1610743548067" duration="510000" />
-      <workItem from="1610921782158" duration="6594000" />
+      <workItem from="1610921782158" duration="12105000" />
     </task>
     <servers />
   </component>

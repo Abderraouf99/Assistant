@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:to_do_app/Widgets/EventsLists/EventBinList.dart';
 import 'package:to_do_app/Widgets/PageHeader.dart';
 import 'package:to_do_app/Widgets/SideNavigationDrawer.dart';
-import 'package:to_do_app/Widgets/TaskBinList.dart';
+import 'package:to_do_app/Widgets/TasksLists/TaskBinList.dart';
 import 'package:to_do_app/Widgets/TopBarSelectors.dart';
 
 import '../constants.dart';
@@ -15,7 +16,15 @@ class BinScreen extends StatefulWidget {
 
 class _BinScreenState extends State<BinScreen> {
   Widget _determineSubPage() {
-    return Container();
+    if (page == 0) {
+      return TaskBinList();
+    }
+    else if(page == 1){
+      return EventBinList();
+    }
+    else{
+      return Container();
+    }
   }
 
   int page = 0;
@@ -64,7 +73,7 @@ class _BinScreenState extends State<BinScreen> {
             ),
             Expanded(
               child: Container(
-                child: TaskBinList(), //_determineSubPage(),
+                child: _determineSubPage(),
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 decoration: kRoundedContainerDecorator.copyWith(
                   color: Theme.of(context).primaryColorDark,

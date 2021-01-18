@@ -6,8 +6,8 @@ import 'package:to_do_app/models/Tasks.dart';
 
 class EditAddTaskScreen extends StatelessWidget {
   final String type;
-  final Function functionnality;
-  EditAddTaskScreen({@required this.type, @required this.functionnality});
+  final Function function;
+  EditAddTaskScreen({@required this.type, @required this.function});
   @override
   Widget build(BuildContext context) {
     return Consumer<TaskController>(
@@ -37,7 +37,7 @@ class EditAddTaskScreen extends StatelessWidget {
                           task: task.task,
                           status: false,
                         );
-                        functionnality(taskToadd);
+                        function(taskToadd);
                       },
                       child: CircleAvatar(
                         child: Icon(

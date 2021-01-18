@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/Screens/addNote.dart';
-import 'package:to_do_app/Widgets/NotesList.dart';
+import 'file:///C:/Users/abder/Documents/Assistant/lib/Widgets/NotesList/NotesList.dart';
 import 'package:to_do_app/Widgets/PageHeader.dart';
 import 'package:to_do_app/Widgets/SideNavigationDrawer.dart';
 import 'package:to_do_app/constants.dart';

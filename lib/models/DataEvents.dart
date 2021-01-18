@@ -85,6 +85,16 @@ class EventsController extends ChangeNotifier {
     notifyListeners();
   }
 
+  void purgeEvent(int index){
+    _deleted.removeAt(index);
+    notifyListeners();
+  }
+
+  void recover(int index){
+    _myEvents.add(_deleted[index]);
+    _deleted.removeAt(index);
+    notifyListeners();
+  }
   void setEndDate(DateTime selected) {
     _tempEvent.setDayEnds = selected;
     notifyListeners();

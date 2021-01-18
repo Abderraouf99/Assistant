@@ -5,6 +5,8 @@ import 'package:to_do_app/Widgets/TaskTile.dart';
 import 'package:to_do_app/models/DataFirebase.dart';
 import 'package:to_do_app/models/DataTask.dart';
 
+import '../RecoverDismissWidget.dart';
+
 class TaskBinList extends StatelessWidget {
   Future<bool> _showAlertDialog(BuildContext context,
       {String title, String message}) async {
@@ -75,16 +77,7 @@ class TaskBinList extends StatelessWidget {
                   tasks.recoverTask(index);
                 }
               },
-              background: Container(
-                child: Icon(
-                  Icons.undo,
-                  color: Color(0xffEEEEEE),
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  color: Colors.green,
-                ),
-              ),
+              background: RecoverDismissWidget(),
               secondaryBackground: DeleteDismissWidget(),
               key: UniqueKey(),
               child: TaskTile(
@@ -97,3 +90,5 @@ class TaskBinList extends StatelessWidget {
     );
   }
 }
+
+

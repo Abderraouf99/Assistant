@@ -16,7 +16,7 @@ const String kEvent = 'events';
 const String kArchivedEvents = 'archivedEvents';
 const String kDeletedEvents = 'deletedEvents';
 const String kNote = 'notes';
-const String kArchivedNotes = 'archieveNotes';
+const String kArchivedNotes = 'archiveNotes';
 const String kDeletedNotes = 'binNotes';
 
 class FirebaseController extends ChangeNotifier {
@@ -281,7 +281,7 @@ class FirebaseController extends ChangeNotifier {
     await _addEvent(event: event, dataBase: kEvent);
   }
 
-  Future<void> deleteEventForever(Event event) async {
+  Future<void> purgeEvent(Event event) async {
     String docID = await _findEvent(event: event, dataBase: kDeletedEvents);
     await _deleteEvent(docID: docID, dataBase: kDeletedNotes);
   }

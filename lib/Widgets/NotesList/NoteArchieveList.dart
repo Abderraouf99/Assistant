@@ -4,7 +4,7 @@ import 'package:to_do_app/Widgets/NoteTile.dart';
 import 'package:to_do_app/models/DataFirebase.dart';
 import 'package:to_do_app/models/DataNotes.dart';
 
-class NoteArchieveList extends StatelessWidget {
+class NoteArchiveList extends StatelessWidget {
   final bool _isArchived = true;
   @override
   Widget build(BuildContext context) {
@@ -13,22 +13,22 @@ class NoteArchieveList extends StatelessWidget {
         return ListView.builder(
           itemBuilder: (context, index) {
             return NoteTile(
-              note: note.archieve[index],
+              note: note.archive[index],
               isArchived: _isArchived,
               deleteFunction: () {
                 //TODO: add a delete function
                 Provider.of<FirebaseController>(context, listen: false)
-                    .moveNoteToBin(note.archieve[index], _isArchived);
+                    .moveNoteToBin(note.archive[index], _isArchived);
                 note.removeAndAddTobin(index, _isArchived);
               },
               archiveFunction: () {
                 Provider.of<FirebaseController>(context, listen: false)
-                    .unArchiveNote(note.archieve[index]);
+                    .unArchiveNote(note.archive[index]);
                 note.unArchive(index);
               },
             );
           },
-          itemCount: (note.archieve != null) ? note.archieve.length : 0,
+          itemCount: (note.archive != null) ? note.archive.length : 0,
         );
       },
     );

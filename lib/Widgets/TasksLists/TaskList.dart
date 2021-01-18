@@ -1,7 +1,8 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:to_do_app/Widgets/DeleteDismissWidget.dart';
 import 'package:to_do_app/models/DataFirebase.dart';
-import 'TaskTile.dart';
+import '../TaskTile.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_app/models/DataTask.dart';
 
@@ -50,17 +51,7 @@ class TasksList extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              secondaryBackground: Container(
-                margin: EdgeInsets.symmetric(vertical: 10, horizontal: 0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  color: Colors.red,
-                ),
-                child: Icon(
-                  Icons.delete,
-                  color: Colors.white,
-                ),
-              ),
+              secondaryBackground: DeleteDismissWidget(),
               key: UniqueKey(),
               child: TaskTile(
                 theTask: taskList.getTasks()[index],
@@ -73,14 +64,14 @@ class TasksList extends StatelessWidget {
                   );
                 },
               ),
-              onDismissed: (direction) {
+              onDismissed: (direction)async {
                 if (direction == DismissDirection.endToStart) {
-                  Provider.of<FirebaseController>(context, listen: false)
+                  await Provider.of<FirebaseController>(context, listen: false)
                       .moveTaskTobin(
                           taskList.getTasks()[index], _isArchived);
                   taskList.moveTobin(index,_isArchived);
                 } else {
-                  Provider.of<FirebaseController>(context, listen: false)
+                  await Provider.of<FirebaseController>(context, listen: false)
                       .archiveTask(taskList.getTasks()[index]);
                   taskList.archiveTask(index);
                 }
