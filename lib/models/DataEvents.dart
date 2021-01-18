@@ -11,7 +11,7 @@ class EventsController extends ChangeNotifier {
   Event _tempEvent = Event(
     '',
     DateTime.now(),
-    DateTime.now(),
+    DateTime.now().add(Duration(hours: 1)),
     0,
     0,
   );

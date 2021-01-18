@@ -108,20 +108,23 @@ class AddEventsSheet extends StatelessWidget {
                       initialDate: event.getStartDate(),
                       initialDatePickerMode: DatePickerMode.day,
                     );
-                    TimeOfDay time = await showTimePicker(
-                      context: context,
-                      initialTime: TimeOfDay.now(),
-                    );
-                    if (time != null && date != null) {
-                      DateTime startingDate = new DateTime(
-                        date.year,
-                        date.month,
-                        date.day,
-                        time.hour,
-                        time.minute,
+                    if (date != null) {
+                      TimeOfDay time = await showTimePicker(
+                        context: context,
+                        initialTime: TimeOfDay.now(),
                       );
-                      event.setStartDate(startingDate);
-                      print(startingDate);
+                      if (time != null) {
+                        DateTime startingDate = new DateTime(
+                          date.year,
+                          date.month,
+                          date.day,
+                          time.hour,
+                          time.minute,
+                        );
+                        event.setStartDate(startingDate);
+                      }
+                    } else {
+                      event.setStartDate(DateTime.now());
                     }
                   },
                   date:
@@ -137,23 +140,26 @@ class AddEventsSheet extends StatelessWidget {
                       context: context,
                       firstDate: DateTime(DateTime.now().year - 5),
                       lastDate: DateTime(DateTime.now().year + 5),
-                      initialDate: event.getEndDate(),
+                      initialDate: event.getStartDate(),
                       initialDatePickerMode: DatePickerMode.day,
                     );
-
-                    TimeOfDay time = await showTimePicker(
-                      context: context,
-                      initialTime: TimeOfDay.now(),
-                    );
-                    if (time != null && date != null) {
-                      DateTime endDate = new DateTime(
-                        date.year,
-                        date.month,
-                        date.day,
-                        time.hour,
-                        time.minute,
+                    if (date != null) {
+                      TimeOfDay time = await showTimePicker(
+                        context: context,
+                        initialTime: TimeOfDay.now(),
                       );
-                      event.setEndDate(endDate);
+                      if (time != null) {
+                        DateTime endDate = new DateTime(
+                          date.year,
+                          date.month,
+                          date.day,
+                          time.hour,
+                          time.minute,
+                        );
+                        event.setEndDate(endDate);
+                      }
+                    } else {
+                      event.setEndDate(DateTime.now().add(Duration(hours: 1)));
                     }
                   },
                   date:
@@ -169,12 +175,6 @@ class AddEventsSheet extends StatelessWidget {
 }
 
 Future _createNotification(Event theEvent) async {
-  var scheduledNotification = theEvent.dateStart.subtract(
-    Duration(minutes: 30),
-  );
-  var scheduledNotification2 = theEvent.dateStart.subtract(
-    Duration(days: 1),
-  );
   var androidPlatformChannelSpecifics = AndroidNotificationDetails(
     '30minBefore',
     '30minutesBefore',
@@ -185,20 +185,33 @@ Future _createNotification(Event theEvent) async {
   var platformSpecifics = NotificationDetails(
     android: androidPlatformChannelSpecifics,
   );
-  await localNotificationsPlugin.schedule(
-    theEvent.id(),
-    'You have an event coming',
-    'You have ${theEvent.title} in 30 minutes',
-    scheduledNotification,
-    platformSpecifics,
-    androidAllowWhileIdle: true,
-  );
-  await localNotificationsPlugin.schedule(
-    theEvent.id2(),
-    'You have an event coming',
-    'You have ${theEvent.title} tomorrow',
-    scheduledNotification2,
-    platformSpecifics,
-    androidAllowWhileIdle: true,
-  );
+  if (DateTime.now()
+      .isBefore(theEvent.dateStart.subtract(Duration(minutes: 30)))) {
+    var scheduledNotification = theEvent.dateStart.subtract(
+      Duration(minutes: 30),
+    );
+
+    await localNotificationsPlugin.schedule(
+      theEvent.id(),
+      'You have an event coming',
+      'You have ${theEvent.title} in 30 minutes',
+      scheduledNotification,
+      platformSpecifics,
+      androidAllowWhileIdle: true,
+    );
+  }
+  if (DateTime.now().isBefore(theEvent.dateStart.subtract(Duration(days: 1)))) {
+    var scheduledNotification2 = theEvent.dateStart.subtract(
+      Duration(days: 1),
+    );
+
+    await localNotificationsPlugin.schedule(
+      theEvent.id2(),
+      'You have an event coming',
+      'You have ${theEvent.title} tomorrow',
+      scheduledNotification2,
+      platformSpecifics,
+      androidAllowWhileIdle: true,
+    );
+  }
 }
