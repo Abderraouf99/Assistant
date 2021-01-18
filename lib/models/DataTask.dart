@@ -56,9 +56,20 @@ class TaskController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void deleteTask(int index) {
-    _deleted.add(_myTasks[index]);
-    _myTasks.removeAt(index);
+  void moveTobin(int index, bool isArchived) {
+    Task temp;
+    if (isArchived) {
+      temp = _archived[index];
+      _archived.removeAt(index);
+    } else {
+      temp = _myTasks[index];
+      _myTasks.removeAt(index);
+    }
+    _deleted.add(temp);
+  }
+  void unArchiveTask(int index){
+    _myTasks.add(_archived[index]);
+    _archived.removeAt(index);
     notifyListeners();
   }
 
@@ -76,5 +87,16 @@ class TaskController extends ChangeNotifier {
       _myTasks[index].toggleState();
       notifyListeners();
     }
+  }
+
+  void purgeTask(int index) {
+    _deleted.remove(index);
+    notifyListeners();
+  }
+
+  void recoverTask(int index) {
+    _myTasks.add(_deleted[index]);
+    _deleted.removeAt(index);
+    notifyListeners();
   }
 }

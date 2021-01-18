@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:to_do_app/models/DataTask.dart';
 
 class TasksList extends StatelessWidget {
-  final bool _isNotArchived = false;
+  final bool _isArchived = false;
   Widget build(BuildContext context) {
     return Consumer<TaskController>(
       builder: (context, taskList, child) {
@@ -69,7 +69,7 @@ class TasksList extends StatelessWidget {
                   await Provider.of<FirebaseController>(context, listen: false)
                       .toggleStatusTasks(
                     taskList.getTasks()[index],
-                    _isNotArchived,
+                    _isArchived,
                   );
                 },
               ),
@@ -77,8 +77,8 @@ class TasksList extends StatelessWidget {
                 if (direction == DismissDirection.endToStart) {
                   Provider.of<FirebaseController>(context, listen: false)
                       .moveTaskTobin(
-                          taskList.getTasks()[index], _isNotArchived);
-                  taskList.deleteTask(index);
+                          taskList.getTasks()[index], _isArchived);
+                  taskList.moveTobin(index,_isArchived);
                 } else {
                   Provider.of<FirebaseController>(context, listen: false)
                       .archiveTask(taskList.getTasks()[index]);

@@ -1,5 +1,6 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:to_do_app/Widgets/unArchiveDismissWidget.dart';
 import 'package:to_do_app/models/Note.dart';
 import 'package:intl/intl.dart';
 
@@ -30,18 +31,7 @@ class NoteTile extends StatelessWidget {
                 color: Colors.white,
               ),
             )
-          : Container(
-              margin: EdgeInsets.symmetric(vertical: 10),
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              decoration: BoxDecoration(
-                color: Colors.green,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Icon(
-                Icons.unarchive,
-                color: Colors.white,
-              ),
-            ),
+          : unArchiveDismissWidget(),
       secondaryBackground: Container(
         margin: EdgeInsets.symmetric(vertical: 10),
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -153,3 +143,5 @@ class NoteTile extends StatelessWidget {
     );
   }
 }
+
+

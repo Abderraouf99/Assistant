@@ -11,7 +11,7 @@ import 'Event.dart';
 
 const String kArchivedTasks = 'archiveTask';
 const String kTask = 'tasks';
-const String kdeletedTasks = "binTasks";
+const String kDeletedTasks = "binTasks";
 const String kEvent = 'events';
 const String kArchivedEvents = 'archivedEvents';
 const String kDeletedEvents = 'deletedEvents';
@@ -117,7 +117,7 @@ class FirebaseController extends ChangeNotifier {
       docID = await _findTask(dataBase: kTask, task: task);
       await _deleteTask(docID: docID, dataBase: kTask);
     }
-    await _addTask(task: task, dataBase: kdeletedTasks);
+    await _addTask(task: task, dataBase: kDeletedTasks);
   }
 
   Future<void> archiveTask(Task task) async {
@@ -140,11 +140,11 @@ class FirebaseController extends ChangeNotifier {
 
   Future<void> purgeTask(Task task) async {
     String docID = await _findTask(
-      dataBase: kdeletedTasks,
+      dataBase: kDeletedTasks,
       task: task,
     );
     await _deleteTask(
-      dataBase: kdeletedTasks,
+      dataBase: kDeletedTasks,
       docID: docID,
     );
   }
@@ -152,7 +152,7 @@ class FirebaseController extends ChangeNotifier {
   Future<void> recoverTask(Task task) async {
     String docID = await _findTask(dataBase: kDeletedEvents, task: task);
     await _deleteTask(
-      dataBase: kdeletedTasks,
+      dataBase: kDeletedTasks,
       docID: docID,
     );
     await _addTask(task: task, dataBase: kTask);
@@ -161,7 +161,7 @@ class FirebaseController extends ChangeNotifier {
   Future<void> fetchData(BuildContext context) async {
     await _fetchTasks(context, dataBase: kTask);
     await _fetchTasks(context, dataBase: kArchivedTasks);
-    await _fetchTasks(context, dataBase: kdeletedTasks);
+    await _fetchTasks(context, dataBase: kDeletedTasks);
     await _fetchNotes(context, dataBase: kNote);
     await _fetchNotes(context, dataBase: kArchivedNotes);
     await _fetchNotes(context, dataBase: kDeletedNotes);

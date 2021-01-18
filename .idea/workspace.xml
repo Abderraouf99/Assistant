@@ -24,21 +24,15 @@
   <component name="ChangeListManager">
     <list default="true" id="0a6ae363-8f2d-44e7-9a1d-7127917073ca" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/StudentCompanion.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/StudentCompanion.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Screens/ArchiveScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/ArchiveScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Screens/EventsScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/EventsScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Screens/NotesScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/NotesScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Screens/TaskScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/TaskScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Screens/loginScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/loginScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Widgets/NotesList.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Widgets/NotesList.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Widgets/SideNavigationDrawer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Widgets/SideNavigationDrawer.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Screens/BinScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/BinScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Widgets/NoteTile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Widgets/NoteTile.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Widgets/TaskArchieveList.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Widgets/TaskArchieveList.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Widgets/TaskList.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Widgets/TaskList.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/models/DataFirebase.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/DataFirebase.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/DataNotes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/DataNotes.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/DataTask.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/DataTask.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/Tasks.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/Tasks.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,13 +77,15 @@
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RunManager" selected="Flutter.main.dart">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -132,6 +128,7 @@
       <workItem from="1610373025115" duration="6275000" />
       <workItem from="1610379438956" duration="2808000" />
       <workItem from="1610743548067" duration="510000" />
+      <workItem from="1610921782158" duration="6594000" />
     </task>
     <servers />
   </component>

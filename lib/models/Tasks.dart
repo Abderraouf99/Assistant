@@ -24,4 +24,5 @@ class Task {
   bool getState() {
     return this._state;
   }
+
 }
