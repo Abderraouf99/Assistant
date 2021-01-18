@@ -5,7 +5,8 @@ import 'package:to_do_app/Screens/EventsScreen.dart';
 import 'package:to_do_app/Screens/NotesScreen.dart';
 import 'package:to_do_app/Screens/TaskScreen.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do_app/Screens/WelcomeScreenUpdated.dart';
+import 'package:to_do_app/Screens/WelcomeScreen.dart';
+import 'package:to_do_app/Screens/WelcomeScreenMenu.dart';
 import 'package:to_do_app/Screens/loginScreen.dart';
 import 'package:to_do_app/Screens/registationScreen.dart';
 import 'package:to_do_app/models/DataEvents.dart';
@@ -14,7 +15,6 @@ import 'package:to_do_app/models/DataNotes.dart';
 import 'package:to_do_app/models/DataTask.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-
 
 final FlutterLocalNotificationsPlugin localNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
@@ -104,8 +104,9 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        initialRoute: WelcomeScreenNew.welcomeScreenID,
+        initialRoute: WelcomeMenu.id,
         routes: {
+          WelcomeMenu.id: (context) => WelcomeMenu(),
           WelcomeScreenNew.welcomeScreenID: (context) => WelcomeScreenNew(),
           LoginScreen.loginScreenId: (context) => LoginScreen(),
           RegistrationScreen.registrationScreenID: (context) =>

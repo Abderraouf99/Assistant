@@ -77,6 +77,7 @@ class AddEventsSheet extends StatelessWidget {
                   height: 20,
                 ),
                 TextField(
+                  autocorrect: false,
                   autofocus: true,
                   onChanged: (value) {
                     event.setTitle(value);

@@ -16,143 +16,134 @@ class RegistrationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String _email;
-    String _password;
-
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: ModalProgressHUD(
-        inAsyncCall: Provider.of<FirebaseController>(context).isLoading,
-        child: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/background.png'),
-              fit: BoxFit.cover,
-            ),
-          ),
-          child: SafeArea(
-            child: Padding(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Flexible(
-                    child: Text(
-                      'Create your account',
+    return Consumer<FirebaseController>(
+      builder: (context, firebase, child) {
+        return Scaffold(
+          resizeToAvoidBottomInset: false,
+          body: ModalProgressHUD(
+            inAsyncCall: firebase.isLoading,
+            child: SafeArea(
+              child: Padding(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Join us',
                       style: TextStyle(
-                        fontSize: 36,
-                        fontFamily: 'Pacifico',
-                        color: Color(0xff162447),
+                        fontSize: 45,
+                        color: Color(0xffEEEEEE),
+                        fontFamily: 'Nunito',
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 40,
-                  ),
-                  Opacity(
-                    opacity: 0.7,
-                    child: TextField(
+                    Text(
+                      'Register now',
                       style: TextStyle(
-                        color: Color(0xff162447),
+                        fontSize: 45,
+                        color: Color(0xffEEEEEE),
+                        fontFamily: 'Nunito',
                       ),
-                      onChanged: (value) {
-                        _email = value;
-                      },
-                      decoration:
-                          kLogin_registerTextFields.copyWith(hintText: 'Email'),
                     ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Opacity(
-                    opacity: 0.7,
-                    child: TextField(
-                      style: TextStyle(
-                        color: Color(0xff162447),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Opacity(
+                      opacity: 0.7,
+                      child: TextField(
+                        style: TextStyle(
+                          color: Color(0xff162447),
+                        ),
+                        onChanged: (value) {
+                          firebase.setEmail = value;
+                        },
+                        decoration: kLogin_registerTextFields.copyWith(
+                            hintText: 'Email'),
                       ),
-                      keyboardType: TextInputType.emailAddress,
-                      obscureText: true,
-                      onChanged: (value) {
-                        _password = value;
-                      },
-                      decoration: kLogin_registerTextFields.copyWith(
-                          hintText: 'Password'),
                     ),
-                  ),
-                  SizedBox(
-                    height: 50,
-                  ),
-                  CustomButton(
-                      backgroundColor: Color(0xff222831),
-                      onTap: () async {
-                        try {
-                          Provider.of<FirebaseController>(context,
-                                  listen: false)
-                              .toggleIsLoading();
-                          UserCredential currentUser =
-                              await Provider.of<FirebaseController>(context,
-                                      listen: false)
-                                  .getAuthInstance()
-                                  .createUserWithEmailAndPassword(
-                                      email: _email, password: _password);
-                          Provider.of<FirebaseController>(context,
-                                  listen: false)
-                              .toggleIsLoading();
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Opacity(
+                      opacity: 0.7,
+                      child: TextField(
+                        style: TextStyle(
+                          color: Color(0xff162447),
+                        ),
+                        keyboardType: TextInputType.emailAddress,
+                        obscureText: true,
+                        onChanged: (value) {
+                          firebase.setPassword = value;
+                        },
+                        decoration: kLogin_registerTextFields.copyWith(
+                            hintText: 'Password'),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 50,
+                    ),
+                    CustomButton(
+                        backgroundColor: Color(0xffff6363),
+                        onTap: () async {
+                          try {
+                            firebase.toggleIsLoading();
+                            UserCredential currentUser = await firebase
+                                .getAuthInstance()
+                                .createUserWithEmailAndPassword(
+                                    email: firebase.email,
+                                    password: firebase.password);
+                            firebase.toggleIsLoading();
 
-                          if (!currentUser.user.emailVerified) {
-                            await currentUser.user.sendEmailVerification();
-                          }
-                          await showOkAlertDialog(
-                            context: context,
-                            title: 'Check your email',
-                            message:
-                                'Hurry up log into your email and verify your account 🏃️ ',
-                            okLabel: 'Continue',
-                            barrierDismissible: false,
-                          );
-                          await currentUser.user.reload();
-
-                          if (Provider.of<FirebaseController>(context,
-                                  listen: false)
-                              .getAuthInstance()
-                              .currentUser
-                              .emailVerified) {
-                            Provider.of<FirebaseController>(context,
-                                    listen: false)
-                                .createNewUserDocument();
-
-                            Navigator.popAndPushNamed(
-                                context, TasksScreen.taskScreenId);
-                          } else {
-                            showModalActionSheet(
+                            if (!currentUser.user.emailVerified) {
+                              await currentUser.user.sendEmailVerification();
+                            }
+                            await showOkAlertDialog(
                               context: context,
-                              title: 'Error',
-                              message: 'Failed to verify account 😥️',
-                            );
-                            await currentUser.user.delete();
-                          }
-                        } on FirebaseAuthException catch (e) {
-                          print(e.code);
-                          if (e.code == 'email-already-in-use') {
-                            await showAlertDialog(
-                              context: context,
-                              title: 'You already have an account',
+                              title: 'Check your email',
                               message:
-                                  'You are going to be directed to the login screen',
+                                  'Hurry up log into your email and verify your account 🏃️ ',
+                              okLabel: 'Continue',
+                              barrierDismissible: false,
                             );
-                            Navigator.popAndPushNamed(
-                                context, LoginScreen.loginScreenId);
+                            await currentUser.user.reload();
+
+                            if (firebase
+                                .getAuthInstance()
+                                .currentUser
+                                .emailVerified) {
+                              firebase.createNewUserDocument();
+
+                              Navigator.popAndPushNamed(
+                                  context, TasksScreen.taskScreenId);
+                            } else {
+                              showModalActionSheet(
+                                context: context,
+                                title: 'Error',
+                                message: 'Failed to verify account 😥️',
+                              );
+                              await currentUser.user.delete();
+                            }
+                          } on FirebaseAuthException catch (e) {
+                            print(e.code);
+                            if (e.code == 'email-already-in-use') {
+                              await showAlertDialog(
+                                context: context,
+                                title: 'You already have an account',
+                                message:
+                                    'You are going to be directed to the login screen',
+                              );
+                              Navigator.popAndPushNamed(
+                                  context, LoginScreen.loginScreenId);
+                            }
                           }
-                        }
-                      },
-                      name: 'Register'),
-                ],
+                        },
+                        name: 'Register'),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

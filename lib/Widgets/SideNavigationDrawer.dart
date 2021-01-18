@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:to_do_app/Screens/ArchiveScreen.dart';
 import 'package:to_do_app/Screens/BinScreen.dart';
 import 'package:to_do_app/Screens/EventsScreen.dart';
 import 'package:to_do_app/Screens/NotesScreen.dart';
 import 'package:to_do_app/Screens/TaskScreen.dart';
+import 'package:to_do_app/Screens/WelcomeScreen.dart';
+import 'package:to_do_app/models/DataFirebase.dart';
 
 class DrawerCustom extends StatelessWidget {
   @override
@@ -11,7 +14,6 @@ class DrawerCustom extends StatelessWidget {
     return SafeArea(
       child: Drawer(
         child: ListView(
-
           padding: EdgeInsets.zero,
           children: [
             SizedBox(
@@ -96,7 +98,24 @@ class DrawerCustom extends StatelessWidget {
                 Navigator.pushNamed(context, BinScreen.id);
               },
             ),
-
+            Divider(),
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: Text(
+                'Log out',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontFamily: 'Roboto',
+                ),
+              ),
+              onTap: () {
+                Provider.of<FirebaseController>(context, listen: false)
+                    .getAuthInstance()
+                    .signOut();
+                Navigator.popAndPushNamed(
+                    context, WelcomeScreenNew.welcomeScreenID);
+              },
+            ),
           ],
         ),
       ),

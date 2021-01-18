@@ -23,6 +23,20 @@ class FirebaseController extends ChangeNotifier {
   final _auth = FirebaseAuth.instance;
   final _firestoreReference = FirebaseFirestore.instance.collection('users');
   bool _isLoading = false;
+  String _email;
+  String _password;
+
+  set setEmail(String email) {
+    _email = email;
+  }
+
+  set setPassword(String password) {
+    _password = password;
+  }
+
+  get password => _password;
+  get email => _email;
+
   bool get isLoading => _isLoading;
   void toggleIsLoading() {
     _isLoading = !_isLoading;
