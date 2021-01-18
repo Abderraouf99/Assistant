@@ -11,6 +11,7 @@ class DrawerCustom extends StatelessWidget {
     return SafeArea(
       child: Drawer(
         child: ListView(
+
           padding: EdgeInsets.zero,
           children: [
             SizedBox(
@@ -69,7 +70,6 @@ class DrawerCustom extends StatelessWidget {
               },
             ),
             Divider(),
-            
             ListTile(
               leading: Icon(Icons.archive),
               title: Text(
@@ -96,7 +96,7 @@ class DrawerCustom extends StatelessWidget {
                 Navigator.pushNamed(context, BinScreen.id);
               },
             ),
-            ListTile(),
+
           ],
         ),
       ),

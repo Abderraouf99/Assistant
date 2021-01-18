@@ -16,7 +16,8 @@ class TopBarSelectors extends StatelessWidget {
       shape: CircleBorder(),
       onPressed: onPressed,
       child: Container(
-        padding: EdgeInsets.all(10),
+        padding: EdgeInsets.all(5),
+        margin: EdgeInsets.only(bottom: 5),
         decoration: colorCondition
             ? BoxDecoration(
                 color: Color(0xffEEEEEE),

@@ -1,4 +1,3 @@
-import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do_app/Widgets/DeleteDismissWidget.dart';
 import 'package:to_do_app/models/DataFirebase.dart';
@@ -8,6 +7,38 @@ import 'package:to_do_app/models/DataTask.dart';
 
 class TasksList extends StatelessWidget {
   final bool _isArchived = false;
+  Future<bool> _showAlertDialog(BuildContext context,
+      {String title, String message}) async {
+    bool choice = false;
+    Widget cancelButton = TextButton(
+      onPressed: () {
+        Navigator.pop(context);
+      },
+      child: Text('Cancel'),
+    );
+    Widget okButton = TextButton(
+      onPressed: () {
+        choice = true;
+        Navigator.pop(context);
+      },
+      child: Text('Ok'),
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: Text(title),
+      content: Text(message),
+      actions: [cancelButton, okButton],
+    );
+
+    await showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return alert;
+        });
+    return choice;
+  }
+
   Widget build(BuildContext context) {
     return Consumer<TaskController>(
       builder: (context, taskList, child) {
@@ -15,30 +46,21 @@ class TasksList extends StatelessWidget {
           itemBuilder: (context, index) {
             return Dismissible(
               confirmDismiss: (direction) async {
+                bool decision = false;
                 if (direction == DismissDirection.endToStart) {
-                  await showAlertDialog(
-                    context: context,
-                    title: 'Task moved to the bin',
-                    message:
-                        'When you delete a task it will be moved to the bin',
-                    barrierDismissible: false,
-                    actions: [
-                      AlertDialogAction(label: 'Ok'),
-                    ],
+                  decision = await _showAlertDialog(
+                    context,
+                    title: 'Delete task',
+                    message: 'Deleted tasks will be moved to the bin tab',
                   );
                 } else {
-                  await showAlertDialog(
-                    context: context,
-                    title: 'Task moved to the archive',
-                    message:
-                        'When you archive a task it will be moved to the archive tab',
-                    barrierDismissible: false,
-                    actions: [
-                      AlertDialogAction(label: 'Ok'),
-                    ],
+                  decision = await _showAlertDialog(
+                    context,
+                    title: 'Archive task',
+                    message: 'Archived tasks will be moved to the archive tab ',
                   );
                 }
-                return true;
+                return decision;
               },
               background: Container(
                 margin: EdgeInsets.symmetric(vertical: 10, horizontal: 0),
@@ -64,12 +86,11 @@ class TasksList extends StatelessWidget {
                   );
                 },
               ),
-              onDismissed: (direction)async {
+              onDismissed: (direction) async {
                 if (direction == DismissDirection.endToStart) {
                   await Provider.of<FirebaseController>(context, listen: false)
-                      .moveTaskTobin(
-                          taskList.getTasks()[index], _isArchived);
-                  taskList.moveTobin(index,_isArchived);
+                      .moveTaskTobin(taskList.getTasks()[index], _isArchived);
+                  taskList.moveTobin(index, _isArchived);
                 } else {
                   await Provider.of<FirebaseController>(context, listen: false)
                       .archiveTask(taskList.getTasks()[index]);

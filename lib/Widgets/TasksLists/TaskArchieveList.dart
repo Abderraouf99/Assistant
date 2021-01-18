@@ -55,11 +55,11 @@ class TaskArchiveList extends StatelessWidget {
                   decision = await _showAlertDialog(context,
                       title: 'Delete task',
                       message: 'This task will be moved to the bin tab');
-                }
-                else{
+                } else {
                   decision = await _showAlertDialog(context,
                       title: 'Unarchive task',
-                      message: 'This task will be moved back to the main tasks tab');
+                      message:
+                          'This task will be moved back to the main tasks tab');
                 }
 
                 return decision;
@@ -71,19 +71,22 @@ class TaskArchiveList extends StatelessWidget {
                 theTask: tasks.archived[index],
                 checkBoxCallBack: (checkBoxState) async {
                   tasks.toggleState(index, true);
-                  await Provider.of<FirebaseController>(context, listen: false)
+                  await Provider.of<FirebaseController>(context,
+                          listen: false)
                       .toggleStatusTasks(
                     tasks.archived[index],
                     _isArchived,
                   );
                 },
               ),
-              onDismissed: (direction) async{
-                if(direction == DismissDirection.endToStart){
-                  await Provider.of<FirebaseController>(context,listen: false).moveTaskTobin(tasks.archived[index], _isArchived);
+              onDismissed: (direction) async {
+                if (direction == DismissDirection.endToStart) {
+                  await Provider.of<FirebaseController>(context, listen: false)
+                      .moveTaskTobin(tasks.archived[index], _isArchived);
                   tasks.moveTobin(index, _isArchived);
-                }else{
-                  await Provider.of<FirebaseController>(context,listen: false).unArchiveTask(tasks.archived[index]);
+                } else {
+                  await Provider.of<FirebaseController>(context, listen: false)
+                      .unArchiveTask(tasks.archived[index]);
                   tasks.unArchiveTask(index);
                 }
               },

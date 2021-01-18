@@ -18,7 +18,10 @@ class ArchiveScreen extends StatefulWidget {
 class _ArchiveScreenState extends State<ArchiveScreen> {
   Widget _determineSubPage() {
     if (page == 0) {
-      return TaskArchiveList();
+      return Container(
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        child: TaskArchiveList(),
+      );
     } else if (page == 1) {
       return EventArchiveList();
     } else {
@@ -76,7 +79,6 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
             Expanded(
               child: Container(
                 child: _determineSubPage(),
-                padding: EdgeInsets.symmetric(horizontal: 10),
                 decoration: kRoundedContainerDecorator.copyWith(
                   color: Theme.of(context).primaryColorDark,
                 ),
@@ -88,5 +90,3 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
     );
   }
 }
-
-

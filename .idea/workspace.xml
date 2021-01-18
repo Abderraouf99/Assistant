@@ -26,10 +26,10 @@
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Screens/ArchiveScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/ArchiveScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Screens/BinScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/BinScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Screens/loginScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/loginScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Widgets/EventsLists/EventsList.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Widgets/EventsLists/EventsList.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Widgets/TopBarSelectors.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Widgets/TopBarSelectors.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Screens/TaskScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/TaskScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Widgets/SideNavigationDrawer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Widgets/SideNavigationDrawer.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Widgets/TaskTile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Widgets/TaskTile.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Widgets/TasksLists/TaskArchieveList.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Widgets/TasksLists/TaskArchieveList.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,15 +89,13 @@
     </key>
   </component>
   <component name="RunManager" selected="Flutter.main.dart">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -140,7 +138,8 @@
       <workItem from="1610373025115" duration="6275000" />
       <workItem from="1610379438956" duration="2808000" />
       <workItem from="1610743548067" duration="510000" />
-      <workItem from="1610921782158" duration="18463000" />
+      <workItem from="1610921782158" duration="19451000" />
+      <workItem from="1610980149547" duration="986000" />
     </task>
     <servers />
   </component>

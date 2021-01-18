@@ -29,10 +29,12 @@ class EventInfoTile extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  title,
-                  style: kEventTextStyle.copyWith(
-                    color: Color(0xffEEEEEE),
+                Flexible(
+                  child: Text(
+                    title,
+                    style: kEventTextStyle.copyWith(
+                      color: Color(0xffEEEEEE),
+                    ),
                   ),
                 ),
                 Icon(

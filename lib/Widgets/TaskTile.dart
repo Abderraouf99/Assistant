@@ -14,7 +14,7 @@ class TaskTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(
-        vertical: 10,
+        vertical: 5,
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
