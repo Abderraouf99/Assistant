@@ -8,8 +8,6 @@ import 'package:to_do_app/Widgets/GoogleSignInButton.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:to_do_app/constants.dart';
 import 'package:to_do_app/models/DataFirebase.dart';
-
-import 'package:to_do_app/models/SocialMediaLogin_RegistationHandler.dart';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -226,21 +224,15 @@ class LoginScreen extends StatelessWidget {
                     ),
                     GoogleButton(
                       onTap: () async {
-                        try {
-                          firebase.toggleIsLoading();
-                          var userCredentials = await SocialMediaHandler()
-                              .signInWithGoogle(firebase.getAuthInstance());
-                          if (userCredentials != null) {
-                            await firebase.fetchData(context);
-                            firebase.toggleIsLoading();
-
+                        firebase.signInWithGoogle().then((result) {
+                          if (result != null) {
                             Navigator.popAndPushNamed(
                                 context, TasksScreen.taskScreenId);
+                          } else {
+                            Navigator.popAndPushNamed(
+                                context, LoginScreen.loginScreenId);
                           }
-                        } on FirebaseAuthException catch (e) {
-                          firebase.toggleIsLoading();
-                          print(e.code);
-                        }
+                        });
                       },
                     ),
                   ],

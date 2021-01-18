@@ -77,10 +77,12 @@ flutter:
     - assets/googleLogo.png
     - assets/background.png
     - assets/avataaars.png
+    - assets/tasks.jpg
+    - assets/events.jpg
+    - assets/notes.jpg
     - assets/icon/icon.png
-    - assets/tasks.gif
-    - assets/events.gif
-    - assets/notes.gif
+
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

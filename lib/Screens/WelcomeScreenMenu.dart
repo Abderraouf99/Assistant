@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:to_do_app/Screens/WelcomeScreen.dart';
+import 'package:to_do_app/Screens/WelcomeTaskScreen.dart';
 import 'package:to_do_app/Screens/loginScreen.dart';
 
 class WelcomeMenu extends StatelessWidget {
@@ -76,8 +76,7 @@ class WelcomeMenu extends StatelessWidget {
                             ),
                           ),
                           onPressed: () {
-                            Navigator.pushNamed(
-                                context, WelcomeScreenNew.welcomeScreenID);
+                            Navigator.pushNamed(context, WelcomeTaskScreen.id);
                           }),
                     ),
                   ),
