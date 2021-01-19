@@ -10,8 +10,17 @@ import 'package:to_do_app/constants.dart';
 import 'package:to_do_app/models/DataFirebase.dart';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   static String loginScreenId = 'loginScreen';
+
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  String _email = '';
+  String _password = '';
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +29,7 @@ class LoginScreen extends StatelessWidget {
         return Scaffold(
           resizeToAvoidBottomInset: false,
           body: ModalProgressHUD(
-            inAsyncCall: Provider.of<FirebaseController>(context).isLoading,
+            inAsyncCall: _isLoading,
             child: SafeArea(
               child: Padding(
                 padding: EdgeInsets.all(20),
@@ -68,7 +77,7 @@ class LoginScreen extends StatelessWidget {
                           color: Color(0xff162447),
                         ),
                         onChanged: (value) {
-                          firebase.setEmail = value;
+                          _email = value;
                         },
                         decoration: kLogin_registerTextFields.copyWith(
                           hintText: 'Email',
@@ -85,7 +94,7 @@ class LoginScreen extends StatelessWidget {
                           color: Color(0xff162447),
                         ),
                         onChanged: (value) {
-                          firebase.setPassword = value;
+                          _password = value;
                         },
                         obscureText: true,
                         decoration: kLogin_registerTextFields.copyWith(
@@ -94,97 +103,81 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 10,
+                      height: 20,
                     ),
-                    FlatButton(
-                      child: Text(
-                        'Forgot your password? click here to recover',
-                        style: TextStyle(
-                          color: Color(0xffEEEEEE),
-                        ),
-                      ),
-                      onPressed: () async {
-                        List<String> email;
-                        if (firebase.email == null) {
-                          email = await showTextInputDialog(
-                            context: context,
-                            textFields: [
-                              DialogTextField(
-                                hintText: 'Enter email adress',
-                              ),
-                            ],
-                          );
-                          if (email.isNotEmpty) {
-                            await showOkAlertDialog(
-                              context: context,
-                              title: 'Check your email',
-                              message:
-                                  'A password recovering email has been sent to your email account',
-                              okLabel: 'Continue',
-                              barrierDismissible: false,
-                            );
-                            await firebase
-                                .getAuthInstance()
-                                .sendPasswordResetEmail(
-                                  email: email.first,
-                                );
-                          }
-                        }
-                      },
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
+
                     CustomButton(
                       backgroundColor: Color(0xffff6363),
                       onTap: () async {
-                        try {
-                          firebase.toggleIsLoading();
-                          var logIn = firebase
-                              .getAuthInstance()
-                              .signInWithEmailAndPassword(
-                                  email: firebase.email,
-                                  password: firebase.password);
-                          if (logIn != null) {
-                            await firebase.fetchData(context);
-                            firebase.toggleIsLoading();
-                            Navigator.popAndPushNamed(
-                                context, TasksScreen.taskScreenId);
-                          }
-                        } on FirebaseAuthException catch (e) {
-                          firebase.toggleIsLoading();
-                          print(e.code);
-                          if (e.code == 'user-not-found') {
-                            await showOkAlertDialog(
-                              context: context,
-                              title: 'This account doesn\'t exist ',
-                              message:
-                                  'Please register before using the application',
-                              okLabel: 'Continue',
-                              barrierDismissible: false,
-                            );
-                          }
-                          if (e.code == 'wrong-password') {
-                            await showOkAlertDialog(
-                              context: context,
-                              title: 'Wrong password',
-                              message:
-                                  'Please make sure you type the right password',
-                              okLabel: 'Continue',
-                              barrierDismissible: false,
-                            );
-                          }
-                          if (e.code == 'invalid-email') {
-                            await showOkAlertDialog(
-                              context: context,
-                              title: 'Invalid email address',
-                              message:
-                                  'Please make sure your email address is valid',
-                              okLabel: 'Continue',
-                              barrierDismissible: false,
-                            );
+                        setState(() {
+                          _isLoading = true;
+                        });
+                        if(_email == '' || _password ==''){
+                          setState(() {
+                            _isLoading = false;
+                          });
+
+                          await showOkAlertDialog(
+                            context: context,
+                            title: 'Empty email and password',
+                            message:
+                            'Please enter an email address and password before trying to log in',
+                            okLabel: 'Continue',
+                            barrierDismissible: false,
+                          );
+                        }else{
+                          try {
+                            var logIn = firebase
+                                .getAuthInstance()
+                                .signInWithEmailAndPassword(
+                                email: _email, password: _password);
+                            if (logIn != null) {
+                              await firebase.fetchData(context);
+                              setState(() {
+                                _isLoading = false;
+                              });
+                              Navigator.popAndPushNamed(
+                                  context, TasksScreen.taskScreenId);
+                            }
+                          } on FirebaseAuthException catch (e) {
+                            setState(() {
+                              _isLoading = false;
+                            });
+                            print(e.code);
+                            if (e.code == 'user-not-found') {
+                              await showOkAlertDialog(
+                                context: context,
+                                title: 'This account doesn\'t exist ',
+                                message:
+                                'Please register before using the application',
+                                okLabel: 'Continue',
+                                barrierDismissible: false,
+                              );
+                            }
+                            if (e.code == 'wrong-password') {
+                              await showOkAlertDialog(
+                                context: context,
+                                title: 'Wrong password',
+                                message:
+                                'Please make sure you type the right password',
+                                okLabel: 'Continue',
+                                barrierDismissible: false,
+                              );
+                            }
+                            if (e.code == 'invalid-email') {
+                              await showOkAlertDialog(
+                                context: context,
+                                title: 'Invalid email address',
+                                message:
+                                'Please make sure your email address is valid',
+                                okLabel: 'Continue',
+                                barrierDismissible: false,
+                              );
+                            }
+
                           }
                         }
+
                       },
                       name: 'Login',
                     ),

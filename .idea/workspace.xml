@@ -24,12 +24,13 @@
   <component name="ChangeListManager">
     <list default="true" id="0a6ae363-8f2d-44e7-9a1d-7127917073ca" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Screens/ArchiveScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/ArchiveScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Screens/TaskScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/TaskScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Widgets/SideNavigationDrawer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Widgets/SideNavigationDrawer.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Widgets/TaskTile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Widgets/TaskTile.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Widgets/TasksLists/TaskArchieveList.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Widgets/TasksLists/TaskArchieveList.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Screens/loginScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/loginScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Screens/registationScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/registationScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Widgets/TopBarSelectors.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Widgets/TopBarSelectors.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/DataFirebase.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/DataFirebase.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,10 +76,10 @@
     <property name="io.flutter.reload.alreadyRun" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.startup.tasks" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
@@ -89,17 +90,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Flutter.main.dart">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
       <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
       <method v="2" />
@@ -121,7 +111,7 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -140,6 +130,7 @@
       <workItem from="1610743548067" duration="510000" />
       <workItem from="1610921782158" duration="19451000" />
       <workItem from="1610980149547" duration="986000" />
+      <workItem from="1611011782679" duration="28000" />
     </task>
     <servers />
   </component>
@@ -157,6 +148,40 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="440" y="94" key="#Project_Structure" timestamp="1611087978890">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="440" y="94" key="#Project_Structure/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1611087978890" />
+    <state width="1482" height="151" key="GridCell.Tab.0.bottom" timestamp="1611097544627">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1472" height="278" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1611095259381" />
+    <state width="1482" height="151" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1611097544627" />
+    <state width="1482" height="151" key="GridCell.Tab.0.center" timestamp="1611097544627">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1472" height="278" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1611095259381" />
+    <state width="1482" height="151" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1611097544627" />
+    <state width="1482" height="151" key="GridCell.Tab.0.left" timestamp="1611097544627">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1472" height="278" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1611095259381" />
+    <state width="1482" height="151" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1611097544627" />
+    <state width="1482" height="151" key="GridCell.Tab.0.right" timestamp="1611097544627">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1472" height="278" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1611095259381" />
+    <state width="1482" height="151" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1611097544627" />
+    <state x="473" y="76" width="585" height="888" key="find.popup" timestamp="1611094525124">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="473" y="76" width="585" height="888" key="find.popup/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1611094525124" />
+    <state x="2536" y="240" width="672" height="677" key="run.anything.popup" timestamp="1611097334163">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2536" y="240" width="672" height="677" key="run.anything.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1611097334163" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

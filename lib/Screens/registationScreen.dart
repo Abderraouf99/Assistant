@@ -11,9 +11,16 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 
 import 'package:provider/provider.dart';
 
-class RegistrationScreen extends StatelessWidget {
+class RegistrationScreen extends StatefulWidget {
   static String registrationScreenID = 'RegistationScreen';
 
+  @override
+  _RegistrationScreenState createState() => _RegistrationScreenState();
+}
+
+class _RegistrationScreenState extends State<RegistrationScreen> {
+  String _email;
+  String _password;
   @override
   Widget build(BuildContext context) {
     return Consumer<FirebaseController>(
@@ -54,7 +61,9 @@ class RegistrationScreen extends StatelessWidget {
                           color: Color(0xff162447),
                         ),
                         onChanged: (value) {
-                          firebase.setEmail = value;
+                          setState(() {
+                            _email = value;
+                          });
                         },
                         decoration: kLogin_registerTextFields.copyWith(
                             hintText: 'Email'),
@@ -72,7 +81,9 @@ class RegistrationScreen extends StatelessWidget {
                         keyboardType: TextInputType.emailAddress,
                         obscureText: true,
                         onChanged: (value) {
-                          firebase.setPassword = value;
+                          setState(() {
+                            _password = value;
+                          });
                         },
                         decoration: kLogin_registerTextFields.copyWith(
                             hintText: 'Password'),
@@ -89,8 +100,7 @@ class RegistrationScreen extends StatelessWidget {
                             UserCredential currentUser = await firebase
                                 .getAuthInstance()
                                 .createUserWithEmailAndPassword(
-                                    email: firebase.email,
-                                    password: firebase.password);
+                                    email: _email, password: _password);
                             firebase.toggleIsLoading();
 
                             if (!currentUser.user.emailVerified) {

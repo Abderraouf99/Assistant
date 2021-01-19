@@ -25,8 +25,7 @@ class FirebaseController extends ChangeNotifier {
   final _firestoreReference = FirebaseFirestore.instance.collection('users');
   final GoogleSignIn googleSignIn = GoogleSignIn();
   bool _isLoading = false;
-  String _email;
-  String _password;
+
 
   Future<String> signInWithGoogle() async {
     final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
@@ -55,17 +54,6 @@ class FirebaseController extends ChangeNotifier {
     return null;
   }
 
-  void signOutGoogle() async {}
-  set setEmail(String email) {
-    _email = email;
-  }
-
-  set setPassword(String password) {
-    _password = password;
-  }
-
-  get password => _password;
-  get email => _email;
 
   bool get isLoading => _isLoading;
   void toggleIsLoading() {

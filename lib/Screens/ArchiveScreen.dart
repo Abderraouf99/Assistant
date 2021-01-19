@@ -43,35 +43,41 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  TopBarSelectors(
-                    title: 'Tasks',
-                    iconData: Icons.list,
-                    colorCondition: (page == 0),
-                    onPressed: () {
-                      setState(() {
-                        page = 0;
-                      });
-                    },
+                  Expanded(
+                    child: TopBarSelectors(
+                      title: 'Tasks',
+                      iconData: Icons.list,
+                      colorCondition: (page == 0),
+                      onPressed: () {
+                        setState(() {
+                          page = 0;
+                        });
+                      },
+                    ),
                   ),
-                  TopBarSelectors(
-                    title: 'Events',
-                    iconData: Icons.event,
-                    colorCondition: (page == 1),
-                    onPressed: () {
-                      setState(() {
-                        page = 1;
-                      });
-                    },
+                  Expanded(
+                    child: TopBarSelectors(
+                      title: 'Events',
+                      iconData: Icons.event,
+                      colorCondition: (page == 1),
+                      onPressed: () {
+                        setState(() {
+                          page = 1;
+                        });
+                      },
+                    ),
                   ),
-                  TopBarSelectors(
-                    title: 'Notes',
-                    iconData: Icons.note,
-                    colorCondition: (page == 2),
-                    onPressed: () {
-                      setState(() {
-                        page = 2;
-                      });
-                    },
+                  Expanded(
+                    child: TopBarSelectors(
+                      title: 'Notes',
+                      iconData: Icons.note,
+                      colorCondition: (page == 2),
+                      onPressed: () {
+                        setState(() {
+                          page = 2;
+                        });
+                      },
+                    ),
                   ),
                 ],
               ),

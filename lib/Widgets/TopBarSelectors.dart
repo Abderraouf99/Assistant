@@ -13,7 +13,6 @@ class TopBarSelectors extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FlatButton(
-      shape: CircleBorder(),
       onPressed: onPressed,
       child: Container(
         padding: EdgeInsets.all(5),
