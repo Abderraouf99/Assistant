@@ -128,15 +128,31 @@ class _LoginScreenState extends State<LoginScreen> {
                           );
                         } else {
                           if (_attemptsCounter >= 3) {
+                            await showOkAlertDialog(
+                              context: context,
+                              title: 'Password recovery',
+                              message:
+                                  'You\'ve tried many times a reset password email has been sent to your account',
+                            );
                             try {
-                              firebase
+                              await firebase
                                   .getAuthInstance()
                                   .sendPasswordResetEmail(email: _email);
                               setState(() {
+                                _isLoading = false;
                                 _attemptsCounter = 0;
                               });
                             } on FirebaseAuthException catch (e) {
-                              print(e.code);
+                              if (e.code == 'user-not-found') {
+                                await showOkAlertDialog(
+                                  context: context,
+                                  title: 'This account doesn\'t exist ',
+                                  message:
+                                      'Please register before using the application',
+                                  okLabel: 'Continue',
+                                  barrierDismissible: false,
+                                );
+                              }
                             }
                           } else {
                             try {
