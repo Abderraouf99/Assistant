@@ -54,25 +54,25 @@ class MyApp extends StatelessWidget {
         themeMode: ThemeMode.system,
         darkTheme: ThemeData(
           colorScheme: ColorScheme.dark().copyWith(
-            primary: Color(0xffffbd69),
+            primary: Color(0xff51c2d5),
           ),
-          canvasColor: Color(0xff162447),
+          canvasColor: Color(0xff313131),
           brightness: Brightness.dark,
           highlightColor: Colors.grey[500],
           hintColor: Color(0xff202040),
-          primaryColorDark: Color(0xff162447),
-          primaryColor: Color(0xffffbd69),
+          primaryColorDark: Color(0xff313131),
+          primaryColor: Color(0xff51c2d5),
           textButtonTheme: TextButtonThemeData(
             style: ButtonStyle(
               foregroundColor: MaterialStateProperty.all<Color>(
-                Color(0xffff6363),
+                Color(0xff51c2d5),
               ),
             ),
           ),
           accentColor: Color(0xffEEEEEE),
-          scaffoldBackgroundColor: Color(0xff1F4068),
+          scaffoldBackgroundColor: Color(0xff414141),
           floatingActionButtonTheme: FloatingActionButtonThemeData(
-            backgroundColor: Color(0xff1F4068),
+            backgroundColor: Color(0xff51c2d5),
           ),
           popupMenuTheme: PopupMenuThemeData(
             color: Color(0xff29335F),

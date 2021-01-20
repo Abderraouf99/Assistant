@@ -35,6 +35,7 @@ class WelcomeEventScreeen extends StatelessWidget {
               ),
               Flexible(
                 child: Container(
+                  padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color: Color(0xffEEEEEE),
                     borderRadius: BorderRadius.circular(20),
@@ -54,6 +55,7 @@ class WelcomeEventScreeen extends StatelessWidget {
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
+                      color :Color(0xffEEEEEE),
                     ),
                     child: FlatButton(
                       child: Text('Back'),

@@ -42,35 +42,66 @@ class _BinScreenState extends State<BinScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  TopBarSelectors(
-                    title: 'Tasks',
-                    iconData: Icons.list,
-                    colorCondition: (page == 0),
-                    onPressed: () {
-                      setState(() {
-                        page = 0;
-                      });
-                    },
+                  Expanded(
+                    child: Container(
+                      decoration: (page == 0)
+                          ? BoxDecoration(
+                        color: Color(0xffEEEEEE),
+                        borderRadius: BorderRadius.circular(5),
+                      )
+                          : null,
+
+                      child: TopBarSelectors(
+                        title: 'Tasks',
+                        iconData: Icons.list,
+                        colorCondition: (page == 0),
+                        onPressed: () {
+                          setState(() {
+                            page = 0;
+                          });
+                        },
+                      ),
+                    ),
                   ),
-                  TopBarSelectors(
-                    title: 'Events',
-                    iconData: Icons.event,
-                    colorCondition: (page == 1),
-                    onPressed: () {
-                      setState(() {
-                        page = 1;
-                      });
-                    },
+                  Expanded(
+                    child: Container(
+                      decoration: (page == 1)
+                          ? BoxDecoration(
+                        color: Color(0xffEEEEEE),
+                        borderRadius: BorderRadius.circular(5),
+                      )
+                          : null,
+                      child: TopBarSelectors(
+                        title: 'Events',
+                        iconData: Icons.event,
+                        colorCondition: (page == 1),
+                        onPressed: () {
+                          setState(() {
+                            page = 1;
+                          });
+                        },
+                      ),
+                    ),
                   ),
-                  TopBarSelectors(
-                    title: 'Notes',
-                    iconData: Icons.note,
-                    colorCondition: (page == 2),
-                    onPressed: () {
-                      setState(() {
-                        page = 2;
-                      });
-                    },
+                  Expanded(
+                    child: Container(
+                      decoration: (page == 2)
+                        ? BoxDecoration(
+                      color: Color(0xffEEEEEE),
+                      borderRadius: BorderRadius.circular(5),
+                    )
+                        : null,
+                      child: TopBarSelectors(
+                        title: 'Notes',
+                        iconData: Icons.note,
+                        colorCondition: (page == 2),
+                        onPressed: () {
+                          setState(() {
+                            page = 2;
+                          });
+                        },
+                      ),
+                    ),
                   ),
                 ],
               ),

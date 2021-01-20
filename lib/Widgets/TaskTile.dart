@@ -33,7 +33,7 @@ class TaskTile extends StatelessWidget {
         ),
         trailing: Checkbox(
           activeColor: (Theme.of(context).brightness == Brightness.dark)
-              ? Color(0xffffbd69)
+              ? Color(0xff51c2d5)
               : Color(0xff30475e),
           value: theTask.getState(),
           onChanged: checkBoxCallBack,

@@ -44,39 +44,68 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Expanded(
-                    child: TopBarSelectors(
-                      title: 'Tasks',
-                      iconData: Icons.list,
-                      colorCondition: (page == 0),
-                      onPressed: () {
-                        setState(() {
-                          page = 0;
-                        });
-                      },
+                    child: Container(
+                      decoration: (page == 0)
+                          ? BoxDecoration(
+                        color: Color(0xffEEEEEE),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(5),
+                          topRight: Radius.circular(5),
+                          bottomRight: Radius.circular(5),
+
+                        )
+                      )
+                          : null,
+                      child: TopBarSelectors(
+                        title: 'Tasks',
+                        iconData: Icons.list,
+                        colorCondition: (page == 0),
+                        onPressed: () {
+                          setState(() {
+                            page = 0;
+                          });
+                        },
+                      ),
                     ),
                   ),
                   Expanded(
-                    child: TopBarSelectors(
-                      title: 'Events',
-                      iconData: Icons.event,
-                      colorCondition: (page == 1),
-                      onPressed: () {
-                        setState(() {
-                          page = 1;
-                        });
-                      },
+                    child: Container(
+                      decoration: (page == 1)
+                          ? BoxDecoration(
+                        color: Color(0xffEEEEEE),
+                        borderRadius: BorderRadius.circular(5),
+                      )
+                          : null,
+                      child: TopBarSelectors(
+                        title: 'Events',
+                        iconData: Icons.event,
+                        colorCondition: (page == 1),
+                        onPressed: () {
+                          setState(() {
+                            page = 1;
+                          });
+                        },
+                      ),
                     ),
                   ),
                   Expanded(
-                    child: TopBarSelectors(
-                      title: 'Notes',
-                      iconData: Icons.note,
-                      colorCondition: (page == 2),
-                      onPressed: () {
-                        setState(() {
-                          page = 2;
-                        });
-                      },
+                    child: Container(
+                      decoration: (page == 2)
+                          ? BoxDecoration(
+                        color: Color(0xffEEEEEE),
+                        borderRadius: BorderRadius.circular(5),
+                      )
+                          : null,
+                      child: TopBarSelectors(
+                        title: 'Notes',
+                        iconData: Icons.note,
+                        colorCondition: (page == 2),
+                        onPressed: () {
+                          setState(() {
+                            page = 2;
+                          });
+                        },
+                      ),
                     ),
                   ),
                 ],

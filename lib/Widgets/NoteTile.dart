@@ -17,7 +17,7 @@ class NoteTile extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: (Theme.of(context).brightness == Brightness.dark)
-            ? Color(0xffffbd69)
+            ? Color(0xff51c2d5)
             : Color(0xff30475e),
       ),
       child: Column(

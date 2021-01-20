@@ -21,6 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
   String _email = '';
   String _password = '';
   bool _isLoading = false;
+  int _attemptsCounter = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -105,14 +106,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(
                       height: 20,
                     ),
-
                     CustomButton(
                       backgroundColor: Color(0xffff6363),
                       onTap: () async {
                         setState(() {
                           _isLoading = true;
+                          _attemptsCounter++;
                         });
-                        if(_email == '' || _password ==''){
+                        if (_email == '' || _password == '') {
                           setState(() {
                             _isLoading = false;
                           });
@@ -121,63 +122,74 @@ class _LoginScreenState extends State<LoginScreen> {
                             context: context,
                             title: 'Empty email and password',
                             message:
-                            'Please enter an email address and password before trying to log in',
+                                'Please enter an email address and password before trying to log in',
                             okLabel: 'Continue',
                             barrierDismissible: false,
                           );
-                        }else{
-                          try {
-                            var logIn = firebase
-                                .getAuthInstance()
-                                .signInWithEmailAndPassword(
-                                email: _email, password: _password);
-                            if (logIn != null) {
-                              await firebase.fetchData(context);
+                        } else {
+                          if (_attemptsCounter >= 3) {
+                            try {
+                              firebase
+                                  .getAuthInstance()
+                                  .sendPasswordResetEmail(email: _email);
+                              setState(() {
+                                _attemptsCounter = 0;
+                              });
+                            } on FirebaseAuthException catch (e) {
+                              print(e.code);
+                            }
+                          } else {
+                            try {
+                              var logIn = await firebase
+                                  .getAuthInstance()
+                                  .signInWithEmailAndPassword(
+                                      email: _email, password: _password);
+                              if (logIn != null) {
+                                await firebase.fetchData(context);
+                                setState(() {
+                                  _isLoading = false;
+                                });
+                                Navigator.popAndPushNamed(
+                                    context, TasksScreen.taskScreenId);
+                              }
+                            } on FirebaseAuthException catch (e) {
                               setState(() {
                                 _isLoading = false;
                               });
-                              Navigator.popAndPushNamed(
-                                  context, TasksScreen.taskScreenId);
+                              print(e.code);
+                              if (e.code == 'user-not-found') {
+                                await showOkAlertDialog(
+                                  context: context,
+                                  title: 'This account doesn\'t exist ',
+                                  message:
+                                      'Please register before using the application',
+                                  okLabel: 'Continue',
+                                  barrierDismissible: false,
+                                );
+                              }
+                              if (e.code == 'wrong-password') {
+                                await showOkAlertDialog(
+                                  context: context,
+                                  title: 'Wrong password',
+                                  message:
+                                      'Please make sure you type the right password',
+                                  okLabel: 'Continue',
+                                  barrierDismissible: false,
+                                );
+                              }
+                              if (e.code == 'invalid-email') {
+                                await showOkAlertDialog(
+                                  context: context,
+                                  title: 'Invalid email address',
+                                  message:
+                                      'Please make sure your email address is valid',
+                                  okLabel: 'Continue',
+                                  barrierDismissible: false,
+                                );
+                              }
                             }
-                          } on FirebaseAuthException catch (e) {
-                            setState(() {
-                              _isLoading = false;
-                            });
-                            print(e.code);
-                            if (e.code == 'user-not-found') {
-                              await showOkAlertDialog(
-                                context: context,
-                                title: 'This account doesn\'t exist ',
-                                message:
-                                'Please register before using the application',
-                                okLabel: 'Continue',
-                                barrierDismissible: false,
-                              );
-                            }
-                            if (e.code == 'wrong-password') {
-                              await showOkAlertDialog(
-                                context: context,
-                                title: 'Wrong password',
-                                message:
-                                'Please make sure you type the right password',
-                                okLabel: 'Continue',
-                                barrierDismissible: false,
-                              );
-                            }
-                            if (e.code == 'invalid-email') {
-                              await showOkAlertDialog(
-                                context: context,
-                                title: 'Invalid email address',
-                                message:
-                                'Please make sure your email address is valid',
-                                okLabel: 'Continue',
-                                barrierDismissible: false,
-                              );
-                            }
-
                           }
                         }
-
                       },
                       name: 'Login',
                     ),
@@ -217,15 +229,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     GoogleButton(
                       onTap: () async {
-                        firebase.signInWithGoogle().then((result) {
-                          if (result != null) {
+                        try {
+                          var credentials = await firebase.signInWithGoogle();
+                          if (credentials != null) {
                             Navigator.popAndPushNamed(
                                 context, TasksScreen.taskScreenId);
-                          } else {
-                            Navigator.popAndPushNamed(
-                                context, LoginScreen.loginScreenId);
                           }
-                        });
+                        } on FirebaseAuthException catch (e) {}
                       },
                     ),
                   ],

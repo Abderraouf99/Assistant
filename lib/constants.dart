@@ -69,7 +69,7 @@ const kLogin_registerTextFields = InputDecoration(
 Color determineColor(Brightness brightness, bool state) {
   if (brightness == Brightness.dark) {
     if (state) {
-      return Color(0xffffbd69);
+      return Color(0xff51c2d5);
     } else {
       return Color(0xffff6363);
     }

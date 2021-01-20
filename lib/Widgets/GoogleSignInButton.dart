@@ -8,8 +8,8 @@ class GoogleButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FlatButton(
       onPressed: onTap,
+      height: 60,
       child: Container(
-        height: 50,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(

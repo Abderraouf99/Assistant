@@ -24,12 +24,21 @@
   <component name="ChangeListManager">
     <list default="true" id="0a6ae363-8f2d-44e7-9a1d-7127917073ca" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Screens/ArchiveScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/ArchiveScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Screens/BinScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/BinScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Screens/WelcomeEventsScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/WelcomeEventsScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Screens/WelcomePageNotes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/WelcomePageNotes.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Screens/WelcomeTaskScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/WelcomeTaskScreen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Screens/loginScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/loginScreen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Screens/registationScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/registationScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Widgets/GoogleSignInButton.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Widgets/GoogleSignInButton.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Widgets/NoteTile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Widgets/NoteTile.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Widgets/TaskTile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Widgets/TaskTile.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Widgets/TopBarSelectors.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Widgets/TopBarSelectors.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/constants.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/constants.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/models/DataFirebase.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/DataFirebase.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -154,26 +163,26 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="440" y="94" key="#Project_Structure/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1611087978890" />
-    <state width="1482" height="151" key="GridCell.Tab.0.bottom" timestamp="1611097544627">
+    <state width="1494" height="201" key="GridCell.Tab.0.bottom" timestamp="1611105758169">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1472" height="278" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1611095259381" />
-    <state width="1482" height="151" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1611097544627" />
-    <state width="1482" height="151" key="GridCell.Tab.0.center" timestamp="1611097544627">
+    <state width="1494" height="201" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1611105758169" />
+    <state width="1494" height="201" key="GridCell.Tab.0.center" timestamp="1611105758169">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1472" height="278" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1611095259381" />
-    <state width="1482" height="151" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1611097544627" />
-    <state width="1482" height="151" key="GridCell.Tab.0.left" timestamp="1611097544627">
+    <state width="1494" height="201" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1611105758169" />
+    <state width="1494" height="201" key="GridCell.Tab.0.left" timestamp="1611105758169">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1472" height="278" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1611095259381" />
-    <state width="1482" height="151" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1611097544627" />
-    <state width="1482" height="151" key="GridCell.Tab.0.right" timestamp="1611097544627">
+    <state width="1494" height="201" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1611105758169" />
+    <state width="1494" height="201" key="GridCell.Tab.0.right" timestamp="1611105758169">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1472" height="278" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1611095259381" />
-    <state width="1482" height="151" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1611097544627" />
+    <state width="1494" height="201" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1611105758169" />
     <state x="473" y="76" width="585" height="888" key="find.popup" timestamp="1611094525124">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

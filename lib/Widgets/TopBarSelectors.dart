@@ -17,11 +17,6 @@ class TopBarSelectors extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(5),
         margin: EdgeInsets.only(bottom: 5),
-        decoration: colorCondition
-            ? BoxDecoration(
-                color: Color(0xffEEEEEE),
-                borderRadius: BorderRadius.circular(20))
-            : null,
         child: Column(
           children: [
             Icon(
@@ -40,3 +35,4 @@ class TopBarSelectors extends StatelessWidget {
     );
   }
 }
+

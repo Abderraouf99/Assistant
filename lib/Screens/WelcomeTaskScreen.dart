@@ -44,6 +44,7 @@ class WelcomeTaskScreen extends StatelessWidget {
                   ),
                   child: Image(
                     image: AssetImage('assets/tasks.jpg'),
+                    fit: BoxFit.fill,
                   ),
                 ),
               ),
@@ -55,6 +56,7 @@ class WelcomeTaskScreen extends StatelessWidget {
                 children: [
                   Container(
                     decoration: BoxDecoration(
+                      color: Color(0xffEEEEEE),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: FlatButton(

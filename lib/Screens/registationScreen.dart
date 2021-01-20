@@ -21,6 +21,7 @@ class RegistrationScreen extends StatefulWidget {
 class _RegistrationScreenState extends State<RegistrationScreen> {
   String _email;
   String _password;
+  bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Consumer<FirebaseController>(
@@ -28,7 +29,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         return Scaffold(
           resizeToAvoidBottomInset: false,
           body: ModalProgressHUD(
-            inAsyncCall: firebase.isLoading,
+            inAsyncCall: _isLoading,
             child: SafeArea(
               child: Padding(
                 padding: EdgeInsets.all(20),
@@ -96,12 +97,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         backgroundColor: Color(0xffff6363),
                         onTap: () async {
                           try {
-                            firebase.toggleIsLoading();
+                            setState(() {
+                              _isLoading = true;
+                            });
                             UserCredential currentUser = await firebase
                                 .getAuthInstance()
                                 .createUserWithEmailAndPassword(
                                     email: _email, password: _password);
-                            firebase.toggleIsLoading();
+                            setState(() {
+                              _isLoading = false;
+                            });
 
                             if (!currentUser.user.emailVerified) {
                               await currentUser.user.sendEmailVerification();
@@ -133,6 +138,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               await currentUser.user.delete();
                             }
                           } on FirebaseAuthException catch (e) {
+                            setState(() {
+                              _isLoading = false;
+                            });
                             print(e.code);
                             if (e.code == 'email-already-in-use') {
                               await showAlertDialog(
