@@ -1,4 +1,4 @@
-![Application-Logo](assets/ScreensMockup/appicon.png)
+![Application-Logo](https://github.com/Abderraouf99/Assistant/blob/main/assets/ScreensMockUp/appIcon.png?raw=true)
 # Assistant
 A simple and easy to use To-Do app built with Flutter 
 
@@ -23,8 +23,9 @@ A simple and easy to use To-Do app built with Flutter
 ### Download
 [Google Play Store Coming soon]()
 ### Screen shots:
-  <img align="center" src="assets/ScreensMockup/welcomeScreen.png">
-  <img align="center" src="assets/ScreensMockup/sideNavigation.png">
-  <img align="center" src="assets/ScreensMockup/taskScreen.png">
-  <img align="center" src="assets/ScreensMockup/event screen.png">
-  <img align="center" src="assets/ScreensMockup/NoteScreen.png">
+  <img align="center" src="https://github.com/Abderraouf99/Assistant/blob/main/assets/ScreensMockUp/welcomeScreen.png?raw=true">
+  <img align="center" src="https://github.com/Abderraouf99/Assistant/blob/main/assets/ScreensMockUp/sideNavigation.png?raw=true">
+  <img align="center" src="https://github.com/Abderraouf99/Assistant/blob/main/assets/ScreensMockUp/taskScreen.png?raw=true">
+  <img align="center" src="https://github.com/Abderraouf99/Assistant/blob/main/assets/ScreensMockUp/event%20screen.png?raw=true">
+  <img align="center" src="https://github.com/Abderraouf99/Assistant/blob/main/assets/ScreensMockUp/NoteScreen.png?raw=true">
+ 
