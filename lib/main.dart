@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/Screens/ArchiveScreen.dart';
 import 'package:to_do_app/Screens/BinScreen.dart';
-import 'package:to_do_app/Screens/EventsScreen.dart';
+import 'package:to_do_app/Screens/EventScreenCalendarView.dart';
+
 import 'package:to_do_app/Screens/NotesScreen.dart';
 import 'package:to_do_app/Screens/TaskScreen.dart';
 import 'package:provider/provider.dart';
@@ -17,10 +18,12 @@ import 'package:to_do_app/models/DataNotes.dart';
 import 'package:to_do_app/models/DataTask.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 final FlutterLocalNotificationsPlugin localNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 Future<void> main() async {
+  tz.initializeTimeZones();
   WidgetsFlutterBinding.ensureInitialized();
   var initializeSettingAndroid = AndroidInitializationSettings('appicon');
   var initSettings = InitializationSettings(android: initializeSettingAndroid);
@@ -116,10 +119,10 @@ class MyApp extends StatelessWidget {
           RegistrationScreen.registrationScreenID: (context) =>
               RegistrationScreen(),
           TasksScreen.taskScreenId: (context) => TasksScreen(),
-          EventsScreen.eventsScreenId: (context) => EventsScreen(),
           NoteScreen.noteScreenID: (context) => NoteScreen(),
           ArchiveScreen.archiveScreenID: (context) => ArchiveScreen(),
           BinScreen.id: (context) => BinScreen(),
+          CalendarView.id: (context) => CalendarView(),
         },
       ),
     );
