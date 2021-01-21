@@ -170,7 +170,10 @@ class _AddEventsSheetState extends State<AddEventsSheet> {
                   ),
                   ListTile(
                     leading: Text('Reminder'),
-                    trailing: Text('Reminder time'),
+                    trailing: (_tempEvent.reminder == null)
+                        ? Text('')
+                        : Text(
+                            '${DateFormat('EEE,d/M,y').format(_tempEvent.reminder)} at ${DateFormat('jm').format(_tempEvent.reminder)}'),
                     onTap: () async {
                       DateTime reminderDate = await showDatePicker(
                         context: context,
