@@ -1,16 +1,30 @@
-# to_do_app
+![Application-Logo](assets/ScreensMockup/appicon.png)
+# Assistant
+A simple and easy to use To-Do app built with Flutter 
 
-A TO-do application made in flutter
+  - Add your tasks and tick them once you've completed them.
+  - Set up your events and be reminded when the time comes.
+  - Never lose any data, everything is saved in the cloud
+  - Easy to navigate.
+# Features!
+### Tasks features
+- Save your tasks locally on the device and on the Cloud using *Firebase CloudFire store*.
+- Archive your tasks once you completed them (Archived tasks are still accessible).
+- Delete your tasks completely from both the local strorage and the cloud.
+![Application-Task-Screen]
 
-## Getting Started
+### Events feature: 
+- Be reminded of your event the day before and 30min bofore the events starts.
+- Archive your events and mark them as completed.
 
-This project is a starting point for a Flutter application.
+### Notes feature:
+- Add your notes and have them saved in your pocket
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Download
+[Google Play Store Coming soon]()
+### Screen shots:
+  <img align="center" src="assets/ScreensMockup/welcomeScreen.png">
+  <img align="center" src="assets/ScreensMockup/sideNavigation.png">
+  <img align="center" src="assets/ScreensMockup/taskScreen.png">
+  <img align="center" src="assets/ScreensMockup/event screen.png">
+  <img align="center" src="assets/ScreensMockup/NoteScreen.png">
