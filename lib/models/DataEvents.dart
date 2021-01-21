@@ -8,13 +8,6 @@ class EventsController extends ChangeNotifier {
   List<Event> _archived = [];
   List<Event> _deleted = [];
 
-  Event _tempEvent = Event(
-    '',
-    DateTime.now(),
-    DateTime.now().add(Duration(hours: 1)),
-    0,
-    0,
-  );
   set archived(List<Event> events) {
     _archived = events;
     _archived.sort(
@@ -36,7 +29,6 @@ class EventsController extends ChangeNotifier {
     );
   }
 
-  Event get tempEvent => _tempEvent;
   List<Event> get events => _myEvents;
   List<Event> get archive => _archived;
   List<Event> get removed => _deleted;
@@ -85,40 +77,24 @@ class EventsController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void purgeEvent(int index){
+  void purgeEvent(int index) {
     _deleted.removeAt(index);
     notifyListeners();
   }
 
-  void recover(int index){
+  void recover(int index) {
     _myEvents.add(_deleted[index]);
     _deleted.removeAt(index);
     notifyListeners();
   }
-  void setEndDate(DateTime selected) {
-    _tempEvent.setDayEnds = selected;
-    notifyListeners();
-  }
 
-  void setTitle(String title) {
-    _tempEvent.setTitle = title;
-    notifyListeners();
-  }
-
-  String getTitle() {
-    return _tempEvent.title;
-  }
-
-  DateTime getEndDate() {
-    return _tempEvent.dateEnd;
-  }
-
-  void setStartDate(DateTime selected) {
-    _tempEvent.setDayStarts = selected;
-    notifyListeners();
-  }
-
-  DateTime getStartDate() {
-    return _tempEvent.dateStart;
+  List<Event> getEventsAtDate(DateTime date) {
+    List<Event> eventsAtDate = [];
+    for (Event event in _myEvents) {
+      if (event.dateStart.day == date.day) {
+        eventsAtDate.add(event);
+      }
+    }
+    return eventsAtDate;
   }
 }

@@ -7,6 +7,10 @@ import 'package:to_do_app/models/DataFirebase.dart';
 
 class EventsList extends StatelessWidget {
   final bool _isArchived = false;
+  final DateTime selectedDate;
+  EventsList({
+    @required this.selectedDate,
+  });
   Future<bool> _showAlertDialog(BuildContext context,
       {String title, String message}) async {
     bool choice = false;
@@ -58,7 +62,8 @@ class EventsList extends StatelessWidget {
                   decision = await _showAlertDialog(
                     context,
                     title: 'Event completed',
-                    message: 'Completed events will be moved to the archive tab',
+                    message:
+                        'Completed events will be moved to the archive tab',
                   );
                 }
 
@@ -86,7 +91,7 @@ class EventsList extends StatelessWidget {
               ),
               onDismissed: (direction) async {
                 await localNotificationsPlugin
-                    .cancel(eventsList.events[index].id());
+                    .cancel(eventsList.events[index].id);
                 if (direction == DismissDirection.endToStart) {
                   await Provider.of<FirebaseController>(context, listen: false)
                       .moveEventToBin(eventsList.events[index], _isArchived);
@@ -103,11 +108,13 @@ class EventsList extends StatelessWidget {
               },
               key: UniqueKey(),
               child: EventTile(
-                theEvent: eventsList.events[index],
+                theEvent: eventsList.getEventsAtDate(selectedDate)[index],
               ),
             );
           },
-          itemCount: (eventsList.events != null) ? eventsList.events.length : 0,
+          itemCount: (eventsList.getEventsAtDate(selectedDate) != null)
+              ? eventsList.getEventsAtDate(selectedDate).length
+              : 0,
         );
       },
     );

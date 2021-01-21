@@ -23,14 +23,14 @@ const String kDeletedNotes = 'binNotes';
 class FirebaseController extends ChangeNotifier {
   final _auth = FirebaseAuth.instance;
   final _firestoreReference = FirebaseFirestore.instance.collection('users');
-  bool _isLoading = false;
 
   Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
 
     // Obtain the auth details from the request
-    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
 
     // Create a new credential
     final GoogleAuthCredential credential = GoogleAuthProvider.credential(
@@ -41,7 +41,6 @@ class FirebaseController extends ChangeNotifier {
     // Once signed in, return the UserCredential
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
-
 
   FirebaseAuth getAuthInstance() {
     return _auth;
@@ -220,7 +219,7 @@ class FirebaseController extends ChangeNotifier {
     String docID;
     QuerySnapshot events = await _getEventQuery(dataBase: dataBase);
     for (var doc in events.docs) {
-      if (doc.data()['eventTitle'] == event.title) {
+      if (doc.data()['eventKey'] == event.key) {
         docID = doc.id;
         break;
       }
@@ -246,8 +245,8 @@ class FirebaseController extends ChangeNotifier {
         'eventStartDate': event.dateStart,
         'eventEndDate': event.dateEnd,
         'eventStatus': event.eventStatus(),
-        'eventID': event.id(),
-        'eventID2': event.id2(),
+        'eventKey': event.key,
+        'eventID': event.id
       },
     );
   }
@@ -315,12 +314,13 @@ class FirebaseController extends ChangeNotifier {
     List<Event> eventList = [];
     for (var doc in events.docs) {
       eventList.add(
-        Event(
-            doc.get('eventTitle'),
-            doc.get('eventStartDate').toDate(),
-            doc.get('eventEndDate').toDate(),
-            doc.get('eventID'),
-            doc.get('eventID2')),
+        Event.fromParam(
+          doc.get('eventTitle'),
+          doc.get('eventStartDate').toDate(),
+          doc.get('eventEndDate').toDate(),
+          doc.get('eventID'),
+          doc.get('EventKey'),
+        ),
       );
     }
     if (dataBase == kEvent) {
