@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_app/Screens/TaskScreen.dart';
@@ -7,9 +8,12 @@ import 'package:to_do_app/Widgets/CustomButtonWidget.dart';
 import 'package:to_do_app/Widgets/GoogleSignInButton.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:to_do_app/constants.dart';
+import 'package:to_do_app/models/DataEvents.dart';
 
 import 'package:to_do_app/models/DataFirebase.dart';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:to_do_app/models/DataNotes.dart';
+import 'package:to_do_app/models/DataTask.dart';
 
 class LoginScreen extends StatefulWidget {
   static String loginScreenId = 'loginScreen';
@@ -19,8 +23,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  String _email = '';
-  String _password = '';
+  String _email;
+  String _password;
   bool _isLoading = false;
   bool _showHeader = true;
   String _loginErrorMessage;
@@ -89,6 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   currentFocus.unfocus();
                                 }
                                 setState(() {
+                                  _email = null;
                                   _showHeader = true;
                                 });
                               },
@@ -132,7 +137,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 color: Color(0xff162447),
                               ),
                               onChanged: (value) {
-                                _email = value;
+                                if (value.isNotEmpty) {
+                                  _email = value;
+                                }
                               },
                             ),
                           ),
@@ -156,7 +163,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 return null;
                               },
                               onChanged: (value) {
-                                _password = value;
+                                if (value.isNotEmpty) {
+                                  _password = value;
+                                }
                               },
                               obscureText: true,
                               decoration: kLogin_registerTextFields.copyWith(
@@ -170,6 +179,35 @@ class _LoginScreenState extends State<LoginScreen> {
                         ],
                       ),
                     ),
+                    (_email != null)
+                        ? FlatButton(
+                            child: Text(
+                              'Forgot password ? click here',
+                              style: TextStyle(
+                                color: Color(0xffEEEEEE),
+                              ),
+                            ),
+                            onPressed: () async {
+                              String recoverResult =
+                                  await firebase.recoverPassword(_email);
+                              if (recoverResult == kResetSuccess) {
+                                await showAlertDialog(
+                                  context: context,
+                                  title: 'Recovery email sent',
+                                  message:
+                                      'Follow the intructions on the email and recover your account',
+                                );
+                              } else {
+                                await showAlertDialog(
+                                  context: context,
+                                  title: 'Recovery email error',
+                                  message:
+                                      'You don\'t have an account with this email',
+                                );
+                              }
+                            },
+                          )
+                        : Container(),
                     SizedBox(
                       height: 20,
                     ),
@@ -179,15 +217,25 @@ class _LoginScreenState extends State<LoginScreen> {
                         setState(() {
                           _isLoading = true;
                         });
-
                         String loginMessage = await firebase.logIn(
                             email: _email, password: _password);
                         setState(() {
                           _isLoading = false;
                           _loginErrorMessage = loginMessage;
                         });
+
                         if (_formKey.currentState.validate() &&
                             loginMessage == kSuccessMessage) {
+                          await Provider.of<TaskController>(context,
+                                  listen: false)
+                              .fetchData();
+                          ;
+                          await Provider.of<EventsController>(context,
+                                  listen: false)
+                              .fetchEvents();
+                          await Provider.of<NotesController>(context,
+                                  listen: false)
+                              .fetchNotes();
                           Navigator.popAndPushNamed(
                               context, TasksScreen.taskScreenId);
                         }
