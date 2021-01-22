@@ -8,7 +8,6 @@ import '../constants.dart';
 class FirebaseController extends ChangeNotifier {
   final _auth = FirebaseAuth.instance;
   final _firestoreReference = FirebaseFirestore.instance.collection('users');
-  bool _usingGoogle = false;
   FirebaseAuth get auth => _auth;
   Future<UserCredential> signInWithGoogle() async {
     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
@@ -20,9 +19,7 @@ class FirebaseController extends ChangeNotifier {
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
-    _usingGoogle = true;
-
-    return await FirebaseAuth.instance.signInWithCredential(credential);
+    return await _auth.signInWithCredential(credential);
   }
 
   Future<void> createNewUserDocument() async {
