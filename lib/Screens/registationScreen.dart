@@ -100,25 +100,22 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             setState(() {
                               _isLoading = true;
                             });
-                            UserCredential currentUser = await firebase.auth
-                                .createUserWithEmailAndPassword(
-                                    email: _email, password: _password);
+                            String registrationStatus = await firebase
+                                .registerWithEmail(_email, _password);
                             setState(() {
                               _isLoading = false;
                             });
-
-                            if (!currentUser.user.emailVerified) {
-                              await currentUser.user.sendEmailVerification();
+                            if (registrationStatus == kSuccessRegistration) {
+                              await showOkAlertDialog(
+                                context: context,
+                                title: 'Check your email',
+                                message:
+                                    'Hurry up log into your email and verify your account 🏃️, once you verify your account click on Ok ',
+                                okLabel: 'Continue',
+                                barrierDismissible: false,
+                              );
                             }
-                            await showOkAlertDialog(
-                              context: context,
-                              title: 'Check your email',
-                              message:
-                                  'Hurry up log into your email and verify your account 🏃️ ',
-                              okLabel: 'Continue',
-                              barrierDismissible: false,
-                            );
-                            await currentUser.user.reload();
+                            await firebase.auth.currentUser.reload();
 
                             if (firebase.auth.currentUser.emailVerified) {
                               firebase.createNewUserDocument();
@@ -131,7 +128,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 title: 'Error',
                                 message: 'Failed to verify account 😥️',
                               );
-                              await currentUser.user.delete();
+                              await firebase.auth.currentUser.delete();
                             }
                           } on FirebaseAuthException catch (e) {
                             setState(() {

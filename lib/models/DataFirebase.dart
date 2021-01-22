@@ -78,4 +78,28 @@ class FirebaseController extends ChangeNotifier {
     }
     return message;
   }
+
+  Future<String> registerWithEmail(String email, String password) async {
+    String message;
+    try {
+      if (email == null || password == null) {
+        throw FirebaseAuthException(message: 'null-credentials');
+      } else {
+        UserCredential credentials = await _auth.createUserWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+        await credentials.user.sendEmailVerification();
+        message = kSuccessRegistration;
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'email-already-in-use') {
+        message = kAccountExist;
+      } else {
+        message = kNullParam;
+      }
+    }
+
+    return message;
+  }
 }

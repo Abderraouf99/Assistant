@@ -7,6 +7,8 @@ const String kInvalidEmail = 'Please make sure your email address is valid';
 const String kNullParam = 'Please enter both an email address and a password';
 const String kResetSuccess = 'reset password success';
 const String kResetEmailNull = 'reset password error';
+const String kAccountExist = 'account-exists';
+const String kSuccessRegistration = 'registration-success';
 const kRoundedContainerDecorator = BoxDecoration(
   color: Color(0xffEEEEEE),
   borderRadius: BorderRadius.only(
