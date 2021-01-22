@@ -25,7 +25,7 @@ class NoteTile extends StatelessWidget {
         children: [
           Center(
             child: Text(
-              note.getTitle,
+              note.title,
               style: TextStyle(
                 fontSize: 22,
                 color: Color(0xffEEEEEE),
@@ -36,7 +36,7 @@ class NoteTile extends StatelessWidget {
             height: 5,
           ),
           Text(
-            '${note.getNote}',
+            '${note.note}',
             style: TextStyle(
               fontSize: 20,
               color: Color(0xffEEEEEE),
@@ -47,7 +47,7 @@ class NoteTile extends StatelessWidget {
           ),
           Row(mainAxisAlignment: MainAxisAlignment.end, children: [
             Text(
-              '${DateFormat('EEE,d/M,y').format(note.getDate)} at ${DateFormat('jm').format(note.getDate)}',
+              '${DateFormat('EEE,d/M,y').format(note.date)} at ${DateFormat('jm').format(note.date)}',
               style: TextStyle(
                 color: Color(0xffEEEEEE),
               ),

@@ -2,16 +2,21 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_app/constants.dart';
-import 'package:to_do_app/models/DataFirebase.dart';
 import 'package:to_do_app/models/DataNotes.dart';
 import 'package:intl/intl.dart';
 import 'package:to_do_app/models/Note.dart';
 
-class AddNote extends StatelessWidget {
+class AddNote extends StatefulWidget {
+  @override
+  _AddNoteState createState() => _AddNoteState();
+}
+
+class _AddNoteState extends State<AddNote> {
+  Note _tempNote = Note();
   @override
   Widget build(BuildContext context) {
     return Consumer<NotesController>(
-      builder: (context, note, child) {
+      builder: (context, notesController, child) {
         return Container(
           color: Color(0xff757575),
           child: Container(
@@ -35,22 +40,14 @@ class AddNote extends StatelessWidget {
                     FlatButton(
                       shape: CircleBorder(),
                       onPressed: () async {
-                        if (note.note == null || note.title == null) {
+                        if (_tempNote.note == '' || _tempNote.title == '') {
                           await showAlertDialog(
                             context: context,
                             title: 'Empty note 😓',
                             message: 'You can\'t add an empty note ',
                           );
                         } else {
-                          Note newNote = new Note(
-                            note.note,
-                            note.title,
-                            note.date,
-                          );
-                          note.addNote(newNote);
-                          Provider.of<FirebaseController>(context,
-                                  listen: false)
-                              .addNote(newNote);
+                          notesController.addNote(_tempNote);
                           Navigator.pop(context);
                         }
                       },
@@ -70,7 +67,7 @@ class AddNote extends StatelessWidget {
                 TextField(
                   autofocus: true,
                   onChanged: (value) {
-                    note.title = value;
+                    _tempNote.setTitle = value;
                   },
                   decoration: (Theme.of(context).brightness == Brightness.dark)
                       ? kTextFieldDecoration.copyWith(
@@ -93,7 +90,7 @@ class AddNote extends StatelessWidget {
                   maxLines: null,
                   autofocus: true,
                   onChanged: (value) {
-                    note.note = value;
+                    _tempNote.setNote = value;
                   },
                   decoration: (Theme.of(context).brightness == Brightness.dark)
                       ? kTextFieldDecoration.copyWith(
@@ -127,19 +124,21 @@ class AddNote extends StatelessWidget {
                         context: context,
                         initialTime: TimeOfDay.now(),
                       );
-                      note.date = new DateTime(
-                        date.year,
-                        date.month,
-                        date.day,
-                        time.hour,
-                        time.minute,
-                      );
+                      if (time != null) {
+                        _tempNote.setDate = new DateTime(
+                          date.year,
+                          date.month,
+                          date.day,
+                          time.hour,
+                          time.minute,
+                        );
+                      }
                     }
                   },
                   child: ListTile(
                     leading: Text('Time'),
                     trailing: Text(
-                        '${DateFormat('EEE,d/M,y').format(note.date)} at ${DateFormat('jm').format(note.date)}'),
+                        '${DateFormat('EEE,d/M,y').format(_tempNote.date)} at ${DateFormat('jm').format(_tempNote.date)}'),
                   ),
                 ),
               ],

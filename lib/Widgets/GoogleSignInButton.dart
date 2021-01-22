@@ -6,9 +6,8 @@ class GoogleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
-      onPressed: onTap,
-      height: 60,
+    return InkWell(
+      onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,

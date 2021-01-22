@@ -10,6 +10,7 @@ import 'package:to_do_app/constants.dart';
 import 'package:to_do_app/models/DataEvents.dart';
 import 'package:to_do_app/models/DataFirebase.dart';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:to_do_app/models/DataNotes.dart';
 import 'package:to_do_app/models/DataTask.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -167,6 +168,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 await Provider.of<EventsController>(context,
                                         listen: false)
                                     .fetchEvents();
+                                await Provider.of<NotesController>(context,
+                                        listen: false)
+                                    .fetchNotes();
                                 setState(() {
                                   _isLoading = false;
                                 });
@@ -256,7 +260,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             Navigator.popAndPushNamed(
                                 context, TasksScreen.taskScreenId);
                           }
-                        } on FirebaseAuthException catch (e) {}
+                        } on FirebaseAuthException catch (e) {
+                          print(e);
+                        }
                       },
                     ),
                   ],

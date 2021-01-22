@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:to_do_app/Widgets/DeleteDismissWidget.dart';
 import 'package:to_do_app/Widgets/NoteTile.dart';
 import 'package:to_do_app/Widgets/unArchiveDismissWidget.dart';
-import 'package:to_do_app/models/DataFirebase.dart';
 import 'package:to_do_app/models/DataNotes.dart';
 
 class NoteList extends StatelessWidget {
@@ -12,7 +11,7 @@ class NoteList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<NotesController>(
-      builder: (context, note, child) {
+      builder: (context, notesController, child) {
         return ListView.builder(
           itemBuilder: (context, index) {
             return Dismissible(
@@ -20,13 +19,9 @@ class NoteList extends StatelessWidget {
               secondaryBackground: DeleteDismissWidget(),
               onDismissed: (direction) async {
                 if (direction == DismissDirection.endToStart) {
-                  await Provider.of<FirebaseController>(context, listen: false)
-                      .moveNoteToBin(note.notes[index], _isArchived);
-                  note.moveToBin(index, _isArchived);
+                  await notesController.moveToBin(index, _isArchived);
                 } else {
-                  await Provider.of<FirebaseController>(context, listen: false)
-                      .archiveNote(note.notes[index]);
-                  note.archiveNote(index);
+                  await notesController.archiveNote(index);
                 }
               },
               confirmDismiss: (direction) async {
@@ -55,11 +50,11 @@ class NoteList extends StatelessWidget {
               },
               key: UniqueKey(),
               child: NoteTile(
-                note: note.notes[index],
+                note: notesController.notes[index],
               ),
             );
           },
-          itemCount: (note.notes != null) ? note.notes.length : 0,
+          itemCount: (notesController.notes != null) ? notesController.notes.length : 0,
         );
       },
     );

@@ -1,3 +1,4 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_app/constants.dart';
@@ -38,8 +39,14 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                       onTap: () async {
                         if (_tempTask.task != '') {
                           await tasksController.addTasks(_tempTask);
+                          Navigator.pop(context);
+                        } else {
+                          await showAlertDialog(
+                            context: context,
+                            title: 'Empty task 😓',
+                            message: 'You can\'t add an empty task ',
+                          );
                         }
-                        Navigator.pop(context);
                       },
                       child: CircleAvatar(
                         child: Icon(

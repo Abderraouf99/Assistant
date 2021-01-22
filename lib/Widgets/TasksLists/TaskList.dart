@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/Widgets/DeleteDismissWidget.dart';
-import 'package:to_do_app/models/DataFirebase.dart';
 import '../TaskTile.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_app/models/DataTask.dart';

@@ -2,26 +2,39 @@ class Note {
   String _note;
   String _title;
   DateTime _date;
-  Note(String note, String title, DateTime date)
+  String _key;
+  Note() {
+    this._date = DateTime.now();
+    this._key = '';
+    this._title = '';
+    this._note = '';
+  }
+  Note.fromParam(String note, String title, DateTime date, String key)
       : _note = note,
         _title = title,
-        _date = date;
+        _date = date,
+        _key = key;
 
   //Setters
-  set note(String note) {
+  set setNote(String note) {
     _note = note;
   }
 
-  set title(String title) {
+  set setTitle(String title) {
     _title = title;
   }
 
-  set date(DateTime date) {
+  set setDate(DateTime date) {
     _date = date;
   }
 
+  set setKey(String key) {
+    _key = key;
+  }
+
   //Getters
-  get getNote => _note;
-  get getTitle => _title;
-  get getDate => _date;
+  get note => _note;
+  get title => _title;
+  get date => _date;
+  get key => _key;
 }

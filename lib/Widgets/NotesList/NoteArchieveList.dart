@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_app/Widgets/DeleteDismissWidget.dart';
 import 'package:to_do_app/Widgets/NoteTile.dart';
-import 'package:to_do_app/models/DataFirebase.dart';
 import 'package:to_do_app/models/DataNotes.dart';
 
 import '../unArchiveDismissWidget.dart';
@@ -44,7 +43,7 @@ class NoteArchiveList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<NotesController>(
-      builder: (context, note, child) {
+      builder: (context, notesController, child) {
         return ListView.builder(
           itemBuilder: (context, index) {
             return Dismissible(
@@ -67,21 +66,17 @@ class NoteArchiveList extends StatelessWidget {
               secondaryBackground: DeleteDismissWidget(),
               onDismissed: (direction) async {
                 if (direction == DismissDirection.endToStart) {
-                  await Provider.of<FirebaseController>(context, listen: false)
-                      .moveNoteToBin(note.archive[index], _isArchived);
-                  note.moveToBin(index, _isArchived);
+                  await notesController.moveToBin(index, _isArchived);
                 } else {
-                  Provider.of<FirebaseController>(context, listen: false)
-                      .unArchiveNote(note.archive[index]);
-                  note.unArchive(index);
+                  await notesController.unArchive(index);
                 }
               },
               child: NoteTile(
-                note: note.archive[index],
+                note: notesController.archive[index],
               ),
             );
           },
-          itemCount: (note.archive != null) ? note.archive.length : 0,
+          itemCount: (notesController.archive != null) ? notesController.archive.length : 0,
         );
       },
     );

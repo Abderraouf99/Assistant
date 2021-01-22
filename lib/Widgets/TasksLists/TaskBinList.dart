@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_app/Widgets/DeleteDismissWidget.dart';
 import 'package:to_do_app/Widgets/TaskTile.dart';
-import 'package:to_do_app/models/DataFirebase.dart';
 import 'package:to_do_app/models/DataTask.dart';
 
 import '../RecoverDismissWidget.dart';
@@ -45,7 +44,9 @@ class TaskBinList extends StatelessWidget {
     return Consumer<TaskController>(
       builder: (context, tasksController, child) {
         return ListView.builder(
-          itemCount: (tasksController.deleted == null) ? 0 : tasksController.deleted.length,
+          itemCount: (tasksController.deleted == null)
+              ? 0
+              : tasksController.deleted.length,
           itemBuilder: (context, index) {
             return Dismissible(
               confirmDismiss: (direction) async {
