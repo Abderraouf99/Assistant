@@ -100,6 +100,8 @@ class _CalendarViewState extends State<CalendarView>
                     ),
                     Expanded(
                       child: Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                         child: EventsList(
                           selectedDate: _currentTime,
                         ),

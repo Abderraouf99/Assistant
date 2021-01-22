@@ -47,14 +47,12 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
                     child: Container(
                       decoration: (page == 0)
                           ? BoxDecoration(
-                        color: Color(0xffEEEEEE),
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(5),
-                          topRight: Radius.circular(5),
-                          bottomRight: Radius.circular(5),
-
-                        )
-                      )
+                              color: Color(0xffEEEEEE),
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(5),
+                                topRight: Radius.circular(5),
+                                bottomRight: Radius.circular(5),
+                              ))
                           : null,
                       child: TopBarSelectors(
                         title: 'Tasks',
@@ -72,9 +70,9 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
                     child: Container(
                       decoration: (page == 1)
                           ? BoxDecoration(
-                        color: Color(0xffEEEEEE),
-                        borderRadius: BorderRadius.circular(5),
-                      )
+                              color: Color(0xffEEEEEE),
+                              borderRadius: BorderRadius.circular(5),
+                            )
                           : null,
                       child: TopBarSelectors(
                         title: 'Events',
@@ -92,9 +90,9 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
                     child: Container(
                       decoration: (page == 2)
                           ? BoxDecoration(
-                        color: Color(0xffEEEEEE),
-                        borderRadius: BorderRadius.circular(5),
-                      )
+                              color: Color(0xffEEEEEE),
+                              borderRadius: BorderRadius.circular(5),
+                            )
                           : null,
                       child: TopBarSelectors(
                         title: 'Notes',
@@ -113,6 +111,7 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
             ),
             Expanded(
               child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: _determineSubPage(),
                 decoration: kRoundedContainerDecorator.copyWith(
                   color: Theme.of(context).primaryColorDark,

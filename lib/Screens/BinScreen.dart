@@ -19,11 +19,9 @@ class _BinScreenState extends State<BinScreen> {
   Widget _determineSubPage() {
     if (page == 0) {
       return TaskBinList();
-    }
-    else if(page == 1){
+    } else if (page == 1) {
       return EventBinList();
-    }
-    else{
+    } else {
       return NoteBinList();
     }
   }
@@ -46,11 +44,10 @@ class _BinScreenState extends State<BinScreen> {
                     child: Container(
                       decoration: (page == 0)
                           ? BoxDecoration(
-                        color: Color(0xffEEEEEE),
-                        borderRadius: BorderRadius.circular(5),
-                      )
+                              color: Color(0xffEEEEEE),
+                              borderRadius: BorderRadius.circular(5),
+                            )
                           : null,
-
                       child: TopBarSelectors(
                         title: 'Tasks',
                         iconData: Icons.list,
@@ -67,9 +64,9 @@ class _BinScreenState extends State<BinScreen> {
                     child: Container(
                       decoration: (page == 1)
                           ? BoxDecoration(
-                        color: Color(0xffEEEEEE),
-                        borderRadius: BorderRadius.circular(5),
-                      )
+                              color: Color(0xffEEEEEE),
+                              borderRadius: BorderRadius.circular(5),
+                            )
                           : null,
                       child: TopBarSelectors(
                         title: 'Events',
@@ -86,11 +83,11 @@ class _BinScreenState extends State<BinScreen> {
                   Expanded(
                     child: Container(
                       decoration: (page == 2)
-                        ? BoxDecoration(
-                      color: Color(0xffEEEEEE),
-                      borderRadius: BorderRadius.circular(5),
-                    )
-                        : null,
+                          ? BoxDecoration(
+                              color: Color(0xffEEEEEE),
+                              borderRadius: BorderRadius.circular(5),
+                            )
+                          : null,
                       child: TopBarSelectors(
                         title: 'Notes',
                         iconData: Icons.note,
@@ -108,8 +105,8 @@ class _BinScreenState extends State<BinScreen> {
             ),
             Expanded(
               child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: _determineSubPage(),
-                padding: EdgeInsets.symmetric(horizontal: 10),
                 decoration: kRoundedContainerDecorator.copyWith(
                   color: Theme.of(context).primaryColorDark,
                 ),
