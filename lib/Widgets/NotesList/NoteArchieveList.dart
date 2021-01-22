@@ -63,7 +63,7 @@ class NoteArchiveList extends StatelessWidget {
                 }
                 return decision;
               },
-              background: unArchiveDismissWidget(),
+              background: UnArchiveDismissWidget(),
               secondaryBackground: DeleteDismissWidget(),
               onDismissed: (direction) async {
                 if (direction == DismissDirection.endToStart) {

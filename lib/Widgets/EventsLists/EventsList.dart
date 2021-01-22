@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:to_do_app/Widgets/EventTile.dart';
 import 'package:to_do_app/main.dart';
 import 'package:to_do_app/models/DataEvents.dart';
-import 'package:to_do_app/models/DataFirebase.dart';
 
 class EventsList extends StatelessWidget {
   final bool _isArchived = false;
@@ -46,7 +45,7 @@ class EventsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<EventsController>(
-      builder: (context, eventsList, child) {
+      builder: (context, eventController, child) {
         return ListView.builder(
           itemBuilder: (context, index) {
             return Dismissible(
@@ -91,29 +90,22 @@ class EventsList extends StatelessWidget {
               ),
               onDismissed: (direction) async {
                 await localNotificationsPlugin
-                    .cancel(eventsList.events[index].id);
+                    .cancel(eventController.setEvents[index].id);
                 if (direction == DismissDirection.endToStart) {
-                  await Provider.of<FirebaseController>(context, listen: false)
-                      .moveEventToBin(eventsList.events[index], _isArchived);
-                  eventsList.moveToBin(index, _isArchived);
+                  await eventController.moveToBin(index, _isArchived);
                 } else {
-                  eventsList.toggleStatus(index, _isArchived);
-                  await Provider.of<FirebaseController>(context, listen: false)
-                      .toggleStatusEvents(
-                          eventsList.events[index], _isArchived);
-                  await Provider.of<FirebaseController>(context, listen: false)
-                      .archiveEvent(eventsList.events[index]);
-                  eventsList.moveToArchive(index);
+                  await eventController.toggleStatus(index, _isArchived);
+                  await eventController.moveToArchive(index);
                 }
               },
               key: UniqueKey(),
               child: EventTile(
-                theEvent: eventsList.getEventsAtDate(selectedDate)[index],
+                theEvent: eventController.getEventsAtDate(selectedDate)[index],
               ),
             );
           },
-          itemCount: (eventsList.getEventsAtDate(selectedDate) != null)
-              ? eventsList.getEventsAtDate(selectedDate).length
+          itemCount: (eventController.getEventsAtDate(selectedDate) != null)
+              ? eventController.getEventsAtDate(selectedDate).length
               : 0,
         );
       },

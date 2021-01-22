@@ -100,8 +100,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             setState(() {
                               _isLoading = true;
                             });
-                            UserCredential currentUser = await firebase
-                                .getAuthInstance()
+                            UserCredential currentUser = await firebase.auth
                                 .createUserWithEmailAndPassword(
                                     email: _email, password: _password);
                             setState(() {
@@ -121,10 +120,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             );
                             await currentUser.user.reload();
 
-                            if (firebase
-                                .getAuthInstance()
-                                .currentUser
-                                .emailVerified) {
+                            if (firebase.auth.currentUser.emailVerified) {
                               firebase.createNewUserDocument();
 
                               Navigator.popAndPushNamed(

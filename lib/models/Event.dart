@@ -29,7 +29,7 @@ class Event {
   DateTime get dateStart => _dateStart;
   DateTime get dateEnd => _dateEnd;
   String get key => _key;
-  bool eventStatus() => _status;
+  bool get status => _status;
   DateTime get reminder => _reminderTime;
 
   int get id => _id;
