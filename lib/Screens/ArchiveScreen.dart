@@ -18,10 +18,7 @@ class ArchiveScreen extends StatefulWidget {
 class _ArchiveScreenState extends State<ArchiveScreen> {
   Widget _determineSubPage() {
     if (page == 0) {
-      return Container(
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        child: TaskArchiveList(),
-      );
+      return TaskArchiveList();
     } else if (page == 1) {
       return EventArchiveList();
     } else {

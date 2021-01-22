@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 
+const String kSuccessMessage = 'Loged in';
+const String kUserNotFound = 'Please register before using the application';
+const String kWrongPassword = 'Please make sure you type the right password';
+const String kInvalidEmail = 'Please make sure your email address is valid';
+const String kNullParam = 'Please enter both an email address and a password';
+const String kResetSuccess = 'reset password success';
+const String kResetEmailNull = 'reset password error';
 const kRoundedContainerDecorator = BoxDecoration(
   color: Color(0xffEEEEEE),
   borderRadius: BorderRadius.only(

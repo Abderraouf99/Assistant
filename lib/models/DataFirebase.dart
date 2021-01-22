@@ -3,35 +3,79 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../constants.dart';
+
 class FirebaseController extends ChangeNotifier {
   final _auth = FirebaseAuth.instance;
   final _firestoreReference = FirebaseFirestore.instance.collection('users');
+  bool _usingGoogle = false;
   FirebaseAuth get auth => _auth;
   Future<UserCredential> signInWithGoogle() async {
-    // Trigger the authentication flow
     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
 
-    // Obtain the auth details from the request
     final GoogleSignInAuthentication googleAuth =
         await googleUser.authentication;
 
-    // Create a new credential
     final GoogleAuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
+    _usingGoogle = true;
 
-    // Once signed in, return the UserCredential
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
-  FirebaseAuth getAuthInstance() {
-    return _auth;
-  }
-
-  void createNewUserDocument() async {
+  Future<void> createNewUserDocument() async {
     await _firestoreReference.doc('${_auth.currentUser.email}').set(
       {'id': '${_auth.currentUser.email}'},
     );
+  }
+
+  Future<String> logIn({String email, String password}) async {
+    String message = '';
+    try {
+      if (email == null || password == null) {
+        throw FirebaseAuthException(
+            message: 'email-or-password-is-null', code: 'null-param');
+      } else {
+        UserCredential logIn = await _auth.signInWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+        message = kSuccessMessage;
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        message = kUserNotFound;
+      } else if (e.code == 'wrong-password') {
+        message = kWrongPassword;
+      } else if (e.code == 'invalid-email') {
+        message = kInvalidEmail;
+      } else if (e.code == 'null-param') {
+        message = kNullParam;
+      }
+    }
+    return message;
+  }
+
+  Future<String> recoverPassword(String email) async {
+    String message;
+    try {
+      if (email == null) {
+        throw FirebaseAuthException(
+            message: 'Enter a valid email address',
+            code: 'recovery-email-address-null');
+      } else {
+        await _auth.sendPasswordResetEmail(email: email);
+        message = kResetSuccess;
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'recovery-email-address-null') {
+        message = kResetEmailNull;
+      } else {
+        print(e.code);
+      }
+    }
+    return message;
   }
 }
