@@ -4,14 +4,17 @@ import 'package:to_do_app/constants.dart';
 import 'package:to_do_app/models/DataTask.dart';
 import 'package:to_do_app/models/Tasks.dart';
 
-class EditAddTaskScreen extends StatelessWidget {
-  final String type;
-  final Function function;
-  EditAddTaskScreen({@required this.type, @required this.function});
+class AddTaskScreen extends StatefulWidget {
+  @override
+  _AddTaskScreenState createState() => _AddTaskScreenState();
+}
+
+class _AddTaskScreenState extends State<AddTaskScreen> {
+  Task _tempTask = Task();
   @override
   Widget build(BuildContext context) {
     return Consumer<TaskController>(
-      builder: (context, task, child) {
+      builder: (context, tasksController, child) {
         return Container(
           color: Color(0xff757575),
           child: Container(
@@ -32,12 +35,11 @@ class EditAddTaskScreen extends StatelessWidget {
                       ),
                     ),
                     InkWell(
-                      onTap: () {
-                        Task taskToadd = Task(
-                          task: task.task,
-                          status: false,
-                        );
-                        function(taskToadd);
+                      onTap: () async {
+                        if (_tempTask.task != '') {
+                          await tasksController.addTasks(_tempTask);
+                        }
+                        Navigator.pop(context);
                       },
                       child: CircleAvatar(
                         child: Icon(
@@ -55,7 +57,7 @@ class EditAddTaskScreen extends StatelessWidget {
                 TextField(
                   autofocus: true,
                   onChanged: (value) {
-                    task.setTask(value);
+                    _tempTask.setTask = value;
                   },
                   decoration: (Theme.of(context).brightness == Brightness.dark)
                       ? kTextFieldDecoration.copyWith(

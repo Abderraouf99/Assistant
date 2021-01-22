@@ -10,6 +10,7 @@ import 'package:to_do_app/constants.dart';
 import 'package:to_do_app/models/DataEvents.dart';
 import 'package:to_do_app/models/DataFirebase.dart';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:to_do_app/models/DataTask.dart';
 
 class LoginScreen extends StatefulWidget {
   static String loginScreenId = 'loginScreen';
@@ -160,7 +161,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                   .signInWithEmailAndPassword(
                                       email: _email, password: _password);
                               if (logIn != null) {
-                                await firebase.fetchData(context);
+                                await Provider.of<TaskController>(context,
+                                        listen: false)
+                                    .fetchData();
                                 await Provider.of<EventsController>(context,
                                         listen: false)
                                     .fetchEvents();

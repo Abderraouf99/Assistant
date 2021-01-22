@@ -43,9 +43,9 @@ class TaskBinList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<TaskController>(
-      builder: (context, tasks, child) {
+      builder: (context, tasksController, child) {
         return ListView.builder(
-          itemCount: (tasks.deleted == null) ? 0 : tasks.deleted.length,
+          itemCount: (tasksController.deleted == null) ? 0 : tasksController.deleted.length,
           itemBuilder: (context, index) {
             return Dismissible(
               confirmDismiss: (direction) async {
@@ -68,20 +68,16 @@ class TaskBinList extends StatelessWidget {
               },
               onDismissed: (direction) async {
                 if (direction == DismissDirection.endToStart) {
-                  await Provider.of<FirebaseController>(context, listen: false)
-                      .purgeTask(tasks.deleted[index]);
-                  tasks.purgeTask(index);
+                  await tasksController.purgeTask(index);
                 } else {
-                  await Provider.of<FirebaseController>(context, listen: false)
-                      .recoverTask(tasks.deleted[index]);
-                  tasks.recoverTask(index);
+                  await tasksController.recoverTask(index);
                 }
               },
               background: RecoverDismissWidget(),
               secondaryBackground: DeleteDismissWidget(),
               key: UniqueKey(),
               child: TaskTile(
-                  theTask: tasks.deleted[index],
+                  theTask: tasksController.deleted[index],
                   checkBoxCallBack: (checkBoxState) {}),
             );
           },
@@ -90,5 +86,3 @@ class TaskBinList extends StatelessWidget {
     );
   }
 }
-
-

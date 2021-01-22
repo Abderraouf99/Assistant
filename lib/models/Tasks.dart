@@ -1,28 +1,26 @@
 class Task {
   //Attributes
   String _task;
-  bool _state;
+  bool _status;
 
   //Constructor
-  Task({String task, bool status})
+  Task() {
+    _task = '';
+    _status = false;
+  }
+  Task.fromParam({String task, bool status})
       : _task = task,
-        _state = status;
+        _status = status;
 
   //Method to toggle the state
   void toggleState() {
-    _state = !_state;
+    _status = !_status;
   }
 
-  set task(String task) {
+  set setTask(String task) {
     _task = task;
   }
 
-  String getTask() {
-    return this._task;
-  }
-
-  bool getState() {
-    return this._state;
-  }
-
+  String get task => _task;
+  bool get status => _status;
 }

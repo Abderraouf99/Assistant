@@ -44,9 +44,11 @@ class TaskArchiveList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<TaskController>(
-      builder: (context, tasks, child) {
+      builder: (context, tasksController, child) {
         return ListView.builder(
-          itemCount: (tasks.archived != null) ? tasks.archived.length : 0,
+          itemCount: (tasksController.archived != null)
+              ? tasksController.archived.length
+              : 0,
           itemBuilder: (context, index) {
             return Dismissible(
               confirmDismiss: (direction) async {
@@ -68,25 +70,16 @@ class TaskArchiveList extends StatelessWidget {
               secondaryBackground: DeleteDismissWidget(),
               key: UniqueKey(),
               child: TaskTile(
-                theTask: tasks.archived[index],
+                theTask: tasksController.archived[index],
                 checkBoxCallBack: (checkBoxState) async {
-                  tasks.toggleState(index, true);
-                  await Provider.of<FirebaseController>(context, listen: false)
-                      .toggleStatusTasks(
-                    tasks.archived[index],
-                    _isArchived,
-                  );
+                  await tasksController.toggleState(index, true);
                 },
               ),
               onDismissed: (direction) async {
                 if (direction == DismissDirection.endToStart) {
-                  await Provider.of<FirebaseController>(context, listen: false)
-                      .moveTaskTobin(tasks.archived[index], _isArchived);
-                  tasks.moveTobin(index, _isArchived);
+                  await tasksController.moveTobin(index, _isArchived);
                 } else {
-                  await Provider.of<FirebaseController>(context, listen: false)
-                      .unArchiveTask(tasks.archived[index]);
-                  tasks.unArchiveTask(index);
+                  await tasksController.unArchiveTask(index);
                 }
               },
             );

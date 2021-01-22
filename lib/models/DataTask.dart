@@ -1,97 +1,232 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'Tasks.dart';
 
+const String kArchivedTasks = 'archiveTask';
+const String kTask = 'tasks';
+const String kDeletedTasks = "binTasks";
+
 class TaskController extends ChangeNotifier {
   //Task Controller
-  List<Task> _myTasks = [];
+  List<Task> _tasks = [];
   List<Task> _archived = [];
   List<Task> _deleted = [];
+  final _auth = FirebaseAuth.instance;
+  final _firestoreReference = FirebaseFirestore.instance.collection('users');
 
+  List get tasks => _tasks;
   List get archived => _archived;
   List get deleted => _deleted;
-  Task _task1;
 
-  Task getTask() {
-    return _task1;
+  set setTasks(List<Task> tasks) {
+    _tasks = tasks;
   }
 
-  void setArchived(List<Task> archive) {
-    _archived = archive;
+  set setArchived(List<Task> tasks) {
+    _archived = tasks;
   }
 
-  void setDeleted(List<Task> deleted) {
+  set setDeleted(List<Task> deleted) {
     _deleted = deleted;
-  }
-
-  String get task => _task1.getTask();
-
-  void setTasks(List<Task> taskList) {
-    _myTasks = taskList;
-  }
-
-  void setTask(String task) {
-    _task1 = Task(task: task);
-  }
-
-  int getNumberOfTasks() {
-    return _myTasks.length;
   }
 
   int getNumberOfTaskCompleted() {
     int completedTask = 0;
-    for (Task task in _myTasks) {
-      if (task.getState() == true) {
+    for (Task task in _tasks) {
+      if (task.status == true) {
         completedTask++;
       }
     }
     return completedTask;
   }
 
-  List<Task> getTasks() {
-    return _myTasks;
-  }
-
-  void addTasks(Task newTask) {
-    _myTasks.add(newTask);
+  Future<void> addTasks(Task newTask) async {
+    _tasks.add(newTask);
+    await _addTaskFirebase(task: newTask, dataBase: kTask);
     notifyListeners();
   }
 
-  void moveTobin(int index, bool isArchived) {
-    Task task = (isArchived) ? _archived[index] : _myTasks[index];
+  Future<void> moveTobin(int index, bool isArchived) async {
+    Task task = (isArchived) ? _archived[index] : _tasks[index];
     _deleted.add(task);
-    (isArchived) ? _archived.removeAt(index) : _myTasks.removeAt(index);
+    await _moveTaskTobinFirebase(task, isArchived);
+    (isArchived) ? _archived.removeAt(index) : _tasks.removeAt(index);
     notifyListeners();
   }
-  void unArchiveTask(int index){
-    _myTasks.add(_archived[index]);
+
+  Future<void> unArchiveTask(int index) async {
+    Task task = _archived[index];
+    _tasks.add(task);
+    await _unArchiveTaskFirebase(task);
     _archived.removeAt(index);
     notifyListeners();
   }
 
-  void archiveTask(int index) {
-    _archived.add(_myTasks[index]);
-    _myTasks.removeAt(index);
+  Future<void> archiveTask(int index) async {
+    Task task = _tasks[index];
+    _archived.add(task);
+    await _archiveTaskFirebase(task);
+    _tasks.removeAt(index);
     notifyListeners();
   }
 
-  void toggleState(int index, bool isArchived) {
-    if (isArchived) {
-      _archived[index].toggleState();
-      notifyListeners();
+  Future<void> purgeTask(int index) async {
+    Task task = _deleted[index];
+    await _purgeTaskFirebase(task);
+    _deleted.removeAt(index);
+    notifyListeners();
+  }
+
+  Future<void> recoverTask(int index) async {
+    Task task = _deleted[index];
+    await _recoverTaskFirebase(task);
+    _tasks.add(task);
+    _deleted.removeAt(index);
+    notifyListeners();
+  }
+
+  Future<void> toggleState(int index, bool isArchived) async {
+    Task task = (isArchived) ? _archived[index] : _tasks[index];
+    await _toggleTaskStatusFirebase(task: task, isArchived: isArchived);
+    (isArchived) ? _archived[index].toggleState() : _tasks[index].toggleState();
+    notifyListeners();
+  }
+
+  Future<void> _addTaskFirebase({Task task, String dataBase}) async {
+    await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection(dataBase)
+        .add(
+      {
+        'taskText': task.task,
+        'taskStatus': task.status,
+      },
+    );
+  }
+
+  Future<QuerySnapshot> _getTaskQuery({String dataBase}) async {
+    QuerySnapshot tasks = await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection(dataBase)
+        .get();
+    return tasks;
+  }
+
+  Future<String> _findTask({Task task, String dataBase}) async {
+    String docID;
+    QuerySnapshot tasks = await _getTaskQuery(dataBase: dataBase);
+    for (var document in tasks.docs) {
+      if (document.data()['taskText'] == task.task) {
+        docID = document.id;
+        break;
+      }
+    }
+    return docID;
+  }
+
+  Future<void> _deleteTask({String docID, String dataBase}) async {
+    await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection(dataBase)
+        .doc(docID)
+        .delete();
+  }
+
+  Future<void> _fetchTasks({String dataBase}) async {
+    var task = await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection(dataBase)
+        .get();
+    List<Task> taskList = [];
+    for (var doc in task.docs) {
+      taskList.add(
+        Task.fromParam(
+          task: doc.get('taskText'),
+          status: doc.get('taskStatus'),
+        ),
+      );
+    }
+    if (dataBase == kTask) {
+      _tasks = taskList;
+    } else if (dataBase == kArchivedTasks) {
+      _archived = archived;
     } else {
-      _myTasks[index].toggleState();
-      notifyListeners();
+      _deleted = taskList;
     }
   }
 
-  void purgeTask(int index) {
-    _deleted.removeAt(index);
-    notifyListeners();
+  Future<void> _moveTaskTobinFirebase(Task task, bool isArchived) async {
+    String docID = '';
+    if (isArchived) {
+      docID = await _findTask(dataBase: kArchivedTasks, task: task);
+      await _deleteTask(dataBase: kArchivedTasks, docID: docID);
+    } else {
+      docID = await _findTask(dataBase: kTask, task: task);
+      await _deleteTask(docID: docID, dataBase: kTask);
+    }
+    await _addTaskFirebase(task: task, dataBase: kDeletedTasks);
   }
 
-  void recoverTask(int index) {
-    _myTasks.add(_deleted[index]);
-    _deleted.removeAt(index);
-    notifyListeners();
+  Future<void> _archiveTaskFirebase(Task task) async {
+    String docID = await _findTask(dataBase: kTask, task: task);
+    await _deleteTask(dataBase: kTask, docID: docID);
+    await _addTaskFirebase(task: task, dataBase: kArchivedTasks);
+  }
+
+  Future<void> _unArchiveTaskFirebase(Task task) async {
+    String docID = await _findTask(
+      dataBase: kArchivedTasks,
+      task: task,
+    );
+    await _deleteTask(
+      docID: docID,
+      dataBase: kArchivedTasks,
+    );
+    await _addTaskFirebase(task: task, dataBase: kTask);
+  }
+
+  Future<void> _purgeTaskFirebase(Task task) async {
+    String docID = await _findTask(
+      dataBase: kDeletedTasks,
+      task: task,
+    );
+    await _deleteTask(
+      dataBase: kDeletedTasks,
+      docID: docID,
+    );
+  }
+
+  Future<void> _recoverTaskFirebase(Task task) async {
+    String docID = await _findTask(dataBase: kDeletedTasks, task: task);
+    await _deleteTask(
+      dataBase: kDeletedTasks,
+      docID: docID,
+    );
+    await _addTaskFirebase(task: task, dataBase: kTask);
+  }
+
+  Future<void> fetchData() async {
+    await _fetchTasks(dataBase: kTask);
+    await _fetchTasks(dataBase: kArchivedTasks);
+    await _fetchTasks(dataBase: kDeletedTasks);
+  }
+
+  Future<void> _toggleTaskStatusFirebase({Task task, bool isArchived}) async {
+    String dataBase = (isArchived) ? kArchivedTasks : kTask;
+    String docID = await _findTask(
+      dataBase: dataBase,
+      task: task,
+    );
+    var document = await _firestoreReference
+        .doc('${_auth.currentUser.email}')
+        .collection(dataBase)
+        .doc(docID)
+        .get();
+    document.reference.update(
+      {
+        'taskStatus': task.status,
+      },
+    );
   }
 }

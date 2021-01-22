@@ -41,7 +41,7 @@ class TasksList extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return Consumer<TaskController>(
-      builder: (context, taskList, child) {
+      builder: (context, tasksController, child) {
         return ListView.builder(
           itemBuilder: (context, index) {
             return Dismissible(
@@ -76,30 +76,21 @@ class TasksList extends StatelessWidget {
               secondaryBackground: DeleteDismissWidget(),
               key: UniqueKey(),
               child: TaskTile(
-                theTask: taskList.getTasks()[index],
+                theTask: tasksController.tasks[index],
                 checkBoxCallBack: (checkBoxState) async {
-                  taskList.toggleState(index, false);
-                  await Provider.of<FirebaseController>(context, listen: false)
-                      .toggleStatusTasks(
-                    taskList.getTasks()[index],
-                    _isArchived,
-                  );
+                  await tasksController.toggleState(index, false);
                 },
               ),
               onDismissed: (direction) async {
                 if (direction == DismissDirection.endToStart) {
-                  await Provider.of<FirebaseController>(context, listen: false)
-                      .moveTaskTobin(taskList.getTasks()[index], _isArchived);
-                  taskList.moveTobin(index, _isArchived);
+                  await tasksController.moveTobin(index, _isArchived);
                 } else {
-                  await Provider.of<FirebaseController>(context, listen: false)
-                      .archiveTask(taskList.getTasks()[index]);
-                  taskList.archiveTask(index);
+                  await tasksController.archiveTask(index);
                 }
               },
             );
           },
-          itemCount: taskList.getTasks().length,
+          itemCount: tasksController.tasks.length,
         );
       },
     );

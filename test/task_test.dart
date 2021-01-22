@@ -12,7 +12,7 @@ void main() {
     });
     test('task title should change', () {
       Task newTask = Task(task: 'Hello', status: false);
-      newTask.task = 'hello changed';
+      newTask.setTask = 'hello changed';
       expect(newTask.getTask(), 'hello changed');
     });
   });

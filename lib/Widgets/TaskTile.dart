@@ -20,22 +20,22 @@ class TaskTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(5),
         color: determineColor(
           Theme.of(context).brightness,
-          theTask.getState(),
+          theTask.status,
         ),
       ),
       child: ListTile(
         title: Text(
-          theTask.getTask(),
+          theTask.task,
           style: TextStyle(
             color: Color(0xffEEEEEE),
-            decoration: theTask.getState() ? TextDecoration.lineThrough : null,
+            decoration: theTask.status ? TextDecoration.lineThrough : null,
           ),
         ),
         trailing: Checkbox(
           activeColor: (Theme.of(context).brightness == Brightness.dark)
               ? Color(0xff51c2d5)
               : Color(0xff30475e),
-          value: theTask.getState(),
+          value: theTask.status,
           onChanged: checkBoxCallBack,
         ),
       ),
