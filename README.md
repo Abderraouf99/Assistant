@@ -7,6 +7,10 @@ A simple and easy to use To-Do app built with Flutter
   - Never lose any data, everything is saved in the cloud
   - Easy to navigate.
 # Features!
+### Login/Registration
+- Login with email account
+- Login with Google account
+- Registration with email account with email verification
 ### Tasks features
 - Save your tasks locally on the device and on the Cloud using *Firebase CloudFire store*.
 - Archive your tasks once you completed them (Archived tasks are still accessible).
@@ -14,7 +18,8 @@ A simple and easy to use To-Do app built with Flutter
 ![Application-Task-Screen]
 
 ### Events feature: 
-- Be reminded of your event the day before and 30min bofore the events starts.
+- Beautiful and easy to use calendar view
+- Set up custom reminder.
 - Archive your events and mark them as completed.
 
 ### Notes feature:
@@ -23,9 +28,9 @@ A simple and easy to use To-Do app built with Flutter
 ### Download
 [Google Play Store Coming soon]()
 ### Screen shots:
-  <img align="center" src="https://github.com/Abderraouf99/Assistant/blob/main/assets/ScreensMockUp/welcomeScreen.png?raw=true">
-  <img align="center" src="https://github.com/Abderraouf99/Assistant/blob/main/assets/ScreensMockUp/sideNavigation.png?raw=true">
-  <img align="center" src="https://github.com/Abderraouf99/Assistant/blob/main/assets/ScreensMockUp/taskScreen.png?raw=true">
-  <img align="center" src="https://github.com/Abderraouf99/Assistant/blob/main/assets/ScreensMockUp/event%20screen.png?raw=true">
-  <img align="center" src="https://github.com/Abderraouf99/Assistant/blob/main/assets/ScreensMockUp/NoteScreen.png?raw=true">
+  <img align="center" src="https://github.com/Abderraouf99/AssistantAppWebsite/blob/master/images/welcomeScreen.png">
+  <img align="center" src="https://github.com/Abderraouf99/AssistantAppWebsite/blob/master/images/sideNavigation.png">
+  <img align="center" src="https://github.com/Abderraouf99/AssistantAppWebsite/blob/master/images/taskScreen.png">
+  <img align="center" src="https://github.com/Abderraouf99/AssistantAppWebsite/blob/master/images/eventScreen.png">
+  <img align="center" src="https://github.com/Abderraouf99/AssistantAppWebsite/blob/master/images/NoteScreen.png">
  
