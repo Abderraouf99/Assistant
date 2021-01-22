@@ -8,15 +8,10 @@ class CustomStartEndWidget extends StatelessWidget {
       {@required this.name, @required this.onPressed, @required this.date});
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
-      padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-      onPressed: onPressed,
-      child: ListTile(
-        leading: Text(name),
-        trailing: Text(
-          date,
-        ),
-      ),
+    return ListTile(
+      leading: Text(name),
+      trailing: Text(date),
+      onTap: onPressed,
     );
   }
 }

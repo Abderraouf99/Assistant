@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-class unArchiveDismissWidget extends StatelessWidget {
+class UnArchiveDismissWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(

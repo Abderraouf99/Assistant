@@ -64,15 +64,14 @@ class TaskArchiveList extends StatelessWidget {
 
                 return decision;
               },
-              background: unArchiveDismissWidget(),
+              background: UnArchiveDismissWidget(),
               secondaryBackground: DeleteDismissWidget(),
               key: UniqueKey(),
               child: TaskTile(
                 theTask: tasks.archived[index],
                 checkBoxCallBack: (checkBoxState) async {
                   tasks.toggleState(index, true);
-                  await Provider.of<FirebaseController>(context,
-                          listen: false)
+                  await Provider.of<FirebaseController>(context, listen: false)
                       .toggleStatusTasks(
                     tasks.archived[index],
                     _isArchived,

@@ -1,23 +1,15 @@
-import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:to_do_app/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_app/models/DataEvents.dart';
 import 'package:to_do_app/Widgets/CustomStartEndWidget.dart';
 import 'package:to_do_app/models/Event.dart';
 import 'package:intl/intl.dart';
-import 'package:to_do_app/main.dart';
-import 'dart:math';
-import 'package:timezone/timezone.dart' as tz;
-import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 
 class AddEventsSheet extends StatefulWidget {
-  final Function functionality;
   final DateTime selectedTime;
 
   AddEventsSheet({
-    @required this.functionality,
     @required this.selectedTime,
   });
 
@@ -31,7 +23,7 @@ class _AddEventsSheetState extends State<AddEventsSheet> {
   @override
   Widget build(BuildContext context) {
     return Consumer<EventsController>(
-      builder: (context, event, child) {
+      builder: (context, eventController, child) {
         return Container(
           child: Container(
             color: Color(0xff757575),
@@ -55,12 +47,9 @@ class _AddEventsSheetState extends State<AddEventsSheet> {
                       ),
                       InkWell(
                         onTap: () async {
-                          String key = UniqueKey().toString();
-                          int id = Random.secure().nextInt(10000);
-                          _tempEvent.setID = id;
-                          _tempEvent.setKey = key;
-                          widget.functionality(_tempEvent);
-                          await _createNotification(_tempEvent);
+                          await eventController.addEvent(
+                              _tempEvent, toBeReminded);
+                          Navigator.pop(context);
                         },
                         child: CircleAvatar(
                           child: Icon(
@@ -209,40 +198,5 @@ class _AddEventsSheetState extends State<AddEventsSheet> {
         );
       },
     );
-  }
-
-  Future _createNotification(Event theEvent) async {
-    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-      'EventNotification',
-      'EventNotification',
-      'EventNotification',
-      importance: Importance.high,
-      priority: Priority.high,
-    );
-    var platformSpecifics = NotificationDetails(
-      android: androidPlatformChannelSpecifics,
-    );
-
-    if (toBeReminded) {
-      try {
-        final String currentTimeZone =
-            await FlutterNativeTimezone.getLocalTimezone();
-        final timeZone = tz.getLocation(currentTimeZone);
-        final scheduleNotification =
-            tz.TZDateTime.from(theEvent.reminder, timeZone);
-        await localNotificationsPlugin.zonedSchedule(
-          theEvent.id,
-          'You have an upcomig event',
-          'Hey you have ${theEvent.title} coming up soon',
-          scheduleNotification,
-          platformSpecifics,
-          androidAllowWhileIdle: true,
-          uiLocalNotificationDateInterpretation:
-              UILocalNotificationDateInterpretation.absoluteTime,
-        );
-      } catch (e) {
-        print(e);
-      }
-    }
   }
 }

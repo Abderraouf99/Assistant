@@ -1,9 +1,10 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:to_do_app/Widgets/DeleteDismissWidget.dart';
 import 'package:to_do_app/Widgets/EventTile.dart';
+import 'package:to_do_app/Widgets/RecoverDismissWidget.dart';
 import 'package:to_do_app/models/DataEvents.dart';
-import 'package:to_do_app/models/DataFirebase.dart';
 
 class EventArchiveList extends StatelessWidget {
   final bool _isArchived = true;
@@ -15,7 +16,6 @@ class EventArchiveList extends StatelessWidget {
           itemCount: (event.archive == null) ? 0 : event.archive.length,
           itemBuilder: (context, index) {
             return Dismissible(
-              direction: DismissDirection.endToStart,
               confirmDismiss: (direction) async {
                 if (direction == DismissDirection.endToStart) {
                   await showAlertDialog(
@@ -42,20 +42,14 @@ class EventArchiveList extends StatelessWidget {
                 return true;
               },
               onDismissed: (direction) async {
-                await Provider.of<FirebaseController>(context, listen: false)
-                    .moveEventToBin(event.archive[index], _isArchived);
-                event.moveToBin(index, _isArchived);
+                if (direction == DismissDirection.endToStart) {
+                  await event.moveToBin(index, _isArchived);
+                } else {
+                  await event.unArchiveEvent(index);
+                }
               },
-              background: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  color: Colors.red,
-                ),
-                child: Icon(
-                  Icons.delete,
-                  color: Colors.white,
-                ),
-              ),
+              secondaryBackground: DeleteDismissWidget(),
+              background: RecoverDismissWidget(),
               key: UniqueKey(),
               child: EventTile(
                 theEvent: event.archive[index],

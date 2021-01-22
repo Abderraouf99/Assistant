@@ -16,7 +16,7 @@ class NoteList extends StatelessWidget {
         return ListView.builder(
           itemBuilder: (context, index) {
             return Dismissible(
-              background: unArchiveDismissWidget(),
+              background: UnArchiveDismissWidget(),
               secondaryBackground: DeleteDismissWidget(),
               onDismissed: (direction) async {
                 if (direction == DismissDirection.endToStart) {

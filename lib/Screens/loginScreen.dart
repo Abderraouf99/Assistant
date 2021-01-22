@@ -7,6 +7,7 @@ import 'package:to_do_app/Widgets/CustomButtonWidget.dart';
 import 'package:to_do_app/Widgets/GoogleSignInButton.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:to_do_app/constants.dart';
+import 'package:to_do_app/models/DataEvents.dart';
 import 'package:to_do_app/models/DataFirebase.dart';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 
@@ -135,8 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   'You\'ve tried many times a reset password email has been sent to your account',
                             );
                             try {
-                              await firebase
-                                  .getAuthInstance()
+                              await firebase.auth
                                   .sendPasswordResetEmail(email: _email);
                               setState(() {
                                 _isLoading = false;
@@ -156,12 +156,14 @@ class _LoginScreenState extends State<LoginScreen> {
                             }
                           } else {
                             try {
-                              var logIn = await firebase
-                                  .getAuthInstance()
+                              var logIn = await firebase.auth
                                   .signInWithEmailAndPassword(
                                       email: _email, password: _password);
                               if (logIn != null) {
                                 await firebase.fetchData(context);
+                                await Provider.of<EventsController>(context,
+                                        listen: false)
+                                    .fetchEvents();
                                 setState(() {
                                   _isLoading = false;
                                 });

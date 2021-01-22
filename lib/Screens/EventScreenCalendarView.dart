@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
 import 'package:to_do_app/Screens/AddEventsScreen.dart';
 import 'package:to_do_app/Widgets/EventsLists/EventsList.dart';
 import 'package:to_do_app/Widgets/PageHeader.dart';
 import 'package:to_do_app/constants.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:to_do_app/models/DataEvents.dart';
-import 'package:to_do_app/models/DataFirebase.dart';
-import 'package:to_do_app/models/Event.dart';
+
 import 'package:to_do_app/Widgets/SideNavigationDrawer.dart';
+
 class CalendarView extends StatefulWidget {
   static String id = "CalendarView";
 
@@ -46,13 +45,6 @@ class _CalendarViewState extends State<CalendarView>
             EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: AddEventsSheet(
           selectedTime: _currentTime,
-          functionality: (Event eventToadd) {
-            Provider.of<EventsController>(context, listen: false)
-                .addEvent(eventToadd);
-            Provider.of<FirebaseController>(context, listen: false)
-                .addEvent(eventToadd);
-            Navigator.pop(context);
-          },
         ),
       ),
     );
@@ -61,7 +53,7 @@ class _CalendarViewState extends State<CalendarView>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: DrawerCustom() ,
+      drawer: DrawerCustom(),
       resizeToAvoidBottomInset: false,
       floatingActionButton: FloatingActionButton(
         onPressed: () {

@@ -4,7 +4,6 @@ import 'package:to_do_app/Widgets/DeleteDismissWidget.dart';
 import 'package:to_do_app/Widgets/EventTile.dart';
 import 'package:to_do_app/Widgets/RecoverDismissWidget.dart';
 import 'package:to_do_app/models/DataEvents.dart';
-import 'package:to_do_app/models/DataFirebase.dart';
 
 class EventBinList extends StatelessWidget {
   Future<bool> _showAlertDialog(BuildContext context,
@@ -64,15 +63,11 @@ class EventBinList extends StatelessWidget {
               },
               secondaryBackground: DeleteDismissWidget(),
               background: RecoverDismissWidget(),
-              onDismissed: (direction)async {
+              onDismissed: (direction) async {
                 if (direction == DismissDirection.endToStart) {
-                 await Provider.of<FirebaseController>(context, listen: false)
-                      .purgeEvent(events.removed[index]);
-                  events.purgeEvent(index);
+                  await events.purgeEvent(index);
                 } else {
-                  await Provider.of<FirebaseController>(context, listen: false)
-                      .recoverEvent(events.removed[index]);
-                  events.recover(index);
+                  await events.recover(index);
                 }
               },
               key: UniqueKey(),

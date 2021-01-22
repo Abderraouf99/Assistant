@@ -8,14 +8,11 @@ import 'package:to_do_app/models/DataNotes.dart';
 import 'package:to_do_app/models/DataTask.dart';
 import 'package:to_do_app/models/Note.dart';
 import 'Tasks.dart';
-import 'Event.dart';
 
 const String kArchivedTasks = 'archiveTask';
 const String kTask = 'tasks';
 const String kDeletedTasks = "binTasks";
-const String kEvent = 'events';
-const String kArchivedEvents = 'archivedEvents';
-const String kDeletedEvents = 'deletedEvents';
+
 const String kNote = 'notes';
 const String kArchivedNotes = 'archiveNotes';
 const String kDeletedNotes = 'binNotes';
@@ -23,7 +20,7 @@ const String kDeletedNotes = 'binNotes';
 class FirebaseController extends ChangeNotifier {
   final _auth = FirebaseAuth.instance;
   final _firestoreReference = FirebaseFirestore.instance.collection('users');
-
+  FirebaseAuth get auth => _auth;
   Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
@@ -163,7 +160,7 @@ class FirebaseController extends ChangeNotifier {
   }
 
   Future<void> recoverTask(Task task) async {
-    String docID = await _findTask(dataBase: kDeletedEvents, task: task);
+    String docID = await _findTask(dataBase: kDeleted, task: task);
     await _deleteTask(
       dataBase: kDeletedTasks,
       docID: docID,
@@ -178,9 +175,7 @@ class FirebaseController extends ChangeNotifier {
     await _fetchNotes(context, dataBase: kNote);
     await _fetchNotes(context, dataBase: kArchivedNotes);
     await _fetchNotes(context, dataBase: kDeletedNotes);
-    await _fetchEvents(context, dataBase: kEvent);
-    await _fetchEvents(context, dataBase: kArchivedEvents);
-    await _fetchEvents(context, dataBase: kDeletedEvents);
+
   }
 
   Future<void> _toggleTaskStatus({Task task, bool isArchived}) async {
@@ -207,131 +202,6 @@ class FirebaseController extends ChangeNotifier {
 
   /// *****************************************************Event related actions *************************/
 
-  Future<QuerySnapshot> _getEventQuery({String dataBase}) async {
-    QuerySnapshot events = await _firestoreReference
-        .doc('${_auth.currentUser.email}')
-        .collection(dataBase)
-        .get();
-    return events;
-  }
-
-  Future<String> _findEvent({Event event, String dataBase}) async {
-    String docID;
-    QuerySnapshot events = await _getEventQuery(dataBase: dataBase);
-    for (var doc in events.docs) {
-      if (doc.data()['eventKey'] == event.key) {
-        docID = doc.id;
-        break;
-      }
-    }
-    return docID;
-  }
-
-  Future<void> _deleteEvent({String docID, String dataBase}) async {
-    await _firestoreReference
-        .doc('${_auth.currentUser.email}')
-        .collection(dataBase)
-        .doc(docID)
-        .delete();
-  }
-
-  Future<void> _addEvent({Event event, String dataBase}) async {
-    await _firestoreReference
-        .doc('${_auth.currentUser.email}')
-        .collection(dataBase)
-        .add(
-      {
-        'eventTitle': event.title,
-        'eventStartDate': event.dateStart,
-        'eventEndDate': event.dateEnd,
-        'eventStatus': event.eventStatus(),
-        'eventKey': event.key,
-        'eventID': event.id
-      },
-    );
-  }
-
-  Future<void> _toggleEventStatus({Event event, bool isArchived}) async {
-    String dataBase = (isArchived) ? kArchivedEvents : kEvent;
-    String docID = await _findEvent(event: event, dataBase: dataBase);
-    var document = await _firestoreReference
-        .doc('${_auth.currentUser.email}')
-        .collection(dataBase)
-        .doc(docID)
-        .get();
-    document.reference.update(
-      {
-        'eventStatus': event.eventStatus(),
-      },
-    );
-  }
-
-  Future<void> addEvent(Event event) async {
-    await _addEvent(event: event, dataBase: kEvent);
-  }
-
-  Future<void> moveEventToBin(Event event, bool isArchived) async {
-    String docID = '';
-    if (!isArchived) {
-      docID = await _findEvent(event: event, dataBase: kEvent);
-      await _deleteEvent(docID: docID, dataBase: kEvent);
-    } else {
-      docID = await _findEvent(event: event, dataBase: kArchivedEvents);
-      await _deleteEvent(docID: docID, dataBase: kArchivedEvents);
-    }
-    await _addEvent(event: event, dataBase: kDeletedEvents);
-  }
-
-  Future<void> archiveEvent(Event event) async {
-    String docID = await _findEvent(event: event, dataBase: kEvent);
-    await _deleteEvent(docID: docID, dataBase: kEvent);
-    await _addEvent(event: event, dataBase: kArchivedEvents);
-  }
-
-  Future<void> unArchiveEvent(Event event) async {
-    String docID = await _findEvent(event: event, dataBase: kArchivedEvents);
-    await _deleteEvent(docID: docID, dataBase: kArchivedEvents);
-    await _addEvent(event: event, dataBase: kEvent);
-  }
-
-  Future<void> purgeEvent(Event event) async {
-    String docID = await _findEvent(event: event, dataBase: kDeletedEvents);
-    await _deleteEvent(docID: docID, dataBase: kDeletedNotes);
-  }
-
-  Future<void> recoverEvent(Event event) async {
-    String docID = await _findEvent(event: event, dataBase: kDeletedEvents);
-    await _deleteEvent(docID: docID, dataBase: kDeletedEvents);
-    await _addEvent(event: event, dataBase: kEvent);
-  }
-
-  Future<void> toggleStatusEvents(Event event, bool isArchived) async {
-    await _toggleEventStatus(event: event, isArchived: isArchived);
-  }
-
-  Future<void> _fetchEvents(BuildContext context, {String dataBase}) async {
-    var events = await _getEventQuery(dataBase: dataBase);
-    List<Event> eventList = [];
-    for (var doc in events.docs) {
-      eventList.add(
-        Event.fromParam(
-          doc.get('eventTitle'),
-          doc.get('eventStartDate').toDate(),
-          doc.get('eventEndDate').toDate(),
-          doc.get('eventID'),
-          doc.get('EventKey'),
-        ),
-      );
-    }
-    if (dataBase == kEvent) {
-      Provider.of<EventsController>(context, listen: false).events = eventList;
-    } else if (dataBase == kArchivedEvents) {
-      Provider.of<EventsController>(context, listen: false).archived =
-          eventList;
-    } else {
-      Provider.of<EventsController>(context, listen: false).deleted = eventList;
-    }
-  }
 
   /// *************************************************Notes related Events***************************/
 

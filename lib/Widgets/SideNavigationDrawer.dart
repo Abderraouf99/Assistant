@@ -110,7 +110,7 @@ class DrawerCustom extends StatelessWidget {
               ),
               onTap: () async {
                 await Provider.of<FirebaseController>(context, listen: false)
-                    .getAuthInstance()
+                    .auth
                     .signOut();
                 Navigator.popAndPushNamed(context, WelcomeMenu.id);
               },
