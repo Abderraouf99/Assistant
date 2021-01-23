@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_app/Screens/TaskScreen.dart';
@@ -226,16 +225,22 @@ class _LoginScreenState extends State<LoginScreen> {
 
                         if (_formKey.currentState.validate() &&
                             loginMessage == kSuccessMessage) {
+                          setState(() {
+                            _isLoading = true;
+                          });
                           await Provider.of<TaskController>(context,
                                   listen: false)
                               .fetchData();
-                          ;
+
                           await Provider.of<EventsController>(context,
                                   listen: false)
                               .fetchEvents();
                           await Provider.of<NotesController>(context,
                                   listen: false)
                               .fetchNotes();
+                          setState(() {
+                            _isLoading = false;
+                          });
                           Navigator.popAndPushNamed(
                               context, TasksScreen.taskScreenId);
                         }

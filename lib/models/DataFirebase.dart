@@ -6,8 +6,12 @@ import 'package:google_sign_in/google_sign_in.dart';
 import '../constants.dart';
 
 class FirebaseController extends ChangeNotifier {
-  final _auth = FirebaseAuth.instance;
+  var _auth = FirebaseAuth.instance;
   final _firestoreReference = FirebaseFirestore.instance.collection('users');
+  FirebaseController();
+  FirebaseController.instance({FirebaseAuth auth}) {
+    _auth = auth;
+  }
   FirebaseAuth get auth => _auth;
   Future<UserCredential> signInWithGoogle() async {
     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
@@ -33,9 +37,11 @@ class FirebaseController extends ChangeNotifier {
     try {
       if (email == null || password == null) {
         throw FirebaseAuthException(
-            message: 'email-or-password-is-null', code: 'null-param');
+          message: 'email-or-password-is-null',
+          code: 'null-param',
+        );
       } else {
-        UserCredential logIn = await _auth.signInWithEmailAndPassword(
+        await _auth.signInWithEmailAndPassword(
           email: email,
           password: password,
         );
