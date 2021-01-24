@@ -9,85 +9,58 @@ class WelcomeTaskScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          padding: EdgeInsets.all(20),
-          margin: EdgeInsets.all(10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                'Set up task ',
-                style: TextStyle(
-                  color: Color(0xffEEEEEE),
-                  fontFamily: 'Pacifico',
-                  fontSize: 30,
-                ),
-              ),
-              Text(
-                'With assistant you can set up tasks, easily and have them saved in the app',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Color(0xffEEEEEE),
-                  fontFamily: 'Ninito',
-                  fontSize: 20,
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Flexible(
-                child: Container(
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
+        child: GestureDetector(
+          onPanUpdate: (details) {
+            if (details.delta.dx < 0) {
+              Navigator.pushNamed(context, WelcomeEventScreeen.id);
+            } else if (details.delta.dx > 0) {
+              Navigator.pop(context);
+            }
+          },
+          child: Container(
+            padding: EdgeInsets.all(20),
+            margin: EdgeInsets.all(10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'Set up task ',
+                  style: TextStyle(
                     color: Color(0xffEEEEEE),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Image(
-                    image: AssetImage('assets/tasks.jpg'),
-                    fit: BoxFit.fill,
+                    fontFamily: 'Pacifico',
+                    fontSize: 30,
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Container(
+                Text(
+                  'With assistant you can set up tasks, easily and have them saved in the app',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Color(0xffEEEEEE),
+                    fontFamily: 'Ninito',
+                    fontSize: 20,
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Flexible(
+                  child: AnimatedContainer(
+                    margin: EdgeInsets.only(left: 20),
+                    duration: Duration(milliseconds: 100),
                     decoration: BoxDecoration(
-                      color: Color(0xffEEEEEE),
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: FlatButton(
-                      child: Text('Skip'),
-                      onPressed: () {
-                        Navigator.popAndPushNamed(
-                            context, LoginScreen.loginScreenId);
-                      },
+                    child: Image(
+                      image: AssetImage('assets/ScreensMockUp/taskScreen.png'),
+                      fit: BoxFit.fill,
                     ),
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Color(0xffff6363),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: FlatButton(
-                      highlightColor: Colors.transparent,
-                      child: Text(
-                        'Next',
-                        style: TextStyle(
-                          color: Color(0xffEEEEEE),
-                        ),
-                      ),
-                      onPressed: () {
-                        Navigator.pushNamed(context, WelcomeEventScreeen.id);
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+              ],
+            ),
           ),
         ),
       ),

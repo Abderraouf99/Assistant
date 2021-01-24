@@ -42,9 +42,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    (_showHeader)
-                        ? Container(
-                            child: Column(
+                    AnimatedContainer(
+                      duration: Duration(milliseconds: 100),
+                      child: (_showHeader)
+                          ? Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
@@ -81,27 +82,27 @@ class _LoginScreenState extends State<LoginScreen> {
                                   },
                                 ),
                               ],
-                            ),
-                          )
-                        : Container(
-                            child: InkWell(
-                              onTap: () {
-                                FocusScopeNode currentFocus =
-                                    FocusScope.of(context);
-                                if (!currentFocus.hasPrimaryFocus) {
-                                  currentFocus.unfocus();
-                                }
-                                setState(() {
-                                  _email = null;
-                                  _showHeader = true;
-                                });
-                              },
-                              child: Icon(
-                                Icons.arrow_back,
-                                color: Colors.white,
+                            )
+                          : Container(
+                              child: InkWell(
+                                onTap: () {
+                                  FocusScopeNode currentFocus =
+                                      FocusScope.of(context);
+                                  if (!currentFocus.hasPrimaryFocus) {
+                                    currentFocus.unfocus();
+                                  }
+                                  setState(() {
+                                    _email = null;
+                                    _showHeader = true;
+                                  });
+                                },
+                                child: Icon(
+                                  Icons.arrow_back,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
-                          ),
+                    ),
                     SizedBox(
                       height: 20,
                     ),

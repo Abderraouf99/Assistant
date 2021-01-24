@@ -84,6 +84,7 @@ flutter:
     - assets/events.jpg
     - assets/notes.jpg
     - assets/icon/icon.png
+    - assets/ScreensMockUp/
 
 
   #   - images/a_dot_ham.jpeg

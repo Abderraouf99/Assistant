@@ -7,85 +7,58 @@ class WelcomeNoteScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          padding: EdgeInsets.all(20),
-          margin: EdgeInsets.all(10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                'Keep your notes ',
-                style: TextStyle(
-                  color: Color(0xffEEEEEE),
-                  fontFamily: 'Pacifico',
-                  fontSize: 30,
-                ),
-              ),
-              Text(
-                'With assistant you can save you notes and have them in your pocket',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Color(0xffEEEEEE),
-                  fontFamily: 'Ninito',
-                  fontSize: 20,
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Flexible(
-                child: Container(
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
+        child: GestureDetector(
+          onPanUpdate: (details) {
+            if (details.delta.dx < 0) {
+              Navigator.pushNamed(context, LoginScreen.loginScreenId);
+            } else if (details.delta.dx > 0) {
+              Navigator.pop(context);
+            }
+          },
+          child: Container(
+            padding: EdgeInsets.all(20),
+            margin: EdgeInsets.all(10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'Keep your notes ',
+                  style: TextStyle(
                     color: Color(0xffEEEEEE),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Image(
-                    image: AssetImage('assets/notes.jpg'),
-                    fit: BoxFit.cover,
+                    fontFamily: 'Pacifico',
+                    fontSize: 30,
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Container(
+                Text(
+                  'With assistant you can save you notes and have them in your pocket',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Color(0xffEEEEEE),
+                    fontFamily: 'Ninito',
+                    fontSize: 20,
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Flexible(
+                  child: AnimatedContainer(
+                    duration: Duration(milliseconds: 100),
+                    margin: EdgeInsets.only(left: 20),
                     decoration: BoxDecoration(
-                      color :Color(0xffEEEEEE),
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: FlatButton(
-                      child: Text('Back'),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
+                    child: Image(
+                      image: AssetImage('assets/ScreensMockUp/NoteScreen.png'),
+                      fit: BoxFit.cover,
                     ),
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Color(0xffff6363),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: FlatButton(
-                      highlightColor: Colors.transparent,
-                      child: Text(
-                        'Continue',
-                        style: TextStyle(
-                          color: Color(0xffEEEEEE),
-                        ),
-                      ),
-                      onPressed: () {
-                        Navigator.popAndPushNamed(
-                            context, LoginScreen.loginScreenId);
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+              ],
+            ),
           ),
         ),
       ),
