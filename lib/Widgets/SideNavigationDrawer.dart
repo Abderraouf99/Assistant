@@ -31,7 +31,9 @@ class DrawerCustom extends StatelessWidget {
                 ),
               ),
             ),
-            Divider(),
+            Divider(
+              height: 10,
+            ),
             ListTile(
               leading: Icon(Icons.toc),
               title: Text(
@@ -71,7 +73,9 @@ class DrawerCustom extends StatelessWidget {
                 Navigator.pushNamed(context, NoteScreen.noteScreenID);
               },
             ),
-            Divider(),
+            Divider(
+              height: 10,
+            ),
             ListTile(
               leading: Icon(Icons.archive),
               title: Text(
@@ -98,7 +102,9 @@ class DrawerCustom extends StatelessWidget {
                 Navigator.pushNamed(context, BinScreen.id);
               },
             ),
-            Divider(),
+            Divider(
+              height: 10,
+            ),
             ListTile(
               leading: Icon(Icons.logout),
               title: Text(

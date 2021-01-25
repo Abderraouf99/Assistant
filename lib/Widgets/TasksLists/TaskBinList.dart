@@ -77,9 +77,13 @@ class TaskBinList extends StatelessWidget {
               background: RecoverDismissWidget(),
               secondaryBackground: DeleteDismissWidget(),
               key: UniqueKey(),
-              child: TaskTile(
-                  theTask: tasksController.deleted[index],
-                  checkBoxCallBack: (checkBoxState) {}),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                child: TaskTile(
+                    theTask: tasksController.deleted[index],
+                    checkBoxCallBack: (checkBoxState) {}),
+              ),
             );
           },
         );

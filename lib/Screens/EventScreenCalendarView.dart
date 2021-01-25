@@ -20,6 +20,7 @@ class _CalendarViewState extends State<CalendarView>
   AnimationController _animationController;
   CalendarController _calendarController;
   DateTime _currentTime = DateTime.now();
+
   @override
   void initState() {
     super.initState();
@@ -53,6 +54,11 @@ class _CalendarViewState extends State<CalendarView>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: PageHeader(
+          pageName: 'Events',
+        ),
+      ),
       drawer: DrawerCustom(),
       resizeToAvoidBottomInset: false,
       floatingActionButton: FloatingActionButton(
@@ -72,9 +78,6 @@ class _CalendarViewState extends State<CalendarView>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            PageHeader(
-              pageName: 'Events',
-            ),
             Expanded(
               child: Container(
                 decoration: kRoundedContainerDecorator.copyWith(

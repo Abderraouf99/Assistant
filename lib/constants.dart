@@ -11,12 +11,22 @@ const String kAccountExist = 'account-exists';
 const String kSuccessRegistration = 'registration-success';
 const kRoundedContainerDecorator = BoxDecoration(
   color: Color(0xffEEEEEE),
-  borderRadius: BorderRadius.only(
-    topLeft: Radius.circular(5),
-    topRight: Radius.circular(5),
-  ),
+  borderRadius: BorderRadius.only(),
 );
-
+const List<Tab> myTabs = [
+  Tab(
+    icon: Icon(Icons.list),
+    text: 'Tasks',
+  ),
+  Tab(
+    icon: Icon(Icons.event),
+    text: 'Events',
+  ),
+  Tab(
+    icon: Icon(Icons.note),
+    text: 'Notes',
+  ),
+];
 const kTaskPreviewTextStyle = TextStyle(
   color: Color(0xffEEEEEE),
   fontSize: 18,

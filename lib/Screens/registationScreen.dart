@@ -27,6 +27,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     return Consumer<FirebaseController>(
       builder: (context, firebase, child) {
         return Scaffold(
+          backgroundColor: Color(0xff222831),
           resizeToAvoidBottomInset: false,
           body: ModalProgressHUD(
             inAsyncCall: _isLoading,

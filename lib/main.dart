@@ -54,37 +54,13 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        themeMode: ThemeMode.system,
-        darkTheme: ThemeData(
-          colorScheme: ColorScheme.dark().copyWith(
-            primary: Color(0xff51c2d5),
-          ),
-          canvasColor: Color(0xff313131),
-          brightness: Brightness.dark,
-          highlightColor: Colors.grey[500],
-          hintColor: Color(0xff202040),
-          primaryColorDark: Color(0xff313131),
-          primaryColor: Color(0xff51c2d5),
-          textButtonTheme: TextButtonThemeData(
-            style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.all<Color>(
-                Color(0xff51c2d5),
-              ),
-            ),
-          ),
-          accentColor: Color(0xffEEEEEE),
-          scaffoldBackgroundColor: Color(0xff414141),
-          floatingActionButtonTheme: FloatingActionButtonThemeData(
-            backgroundColor: Color(0xff51c2d5),
-          ),
-          popupMenuTheme: PopupMenuThemeData(
-            color: Color(0xff29335F),
-            elevation: 3,
-          ),
-        ),
         theme: ThemeData(
+          appBarTheme: AppBarTheme(
+            color: Color(0xff222831),
+            centerTitle: true,
+          ),
           canvasColor: Color(0xffdddddd),
-          scaffoldBackgroundColor: Color(0xff222831),
+          scaffoldBackgroundColor: Color(0xffdddddd),
           floatingActionButtonTheme: FloatingActionButtonThemeData(
             backgroundColor: Color(0xff30475e),
           ),

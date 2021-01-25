@@ -68,11 +68,15 @@ class TaskArchiveList extends StatelessWidget {
               background: UnArchiveDismissWidget(),
               secondaryBackground: DeleteDismissWidget(),
               key: UniqueKey(),
-              child: TaskTile(
-                theTask: tasksController.archived[index],
-                checkBoxCallBack: (checkBoxState) async {
-                  await tasksController.toggleState(index, true);
-                },
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                child: TaskTile(
+                  theTask: tasksController.archived[index],
+                  checkBoxCallBack: (checkBoxState) async {
+                    await tasksController.toggleState(index, true);
+                  },
+                ),
               ),
               onDismissed: (direction) async {
                 if (direction == DismissDirection.endToStart) {

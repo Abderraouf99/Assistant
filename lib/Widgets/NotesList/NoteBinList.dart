@@ -73,12 +73,18 @@ class NoteBinList extends StatelessWidget {
               background: RecoverDismissWidget(),
               secondaryBackground: DeleteDismissWidget(),
               key: UniqueKey(),
-              child: NoteTile(
-                note: notesController.deleted[index],
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                child: NoteTile(
+                  note: notesController.deleted[index],
+                ),
               ),
             );
           },
-          itemCount: (notesController.deleted == null) ? 0 : notesController.deleted.length,
+          itemCount: (notesController.deleted == null)
+              ? 0
+              : notesController.deleted.length,
         );
       },
     );

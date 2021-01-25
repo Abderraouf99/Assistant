@@ -71,12 +71,17 @@ class NoteArchiveList extends StatelessWidget {
                   await notesController.unArchive(index);
                 }
               },
-              child: NoteTile(
-                note: notesController.archive[index],
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                child: NoteTile(
+                  note: notesController.archive[index],
+                ),
               ),
             );
           },
-          itemCount: (notesController.archive != null) ? notesController.archive.length : 0,
+          itemCount: (notesController.archive != null)
+              ? notesController.archive.length
+              : 0,
         );
       },
     );

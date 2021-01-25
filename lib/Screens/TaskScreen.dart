@@ -21,6 +21,11 @@ class TasksScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: PageHeader(
+          pageName: 'Tasks',
+        ),
+      ),
       drawer: DrawerCustom(),
       floatingActionButton: FloatingActionButton(
         elevation: 3,
@@ -39,9 +44,6 @@ class TasksScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            PageHeader(
-              pageName: 'Tasks',
-            ),
             Expanded(
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),

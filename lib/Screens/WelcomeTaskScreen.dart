@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/Screens/WelcomeEventsScreen.dart';
-import 'package:to_do_app/Screens/loginScreen.dart';
 
 class WelcomeTaskScreen extends StatelessWidget {
   static String id = 'welcomeTask';
@@ -8,6 +7,7 @@ class WelcomeTaskScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xff222831),
       body: SafeArea(
         child: GestureDetector(
           onPanUpdate: (details) {

@@ -71,8 +71,12 @@ class EventBinList extends StatelessWidget {
                 }
               },
               key: UniqueKey(),
-              child: EventTile(
-                theEvent: events.removed[index],
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                child: EventTile(
+                  theEvent: events.removed[index],
+                ),
               ),
             );
           },

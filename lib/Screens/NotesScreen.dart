@@ -5,9 +5,14 @@ import 'package:to_do_app/Widgets/PageHeader.dart';
 import 'package:to_do_app/Widgets/SideNavigationDrawer.dart';
 import 'package:to_do_app/constants.dart';
 
-class NoteScreen extends StatelessWidget {
+class NoteScreen extends StatefulWidget {
   static String noteScreenID = "NoteScreenID";
 
+  @override
+  _NoteScreenState createState() => _NoteScreenState();
+}
+
+class _NoteScreenState extends State<NoteScreen> {
   Widget _buildBottomSheet(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
@@ -21,6 +26,11 @@ class NoteScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: PageHeader(
+          pageName: 'Notes',
+        ),
+      ),
       drawer: DrawerCustom(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -39,9 +49,6 @@ class NoteScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            PageHeader(
-              pageName: 'Notes',
-            ),
             Expanded(
               child: Container(
                 child: NoteList(),

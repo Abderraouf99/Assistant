@@ -51,8 +51,12 @@ class EventArchiveList extends StatelessWidget {
               secondaryBackground: DeleteDismissWidget(),
               background: RecoverDismissWidget(),
               key: UniqueKey(),
-              child: EventTile(
-                theEvent: event.archive[index],
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                child: EventTile(
+                  theEvent: event.archive[index],
+                ),
               ),
             );
           },
