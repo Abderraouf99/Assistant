@@ -288,10 +288,26 @@ class _LoginScreenState extends State<LoginScreen> {
                     (_showHeader)
                         ? GoogleButton(
                             onTap: () async {
+                              setState(() {
+                                _isLoading = true;
+                              });
                               try {
                                 var credentials =
                                     await firebase.signInWithGoogle();
+                                await Provider.of<TaskController>(context,
+                                        listen: false)
+                                    .fetchData();
+
+                                await Provider.of<EventsController>(context,
+                                        listen: false)
+                                    .fetchEvents();
+                                await Provider.of<NotesController>(context,
+                                        listen: false)
+                                    .fetchNotes();
                                 if (credentials != null) {
+                                  setState(() {
+                                    _isLoading = false;
+                                  });
                                   Navigator.popAndPushNamed(
                                       context, TasksScreen.taskScreenId);
                                 }
