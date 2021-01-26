@@ -1,8 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do_app/Screens/ArchiveScreen.dart';
 import 'package:to_do_app/Screens/BinScreen.dart';
 import 'package:to_do_app/Screens/EventScreenCalendarView.dart';
-
+import 'package:to_do_app/Screens/Auth_verification.dart';
 import 'package:to_do_app/Screens/NotesScreen.dart';
 import 'package:to_do_app/Screens/TaskScreen.dart';
 import 'package:provider/provider.dart';
@@ -47,11 +48,14 @@ class MyApp extends StatelessWidget {
           create: (context) => EventsController(),
         ),
         ChangeNotifierProvider(
-          create: (context) => FirebaseController(),
+          create: (context) => FirebaseController(FirebaseAuth.instance),
         ),
         ChangeNotifierProvider(
           create: (context) => NotesController(),
         ),
+        StreamProvider(
+          create: (context) => context.read<FirebaseController>().authState,
+        )
       ],
       child: MaterialApp(
         theme: ThemeData(
@@ -85,8 +89,9 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        initialRoute: WelcomeMenu.id,
+        initialRoute: Authentificate.id,
         routes: {
+          Authentificate.id: (context) => Authentificate(),
           WelcomeMenu.id: (context) => WelcomeMenu(),
           WelcomeTaskScreen.id: (context) => WelcomeTaskScreen(),
           WelcomeEventScreeen.id: (context) => WelcomeEventScreeen(),

@@ -8,10 +8,9 @@ import '../constants.dart';
 class FirebaseController extends ChangeNotifier {
   var _auth = FirebaseAuth.instance;
   final _firestoreReference = FirebaseFirestore.instance.collection('users');
-  FirebaseController();
-  FirebaseController.instance({FirebaseAuth auth}) {
-    _auth = auth;
-  }
+  FirebaseController(this._auth);
+  Stream<User> get authState => _auth.idTokenChanges();
+
   FirebaseAuth get auth => _auth;
   Future<UserCredential> signInWithGoogle() async {
     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();

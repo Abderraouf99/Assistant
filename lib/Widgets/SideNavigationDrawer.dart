@@ -6,6 +6,7 @@ import 'package:to_do_app/Screens/EventScreenCalendarView.dart';
 import 'package:to_do_app/Screens/NotesScreen.dart';
 import 'package:to_do_app/Screens/TaskScreen.dart';
 import 'package:to_do_app/Screens/WelcomeScreenMenu.dart';
+import 'package:to_do_app/Screens/loginScreen.dart';
 import 'package:to_do_app/models/DataFirebase.dart';
 
 class DrawerCustom extends StatelessWidget {
@@ -118,7 +119,8 @@ class DrawerCustom extends StatelessWidget {
                 await Provider.of<FirebaseController>(context, listen: false)
                     .auth
                     .signOut();
-                Navigator.popAndPushNamed(context, WelcomeMenu.id);
+                Navigator.pushNamedAndRemoveUntil(context,
+                    LoginScreen.loginScreenId, (Route<dynamic> route) => false);
               },
             ),
           ],

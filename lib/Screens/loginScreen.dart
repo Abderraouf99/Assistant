@@ -243,8 +243,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           setState(() {
                             _isLoading = false;
                           });
-                          Navigator.popAndPushNamed(
-                              context, TasksScreen.taskScreenId);
+                          Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              TasksScreen.taskScreenId,
+                              (Route<dynamic> route) => false);
                         }
                       },
                       name: 'Login',
@@ -308,8 +310,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                   setState(() {
                                     _isLoading = false;
                                   });
-                                  Navigator.popAndPushNamed(
-                                      context, TasksScreen.taskScreenId);
+                                  Navigator.pushNamedAndRemoveUntil(
+                                      context,
+                                      TasksScreen.taskScreenId,
+                                      (Route<dynamic> route) => false);
                                 }
                               } on FirebaseAuthException catch (e) {
                                 print(e);

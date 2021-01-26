@@ -121,7 +121,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             if (firebase.auth.currentUser.emailVerified) {
                               firebase.createNewUserDocument();
 
-                              Navigator.popAndPushNamed(
+                              Navigator.pushReplacementNamed(
                                   context, TasksScreen.taskScreenId);
                             } else {
                               showModalActionSheet(
@@ -143,7 +143,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 message:
                                     'You are going to be directed to the login screen',
                               );
-                              Navigator.popAndPushNamed(
+                              Navigator.pushReplacementNamed(
                                   context, LoginScreen.loginScreenId);
                             }
                           }
