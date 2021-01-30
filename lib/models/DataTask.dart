@@ -225,7 +225,7 @@ class TaskController extends ChangeNotifier {
         .get();
     document.reference.update(
       {
-        'taskStatus': task.status,
+        'taskStatus': !task.status,
       },
     );
   }
